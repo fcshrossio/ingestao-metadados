@@ -1,0 +1,21 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rossio: <http://id.loc.gov/ontologies/bibframe.rdf> .
+@prefix dcat: <http://www.w3.org/ns/dcat#>  .
+@prefix dct: <http://purl.org/dc/terms/>  .
+@prefix foaf: <http://xmlns.com/foaf/0.1/>  .
+
+<http://dados.rossio.fcsh.unl.pt/conjunto-de-dados/21234124/11> 
+	a dcat:Dataset ;
+	dct:title "Conjunto de dados A"@pt ;
+	dct:title "Dataset A"@en ;
+	dct:issued "2020-12-01" ;
+	dct:description "Um conjunto de dados com metadados sobre objetos das CSAH"@pt ;
+	dct:creator <http://dados.rossio.fcsh.unl.pt/agente/xpto> .
+	
+<http://dados.rossio.fcsh.unl.pt/agente/xpto> 
+	a foaf:Organization ;
+	foaf:name "Instituto XPTO"@pt .
+
+
+	

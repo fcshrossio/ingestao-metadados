@@ -1,4 +1,4 @@
-package rossio.ingestao.dspace;
+package rossio.ingest.datasets.dspace;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import org.apache.jena.rdf.model.Statement;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -43,6 +44,14 @@ public class DcMetadata {
 		} catch (IllegalArgumentException e) {
 			System.out.print("DEV WARN: ");
 			e.printStackTrace(System.out);
+		}
+	}
+
+	public void addValue(Statement st) {
+		if(DcValue.isDcterms(st.getPredicate()) &&
+				st.getObject().isLiteral()) {
+			DcValue v=new DcValue(st);
+			values.add(v);
 		}
 	}
 

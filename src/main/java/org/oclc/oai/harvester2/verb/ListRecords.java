@@ -28,6 +28,8 @@ import javax.xml.transform.TransformerException;
 
 import org.xml.sax.SAXException;
 
+import rossio.oaipmh.OaiWrappedException;
+
 /**
  * This class represents an ListRecords response on either the server or
  * on the client
@@ -52,8 +54,9 @@ public class ListRecords extends HarvesterVerb {
      */
     public ListRecords(String baseURL, String from, String until,
             String set, String metadataPrefix)
-    throws IOException, ParserConfigurationException, SAXException,
-    TransformerException {
+            		throws OaiWrappedException {
+//    throws IOException, ParserConfigurationException, SAXException,
+//    TransformerException {
         super(getRequestURL(baseURL, from, until, set, metadataPrefix));
     }
     
@@ -67,8 +70,9 @@ public class ListRecords extends HarvesterVerb {
      * @throws TransformerException
      */
     public ListRecords(String baseURL, String resumptionToken)
-    throws IOException, ParserConfigurationException, SAXException,
-    TransformerException {
+    		throws OaiWrappedException {
+//    throws IOException, ParserConfigurationException, SAXException,
+//    TransformerException {
         super(getRequestURL(baseURL, resumptionToken));
     }
     
@@ -83,8 +87,9 @@ public class ListRecords extends HarvesterVerb {
      */
     public ListRecords(String baseURL, String from, String until,
             String set, String metadataPrefix, File saveNextResponseIn)
-    throws IOException, ParserConfigurationException, SAXException,
-    TransformerException {
+            		throws OaiWrappedException {
+//    throws IOException, ParserConfigurationException, SAXException,
+//    TransformerException {
         super(getRequestURL(baseURL, from, until, set, metadataPrefix), saveNextResponseIn);
     }
     
@@ -98,8 +103,9 @@ public class ListRecords extends HarvesterVerb {
      * @throws TransformerException
      */
     public ListRecords(String baseURL, String resumptionToken, File saveNextResponseIn)
-    throws IOException, ParserConfigurationException, SAXException,
-    TransformerException {
+    		throws OaiWrappedException {
+//    throws IOException, ParserConfigurationException, SAXException,
+//    TransformerException {
         super(getRequestURL(baseURL, resumptionToken), saveNextResponseIn);
     }
     /**
@@ -125,6 +131,10 @@ public class ListRecords extends HarvesterVerb {
             throw new RuntimeException(e.getMessage(), e);
         }
     }
+    
+    
+
+    
     /**
      * Get the oai:resumptionToken from the response
      * 
@@ -135,9 +145,9 @@ public class ListRecords extends HarvesterVerb {
     public String getResumptionToken()
     throws TransformerException, NoSuchFieldException {
 
-        String tkStr = getSingleString("//ListRecords/resumptionToken");
-        if (tkStr==null || tkStr.isEmpty()) 
-            tkStr = getSingleString("//oai20:ListRecords/oai20:resumptionToken");
+    	String tkStr = getSingleString("//ListRecords/resumptionToken");
+    	if (tkStr==null || tkStr.isEmpty()) 
+    		tkStr = getSingleString("//oai20:ListRecords/oai20:resumptionToken");
         return tkStr;
 //        String schemaLocation = getSchemaLocation();
 //        if (schemaLocation.indexOf(SCHEMA_LOCATION_V2_0) != -1) {

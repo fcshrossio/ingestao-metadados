@@ -16,6 +16,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import rossio.oaipmh.OaiPmhRecord;
+import rossio.oaipmh.OaiWrappedException;
 import rossio.oaipmh.OaipmhHarvest;
 
 /**
@@ -53,14 +54,16 @@ public abstract class SetBySetOaiPmhHarvester {
             for (int i=0; i < nodeList.getLength(); i++) {
                 sets.add(nodeList.item(i).getNodeValue());
             }
-        } catch (DOMException e) {
-            throw new RuntimeException(e.getMessage(), e);
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage(), e);
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e.getMessage(), e);
-        } catch (SAXException e) {
-            throw new RuntimeException(e.getMessage(), e);
+        } catch (OaiWrappedException e) {
+        	throw new RuntimeException(e.getMessage(), e);
+//        } catch (DOMException e) {
+//            throw new RuntimeException(e.getMessage(), e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e.getMessage(), e);
+//        } catch (ParserConfigurationException e) {
+//            throw new RuntimeException(e.getMessage(), e);
+//        } catch (SAXException e) {
+//            throw new RuntimeException(e.getMessage(), e);
         } catch (TransformerException e) {
             throw new RuntimeException(e.getMessage(), e);
         }

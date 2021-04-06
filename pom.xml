@@ -12,7 +12,20 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<linked-data-resolver.log>rossio-ingestao-log.txt</linked-data-resolver.log>
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>devel</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<linked-data-resolver.log>c:/users/nfrei/Desktop/rossio-ingestao-log.txt</linked-data-resolver.log>
+			</properties>
+		</profile>
+	</profiles>
 
 	<build>
 		<defaultGoal>package</defaultGoal>
@@ -32,38 +45,138 @@
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.2</version>
+				<executions>
+					<execution>
+						<id>assembly-zip</id>
+						<phase>install</phase>
+						<goals>
+							<goal>assembly</goal>
+						</goals>
+					</execution>
+				</executions>
 				<configuration>
 					<descriptors>
 						<descriptor>src/assemble/ingestao-metadados.xml</descriptor>
 					</descriptors>
 				</configuration>
+						
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<!-- Remove existing image from local repo -->
+					<execution>
+						<id>docker-clean</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>docker</executable>
+							<workingDirectory>${project.basedir}</workingDirectory>
+							<arguments>
+								<argument>rmi</argument>
+								<argument>${project.groupId}/${project.artifactId}:${project.version}</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<!-- Create new docker image using Dockerfile which must be present 
+						in current working directory. Tag the image using maven project version information. -->
+					<execution>
+						<id>docker-build</id>
+						<phase>install</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>docker</executable>
+							<workingDirectory>${project.basedir}</workingDirectory>
+							<arguments>
+								<argument>build</argument>
+								<argument>-t</argument>
+								<argument>${project.groupId}/${project.artifactId}:${project.version}</argument>
+								<argument>.</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<!-- Login and Push the image to a docker repo. 
+					<execution>
+						<id>docker-login</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>docker</executable>
+							<workingDirectory>${project.basedir}</workingDirectory>
+							<arguments>
+								<argument>login</argument>
+								<argument>-u</argument>
+								<argument>${docker.user}</argument>
+								<argument>-p</argument>
+								<argument>${docker.password}</argument>
+								<argument>${docker.url}</argument>
+							</arguments>
+						</configuration>
+					</execution> 
+					<execution>
+						<id>docker-push</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>docker</executable>
+							<workingDirectory>${project.basedir}</workingDirectory>
+							<arguments>
+								<argument>push</argument>
+								<argument>${project.groupId}/${project.artifactId}:${project.version}</argument>
+							</arguments>
+						</configuration>
+					</execution> -->
+				</executions>
+			</plugin>
+			
 		</plugins>
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 	</build>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>jena-core</artifactId>
-			<version>3.9.0</version>
+			<version>3.16.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>jena-arq</artifactId>
-			<version>3.9.0</version>
+			<version>3.16.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>jena-tdb2</artifactId>
-			<version>3.9.0</version>
+			<version>3.16.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>jena-arq</artifactId>
+			<version>3.16.0</version>
 		</dependency>
 
+
 		<dependency>
-		    <groupId>org.apache.jena</groupId>
-		    <artifactId>jena-shacl</artifactId>
-		    <version>3.13.1</version>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
 		</dependency>
 
 		<dependency>
@@ -89,22 +202,74 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.3.2</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.jsoup</groupId>
+		    <artifactId>jsoup</artifactId>
+		    <version>1.13.1</version>
+		</dependency>
+		
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>fluent-hc</artifactId>
+			<version>4.5.6</version>
+		</dependency>
+		
+		
+		<dependency>
+		  <groupId>org.apache.solr</groupId>
+		  <artifactId>solr-solrj</artifactId>
+		  <version>8.7.0</version>
+		</dependency>
+		
+		<dependency>
+	        <groupId>javax.xml.bind</groupId>
+	        <artifactId>jaxb-api</artifactId>
+	        <version>2.3.0</version>
+	    </dependency>
+		
+		<dependency>
+		    <groupId>com.afrozaar.wordpress</groupId>
+		    <artifactId>wp-api-v2-client-java</artifactId>
+		    <version>4.8.3</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<groupId>com.fasterxml.jackson.core</groupId>
+		    		<artifactId>jackson-annotations</artifactId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<groupId>com.fasterxml.jackson.jaxrs</groupId>
+		    		<artifactId>jackson-jaxrs-json-provider</artifactId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<groupId>ch.qos.logback</groupId>
+		    		<artifactId>logback-classic</artifactId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>2.11.0</version>
 		</dependency>
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<!-- artifactId>slf4j-nop</artifactId -->
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.25</version>
-		</dependency>
-		<dependency>
 		  	<groupId>log4j</groupId>
   			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
-  		</dependency> 
+  		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-nop</artifactId>
+			<version>1.7.26</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>

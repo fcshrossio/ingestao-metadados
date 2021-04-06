@@ -1,0 +1,18 @@
+status = error
+dest = err
+name = PropertiesConfig
+  
+filter.threshold.type = ThresholdFilter
+filter.threshold.level = warn
+ 
+appender.console.type = Console
+appender.console.name = STDOUT
+appender.console.layout.type = PatternLayout
+appender.console.layout.pattern = %d [%p] %c{1} - %m%n
+ 
+logger.rossio.name = rossio
+logger.rossio.level = debug
+logger.rossio.appenderRef.stdout.ref = STDOUT
+
+rootLogger.level = warn
+rootLogger.appenderRef.stdout.ref = STDOUT

@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
@@ -59,6 +60,7 @@ import org.xml.sax.SAXException;
 import com.sun.org.apache.xpath.internal.XPathAPI;
 
 import rossio.oaipmh.HarvestException;
+import rossio.oaipmh.OaiWrappedException;
 
 /**
  * HarvesterVerb is the parent class for each of the OAI verbs.
@@ -192,8 +194,9 @@ public abstract class HarvesterVerb {
      * @throws SAXException
      * @throws TransformerException
      */
-    public HarvesterVerb(String requestURL, File saveNextResponseIn) throws
-    ParserConfigurationException, SAXException, TransformerException, IOException {
+    public HarvesterVerb(String requestURL, File saveNextResponseIn) throws OaiWrappedException {
+//    		throws
+//    ParserConfigurationException, SAXException, TransformerException, IOException {
         this.saveNextResponseIn = saveNextResponseIn;
         harvest(requestURL);
     }
@@ -206,8 +209,9 @@ public abstract class HarvesterVerb {
      * @throws SAXException
      * @throws TransformerException
      */
-    public HarvesterVerb(String requestURL) throws
-    ParserConfigurationException, SAXException, TransformerException, IOException {
+    public HarvesterVerb(String requestURL) throws OaiWrappedException {
+//    		throws
+//    ParserConfigurationException, SAXException, TransformerException, IOException {
         harvest(requestURL);
     }
     
@@ -220,148 +224,158 @@ public abstract class HarvesterVerb {
      * @throws SAXException
      * @throws TransformerException
      */
-    public void harvest(String requestURL) throws IOException,
-    ParserConfigurationException, SAXException, TransformerException {
-        this.requestURL = requestURL;
-        logger.debug("requestURL=" + requestURL);
-        InputStream in = null;
-        URL url = new URL(requestURL);
-        HttpURLConnection con = null;
-        int responseCode = 0;
-        do {
-            con = (HttpURLConnection) url.openConnection();
-            // FIXME: changing timeouts
-            con.setConnectTimeout(480000);
-            con.setReadTimeout(3600000);
+    public void harvest(String requestURL) throws OaiWrappedException {
+//    IOException,
+//    ParserConfigurationException, SAXException, TransformerException {
+        try {
+			this.requestURL = requestURL;
+			logger.debug("requestURL=" + requestURL);
+			InputStream in = null;
+			URL url;
+			try {
+				url = new URL(requestURL);
+			} catch (MalformedURLException e1) {
+				throw new RuntimeException(e1.getMessage(), e1);
+			}
+			HttpURLConnection con = null;
+			int responseCode = 0;
+			do {
+			    con = (HttpURLConnection) url.openConnection();
+			    // FIXME: changing timeouts
+			    con.setConnectTimeout(480000);
+			    con.setReadTimeout(3600000);
 //            con.setConnectTimeout(60000);
 //            con.setReadTimeout(240000);
-            con.setRequestProperty("User-Agent", "OAIHarvester/2.0");
-            con.setRequestProperty("Accept-Encoding",
-            "compress, gzip, identify");
-            try {
-                responseCode = con.getResponseCode();
-                logger.debug("responseCode=" + responseCode);
-            } catch (FileNotFoundException e) {
-                // assume it's a 503 response
-                logger.info(requestURL, e);
-                responseCode = HttpURLConnection.HTTP_UNAVAILABLE;
-            }
-            
-            if (responseCode == HttpURLConnection.HTTP_UNAVAILABLE) {
-                long retrySeconds = con.getHeaderFieldInt("Retry-After", -1);
-                if (retrySeconds == -1) {
-                    long now = (new Date()).getTime();
-                    long retryDate = con.getHeaderFieldDate("Retry-After", now);
-                    retrySeconds = retryDate - now;
-                }
-                if (retrySeconds == 0) { // Apparently, it's a bad URL
-                    throw new FileNotFoundException("Bad URL?");
-                }
-                System.err.println("Server response: "+responseCode+ " Retry-After="
-                        + retrySeconds);
-                
+			    con.setRequestProperty("User-Agent", "OAIHarvester/2.0");
+			    con.setRequestProperty("Accept-Encoding",
+			    "compress, gzip, identify");
+			    try {
+			        responseCode = con.getResponseCode();
+			        logger.debug("responseCode=" + responseCode);
+			    } catch (FileNotFoundException e) {
+			        // assume it's a 503 response
+			        logger.info(requestURL, e);
+			        responseCode = HttpURLConnection.HTTP_UNAVAILABLE;
+			    }
+			    
+			    if (responseCode == HttpURLConnection.HTTP_UNAVAILABLE) {
+			        long retrySeconds = con.getHeaderFieldInt("Retry-After", -1);
+			        if (retrySeconds == -1) {
+			            long now = (new Date()).getTime();
+			            long retryDate = con.getHeaderFieldDate("Retry-After", now);
+			            retrySeconds = retryDate - now;
+			        }
+			        if (retrySeconds == 0) { // Apparently, it's a bad URL
+			            throw new FileNotFoundException("Bad URL?");
+			        }
+			        System.err.println("Server response: "+responseCode+ " Retry-After="
+			                + retrySeconds);
+			        
 
-                in = con.getInputStream();
-        		String respBody=IOUtils.toString(in);
-        		System.err.println(respBody);
-                if(saveNextResponseIn!=null) 
-                        FileUtils.writeByteArrayToFile(saveNextResponseIn, responseBytes);
-        		InputSource data;
-        		data = new InputSource(new ByteArrayInputStream(responseBytes));
-                
-                
-                if (retrySeconds > 0) {
-                    try {
-                        Thread.sleep(retrySeconds * 1000);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            }
-        } while (responseCode == HttpURLConnection.HTTP_UNAVAILABLE);
-        String contentEncoding = con.getHeaderField("Content-Encoding");
-        logger.debug("contentEncoding=" + contentEncoding);
-        if ("compress".equals(contentEncoding)) {
-            ZipInputStream zis = new ZipInputStream(con.getInputStream());
-            zis.getNextEntry();
-            in = zis;
-        } else if ("gzip".equals(contentEncoding)) {
-            in = new GZIPInputStream(con.getInputStream());
-        } else if ("deflate".equals(contentEncoding)) {
-            in = new InflaterInputStream(con.getInputStream());
-        } else {
-            in = con.getInputStream();
-        }
-        
-		responseBytes=IOUtils.toByteArray(in);
-        if(saveNextResponseIn!=null) 
-                FileUtils.writeByteArrayToFile(saveNextResponseIn, responseBytes);
-		InputSource data;
-		data = new InputSource(new ByteArrayInputStream(responseBytes));
-        
-        Thread t = Thread.currentThread();
-        DocumentBuilder builder = (DocumentBuilder) builderMap.get(t);
-        if (builder == null) {
-            builder = factory.newDocumentBuilder();
-            builderMap.put(t, builder);
-        }
-//        doc = builder.parse(data);
-		try {
-			doc = builder.parse(data);
-		} catch (SAXException firstSaxException) {
-			try {
-				//Here we can try to recover the xml from known typical problems
-
-				//Recover from invalid characters
-				//we assume this is UTF-8...
-				String xmlString=new String(responseBytes, "UTF-8");
-				xmlString=removeInvalidXMLCharacters(xmlString);
-				
-				int atempts=0;
-				SAXException lastSaxException=firstSaxException;
-				while(lastSaxException!=null && atempts<100) {
-		        	Pattern invalidCharPattern=Pattern.compile("Character reference \"&#x?([abcdef0-9]{1,8});?\"", Pattern.CASE_INSENSITIVE);
-		        	Matcher m=invalidCharPattern.matcher(lastSaxException.getMessage());
-		        	if(m.find()) {
-			        	//Error on line 1203 of document file:///data/repox/[temp]OAI-PMH_Requests/oai.driver.research-infrastructures.eu-ALL/recordsRequest-1130.xml : Character reference "&#dbc0" is an invalid XML character. Nested exception: 
-			        	//Character reference "&#dbc0" is an invalid XML character.
-			        	String charPattern = "\\&\\#"+m.group(1)+"\\;";
-						Matcher replaceCharMatcher=Pattern.compile(charPattern).matcher(xmlString);
-						if(replaceCharMatcher.find())
-							xmlString=replaceCharMatcher.replaceAll(" ");
-						else {
-							charPattern = "\\&\\#"+Integer.parseInt( m.group(1), 16)+"\\;";
-							xmlString=xmlString.replaceAll(charPattern, " ");
-						}
-			        	atempts++;
-		        	}else {
-		        		//other kind of error throw the exception
-		        		throw firstSaxException;
-		        	}
-
-		        	lastSaxException=null;
-		        	try {
-						data = new InputSource(new ByteArrayInputStream(xmlString.getBytes("UTF-8")));
-						doc = builder.parse(data);
-					}catch (SAXException reocurringSaxException) {
-						lastSaxException=reocurringSaxException;
-					}
-				}
-			} catch (Exception e2) {
-				//the recovered version did not work either. Throw the original exception
-				throw firstSaxException;
+			        in = con.getInputStream();
+//        		String respBody=IOUtils.toString(in);
+//        		System.err.println(respBody);
+			        if(saveNextResponseIn!=null) 
+			                FileUtils.writeByteArrayToFile(saveNextResponseIn, responseBytes);
+					InputSource data;
+					data = new InputSource(new ByteArrayInputStream(responseBytes));
+			        
+			        
+			        if (retrySeconds > 0) {
+			            try {
+			                Thread.sleep(retrySeconds * 1000);
+			            } catch (InterruptedException ex) {
+			                ex.printStackTrace();
+			            }
+			        }
+			    }
+			} while (responseCode == HttpURLConnection.HTTP_UNAVAILABLE);
+			String contentEncoding = con.getHeaderField("Content-Encoding");
+			logger.debug("contentEncoding=" + contentEncoding);
+			if ("compress".equals(contentEncoding)) {
+			    ZipInputStream zis = new ZipInputStream(con.getInputStream());
+			    zis.getNextEntry();
+			    in = zis;
+			} else if ("gzip".equals(contentEncoding)) {
+			    in = new GZIPInputStream(con.getInputStream());
+			} else if ("deflate".equals(contentEncoding)) {
+			    in = new InflaterInputStream(con.getInputStream());
+			} else {
+			    in = con.getInputStream();
 			}
+			
+			responseBytes=IOUtils.toByteArray(in);
+			if(saveNextResponseIn!=null) 
+			        FileUtils.writeByteArrayToFile(saveNextResponseIn, responseBytes);
+			InputSource data;
+			data = new InputSource(new ByteArrayInputStream(responseBytes));
+			
+			Thread t = Thread.currentThread();
+			DocumentBuilder builder = (DocumentBuilder) builderMap.get(t);
+			if (builder == null) {
+			    builder = factory.newDocumentBuilder();
+			    builderMap.put(t, builder);
+			}
+//        doc = builder.parse(data);
+			try {
+				doc = builder.parse(data);
+			} catch (SAXException firstSaxException) {
+				try {
+					//Here we can try to recover the xml from known typical problems
+
+					//Recover from invalid characters
+					//we assume this is UTF-8...
+					String xmlString=new String(responseBytes, "UTF-8");
+					xmlString=removeInvalidXMLCharacters(xmlString);
+					
+					int atempts=0;
+					SAXException lastSaxException=firstSaxException;
+					while(lastSaxException!=null && atempts<100) {
+			        	Pattern invalidCharPattern=Pattern.compile("Character reference \"&#(x?[abcdef0-9]{1,8});?\"", Pattern.CASE_INSENSITIVE);
+			        	Matcher m=invalidCharPattern.matcher(lastSaxException.getMessage());
+			        	if(m.find()) {
+				        	//Error on line 1203 of document file:///data/repox/[temp]OAI-PMH_Requests/oai.driver.research-infrastructures.eu-ALL/recordsRequest-1130.xml : Character reference "&#dbc0" is an invalid XML character. Nested exception: 
+				        	//Character reference "&#dbc0" is an invalid XML character.
+				        	String charPattern = "\\&\\#"+m.group(1)+"\\;";
+							Matcher replaceCharMatcher=Pattern.compile(charPattern).matcher(xmlString);
+							if(replaceCharMatcher.find())
+								xmlString=replaceCharMatcher.replaceAll(" ");
+							else {
+								charPattern = "\\&\\#"+Integer.parseInt( m.group(1), 16)+"\\;";
+								xmlString=xmlString.replaceAll(charPattern, " ");
+							}
+				        	atempts++;
+			        	}else {
+			        		//other kind of error throw the exception
+			        		throw firstSaxException;
+			        	}
+
+			        	lastSaxException=null;
+			        	try {
+							data = new InputSource(new ByteArrayInputStream(xmlString.getBytes("UTF-8")));
+							doc = builder.parse(data);
+						}catch (SAXException reocurringSaxException) {
+							lastSaxException=reocurringSaxException;
+						}
+					}
+				} catch (Exception e2) {
+					//the recovered version did not work either. Throw the original exception
+					throw firstSaxException;
+				}
+			}
+			
+			StringTokenizer tokenizer = new StringTokenizer(
+			        getSingleString("/*/@xsi:schemaLocation"), " ");
+			StringBuffer sb = new StringBuffer();
+			while (tokenizer.hasMoreTokens()) {
+			    if (sb.length() > 0)
+			        sb.append(" ");
+			    sb.append(tokenizer.nextToken());
+			}
+			this.schemaLocation = sb.toString();
+		} catch (IOException | ParserConfigurationException | SAXException | TransformerException e) {
+			throw new OaiWrappedException(responseBytes, e);
 		}
-		
-        StringTokenizer tokenizer = new StringTokenizer(
-                getSingleString("/*/@xsi:schemaLocation"), " ");
-        StringBuffer sb = new StringBuffer();
-        while (tokenizer.hasMoreTokens()) {
-            if (sb.length() > 0)
-                sb.append(" ");
-            sb.append(tokenizer.nextToken());
-        }
-        this.schemaLocation = sb.toString();
     }
     
     

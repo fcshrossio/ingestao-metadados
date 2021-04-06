@@ -1,11 +1,16 @@
-package rossio.ingestao.dspace;
+package rossio.ingest.datasets.dspace;
 
 import java.util.HashMap;
 import java.util.HashSet;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.jena.rdf.model.Literal;
+import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.Statement;
 import org.w3c.dom.Element;
 
+import rossio.data.models.Dc;
+import rossio.data.models.DcTerms;
 import rossio.util.XmlUtil;
 
 public class DcValue {
@@ -95,6 +100,33 @@ public class DcValue {
 		value=XmlUtil.getText(xmlElement);	
 	}
 	
+	public DcValue(Statement st) throws IllegalArgumentException {
+		if(!st.getPredicate().getNameSpace().equals(DcTerms.NS) && !st.getPredicate().getNameSpace().equals(Dc.NS))
+			throw new IllegalArgumentException("DC element unknown:" + st.getPredicate().getLocalName());
+		if(simpleDcElements.contains(st.getPredicate().getLocalName())) {
+			element=st.getPredicate().getLocalName();
+			qualifier="none";
+		} else if(dctermsElements.containsKey(st.getPredicate().getLocalName())) {
+			element=dctermsElements.get(st.getPredicate().getLocalName());
+			qualifier=st.getPredicate().getLocalName();
+		} else {
+			throw new IllegalArgumentException("DC element unknown:" + st.getPredicate().getLocalName());
+		}
+		if(!st.getObject().isLiteral())
+			throw new IllegalArgumentException("DC element is a resource:" + st.getPredicate().getLocalName());
+		 
+		Literal lit=st.getObject().asLiteral();
+		if(!StringUtils.isEmpty(lit.getLanguage())) 
+			lang=lit.getLanguage();
+		value=lit.getValue().toString();	
+	}
+
+	public static boolean isDcterms(Property property) {
+		return simpleDcElements.contains(property.getLocalName())
+			|| dctermsElements.containsKey(property.getLocalName());
+	}
+	
+	
 	public Element toDspaceDcElement(Element parentEl) {
 		Element valEl = parentEl.getOwnerDocument().createElement("dcvalue");
 		valEl.setAttribute("element", element); 
@@ -133,8 +165,5 @@ public class DcValue {
 	}
 	public void setLang(String lang) {
 		this.lang = lang;
-	}
-	
-	
-	
+	}	
 }

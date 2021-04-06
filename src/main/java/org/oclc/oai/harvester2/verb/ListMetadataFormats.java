@@ -21,6 +21,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.xml.sax.SAXException;
 
+import rossio.oaipmh.OaiWrappedException;
+
 /**
  * This class represents an ListMetadataFormats response on either the server or
  * on the client
@@ -44,8 +46,9 @@ public class ListMetadataFormats extends HarvesterVerb {
      * @exception IOException an I/O error occurred
      */
     public ListMetadataFormats(String baseURL)
-    throws IOException, ParserConfigurationException, SAXException,
-    TransformerException {
+    		throws OaiWrappedException {
+//    throws IOException, ParserConfigurationException, SAXException,
+//    TransformerException {
         this(baseURL, null);
     }
     
@@ -59,8 +62,9 @@ public class ListMetadataFormats extends HarvesterVerb {
      * @throws TransformerException
      */
     public ListMetadataFormats(String baseURL, String identifier)
-    throws IOException, ParserConfigurationException, SAXException,
-    TransformerException {
+    		throws OaiWrappedException {
+//    throws IOException, ParserConfigurationException, SAXException,
+//    TransformerException {
         super(getRequestURL(baseURL, identifier));
     }
     

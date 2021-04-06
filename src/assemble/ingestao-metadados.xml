@@ -25,15 +25,20 @@
       <directory>${project.build.outputDirectory}</directory>
       <outputDirectory>/classes</outputDirectory>
     </fileSet>
-    <fileSet>
+    <!-- fileSet>
       <directory>src/assemble</directory>
       <outputDirectory>/</outputDirectory>
 	        <includes>
 	          <include>**/*.sh</include>
 	        </includes>
 	        <excludes>
+	          <exclude>**/*.sh</exclude>
 	          <exclude>**/*.xml</exclude>
 	        </excludes>
+    </fileSet -->
+    <fileSet> <!-- Create empty directory -->
+        <outputDirectory>/data</outputDirectory>
+        <excludes><exclude>**/*</exclude></excludes>
     </fileSet>
   </fileSets>
 </assembly>

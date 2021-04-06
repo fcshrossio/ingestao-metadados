@@ -24,6 +24,8 @@ import javax.xml.transform.TransformerException;
 
 import org.xml.sax.SAXException;
 
+import rossio.oaipmh.OaiWrappedException;
+
 /**
  * This class represents an ListIdentifiers response on either the server or
  * on the client
@@ -48,8 +50,9 @@ public class ListIdentifiers extends HarvesterVerb {
      */
     public ListIdentifiers(String baseURL, String from, String until,
             String set, String metadataPrefix)
-    throws IOException, ParserConfigurationException, SAXException,
-    TransformerException {
+            		throws OaiWrappedException {
+//    throws IOException, ParserConfigurationException, SAXException,
+//    TransformerException {
         super(getRequestURL(baseURL, from, until, set, metadataPrefix));
     }
     
@@ -63,8 +66,9 @@ public class ListIdentifiers extends HarvesterVerb {
      * @throws TransformerException
      */
     public ListIdentifiers(String baseURL, String resumptionToken)
-    throws IOException, ParserConfigurationException, SAXException,
-    TransformerException {
+    		throws OaiWrappedException {
+//    throws IOException, ParserConfigurationException, SAXException,
+//    TransformerException {
         super(getRequestURL(baseURL, resumptionToken));
     }
     

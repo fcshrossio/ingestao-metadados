@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns="http://vocabs.rossio.fcsh.unl.pt/agentes/"
+	xmlns:grddl="http://www.w3.org/2003/g/data-view#"
+	xmlns:dct="http://purl.org/dc/terms/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:fn="http://www.w3.org/2005/xpath-functions#"
+	xmlns:sesame="http://www.openrdf.org/schema/sesame#"
+	xmlns:bf="http://bibfra.me/vocab/lite/">
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
+	<skos:prefLabel xml:lang="pt">Agentes ROSSIO</skos:prefLabel>
+	<rdfs:label xml:lang="pt">Agentes ROSSIO</rdfs:label>
+	<rdfs:label xml:lang="en">ROSSIO Agents</rdfs:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_1674913a">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Portugal. Teatro Nacional de Dona Maria II</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_3d0f0c8c">
+	<skos:altLabel xml:lang="pt">ROSSIO</skos:altLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_1674913a">
+	<skos:altLabel xml:lang="pt">Teatro Nacional D. Maria II</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Teatro Nacional Dona Maria II</skos:altLabel>
+	<skos:altLabel xml:lang="pt">TNDMII</skos:altLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_2064d7eb">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Lisboa. Arquivo Municipal</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_6c5278f6">
+	<skos:prefLabel xml:lang="pt">Universidade NOVA de Lisboa. Centro de Estudos de Sociologia e Estética Musical</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_2064d7eb">
+	<skos:altLabel xml:lang="pt">Arquivo Municipal Lisboa – Câmara Municipal de Lisboa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Arquivo Municipal de Lisboa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Lisboa. Câmara Municipal. Arquivo</skos:altLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_4af81bd9">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Portugal. Direção-Geral do Livro, dos Arquivos e das Bibliotecas</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_6c5278f6">
+	<skos:altLabel xml:lang="pt">Centro de Estudos de Sociologia e Estética Musical da Universidade NOVA de Lisboa</skos:altLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_4af81bd9">
+	<skos:hiddenLabel xml:lang="pt">Direcção-Geral do Livro, dos Arquivos e das Bibliotecas</skos:hiddenLabel>
+	<skos:altLabel xml:lang="pt">DGLAB</skos:altLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_2064d7eb">
+	<skos:altLabel xml:lang="pt">AML</skos:altLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_4af81bd9">
+	<skos:altLabel xml:lang="pt">Direção Geral do Livro, dos Arquivos e das Bibliotecas</skos:altLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_c52d3737">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Portugal. Cinemateca Portuguesa</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_6c5278f6">
+	<skos:altLabel xml:lang="pt">CESEM</skos:altLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_c52d3737">
+	<skos:altLabel xml:lang="pt">Cinemateca Portuguesa – Museu do Cinema</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Cinemateca Portuguesa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">CPMC</skos:altLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_bb4c022d">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Portugal. Direção-Geral do Património Cultural</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_3d0f0c8c">
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_bb4c022d">
+	<skos:hiddenLabel xml:lang="pt">Direcção Geral do Património Cultural</skos:hiddenLabel>
+	<skos:altLabel xml:lang="pt">Direção-Geral do Património Cultural</skos:altLabel>
+	<skos:altLabel xml:lang="pt">DGPC</skos:altLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_05e9bc06">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Fundação Calouste Gulbenkian</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_6c5278f6">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_05e9bc06">
+	<skos:altLabel xml:lang="pt">FCG</skos:altLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_c37b6dc5">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Universidade NOVA de Lisboa. Repositório</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_6c5278f6">
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_c37b6dc5">
+	<skos:altLabel xml:lang="pt">Repositório da Universidade NOVA de Lisboa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">RUN</skos:altLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_3d0f0c8c">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Infraestrutura ROSSIO</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://bibfra.me/vocab/lite/Organization">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+	<rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+	<rdfs:label xml:lang="pt">Organização</rdfs:label>
+	<rdfs:label xml:lang="en">Organisation</rdfs:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_3d0f0c8c">
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_05e9bc06">
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_1674913a">
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_2064d7eb">
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_4af81bd9">
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_6c5278f6">
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_bb4c022d">
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_c37b6dc5">
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_c52d3737">
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_05e9bc06">
+	<skos:exactMatch rdf:resource="http://viaf.org/viaf/sourceID/PTBNP%7C10631#skos:Concept"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_1674913a">
+	<skos:exactMatch rdf:resource="http://viaf.org/viaf/sourceID/PTBNP%7C28620#skos:Concept"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_2064d7eb">
+	<skos:exactMatch rdf:resource="http://viaf.org/viaf/146961985#skos:Concept"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_4af81bd9">
+	<skos:exactMatch rdf:resource="http://viaf.org/viaf/sourceID/PTBNP%7C1603152#skos:Concept"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_6c5278f6">
+	<skos:exactMatch rdf:resource="http://viaf.org/viaf/sourceID/PTBNP%7C1270175#skos:Concept"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_bb4c022d">
+	<skos:exactMatch rdf:resource="http://viaf.org/viaf/sourceID/PTBNP%7C164185#skos:Concept"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_c52d3737">
+	<skos:exactMatch rdf:resource="http://viaf.org/viaf/sourceID/PTBNP%7C204909#skos:Concept"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://bibfra.me/vocab/lite/Person">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+	<rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+	<rdfs:label xml:lang="pt">Pessoa</rdfs:label>
+	<rdfs:label xml:lang="en">Person</rdfs:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_9d49ab59">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Universidade NOVA de Lisboa. Centro de Estudos Ingleses de Tradução e Anglo-Portugueses</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+	<skos:altLabel xml:lang="pt">CETAPS</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Centro de Estudos Ingleses de Tradução e Anglo-Portugueses da Universidade NOVA de Lisboa</skos:altLabel>
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_9becc4f7">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Universidade NOVA de Lisboa. Centro de Humanidades</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+	<skos:altLabel xml:lang="pt">CHAM</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Centro de Humanidades da Universidade NOVA de Lisboa</skos:altLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_9d49ab59">
+	<skos:exactMatch rdf:resource="http://viaf.org/viaf/sourceID/PTBNP%7C1686529#skos:Concept"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_9becc4f7">
+	<skos:closeMatch rdf:resource="http://viaf.org/viaf/sourceID/PTBNP%7C228148#skos:Concept"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_0ef7b7e5">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Universidade NOVA de Lisboa. Centro Interdisciplinar de Ciências Sociais</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+	<skos:altLabel xml:lang="pt">CICS.NOVA</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Centro Interdisciplinar de Ciências Sociais da Universidade NOVA de Lisboa</skos:altLabel>
+	<skos:exactMatch rdf:resource="http://viaf.org/viaf/sourceID/PTBNP%7C1664984#skos:Concept"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_9860efff">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Universidade NOVA de Lisboa. Centro de Investigação para Tecnologias Interativas</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+	<skos:altLabel xml:lang="pt">Centro de Investigação para Tecnologias Interativas da Universidade NOVA de Lisboa</skos:altLabel>
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+	<skos:altLabel xml:lang="pt">CITI</skos:altLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_5a605706">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Universidade NOVA de Lisboa. Centro de Linguística</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+	<skos:altLabel xml:lang="pt">CLUNL</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Centro de Linguística da Universidade NOVA de Lisboa</skos:altLabel>
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_fe8a7b7e">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Universidade NOVA de Lisboa. Centro em Rede de Investigação em Antropologia</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+	<skos:altLabel xml:lang="pt">Centro em Rede de Investigação em Antropologia da Universidade NOVA de Lisboa</skos:altLabel>
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+	<skos:altLabel xml:lang="pt">CRIA</skos:altLabel>
+	<skos:exactMatch rdf:resource="http://viaf.org/viaf/sourceID/PTBNP%7C1470012#skos:Concept"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_70731a05">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Universidade NOVA de Lisboa. Instituto de Arqueologia e Paleociências</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+	<skos:altLabel xml:lang="pt">Instituto de Arqueologia e Paleociências da Universidade Nova de Lisboa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">IAP</skos:altLabel>
+	<skos:exactMatch rdf:resource="http://viaf.org/viaf/sourceID/PTBNP%7C1681233#skos:Concept"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_5fdab3ef">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Universidade NOVA de Lisboa. Instituto de Comunicação</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+	<skos:altLabel xml:lang="pt">ICNOVA</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Instituto de Comunicação da Universidade NOVA de Lisboa</skos:altLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_b134c9a9">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Universidade NOVA de Lisboa. Instituto de Estudos de Literatura e Tradição</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+	<skos:altLabel xml:lang="pt">Instituto de Estudos de Literatura e Tradição da Universidade NOVA de Lisboa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">IELT</skos:altLabel>
+	<skos:exactMatch rdf:resource="http://viaf.org/viaf/sourceID/PTBNP%7C1373009#skos:Concept"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_f99bcabf">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Universidade NOVA de Lisboa. Instituto de Estudos Medievais</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+	<skos:altLabel xml:lang="pt">Instituto de Estudos Medievais da Universidade NOVA de Lisboa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">IEM</skos:altLabel>
+	<skos:exactMatch rdf:resource="http://viaf.org/viaf/sourceID/PTBNP%7C1184753#skos:Concept"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_bf17533c">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Universidade NOVA de Lisboa. Instituto de Filosofia</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+	<skos:altLabel xml:lang="pt">Instituto de Filosofia da Universidade NOVA de Lisboa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">IFILNOVA</skos:altLabel>
+	<skos:exactMatch rdf:resource="http://viaf.org/viaf/sourceID/PTBNP%7C1740156#skos:Concept"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_1dc3ba83">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Universidade NOVA de Lisboa. Instituto de História da Arte</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+	<skos:altLabel xml:lang="pt">Instituto de História da Arte da Universidade NOVA de Lisboa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">IHA</skos:altLabel>
+	<skos:exactMatch rdf:resource="http://viaf.org/viaf/sourceID/PTBNP%7C973598#skos:Concept"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_83388296">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Universidade NOVA de Lisboa. Instituto de História Contemporânea</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+	<skos:altLabel xml:lang="pt">Instituto de História Contemporânea da Universidade NOVA de Lisboa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">IHC</skos:altLabel>
+	<skos:exactMatch rdf:resource="http://viaf.org/viaf/sourceID/PTBNP%7C788302#skos:Concept"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_47ca5fee">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Universidade NOVA de Lisboa. Instituto de Etnomusicologia - Centro de Estudos em Música e Dança</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+	<skos:altLabel xml:lang="pt">INET-MD</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Instituto de Etnomusicologia - Centro de Estudos em Música e Dança da Universidade NOVA de Lisboa</skos:altLabel>
+	<skos:exactMatch rdf:resource="http://viaf.org/viaf/sourceID/PTBNP%7C231080#skos:Concept"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://vocabs.rossio.fcsh.unl.pt/agentes/c_7e43b764">
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<skos:prefLabel xml:lang="pt">Universidade NOVA de Lisboa. Instituto Português de Relações Internacionais</skos:prefLabel>
+	<skos:inScheme rdf:resource="http://vocabs.rossio.fcsh.unl.pt/agentes"/>
+	<rdf:type rdf:resource="http://bibfra.me/vocab/lite/Organization"/>
+	<skos:altLabel xml:lang="pt">Instituto Português de Relações Internacionais da Universidade NOVA de Lisboa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">IPRI</skos:altLabel>
+	<skos:exactMatch rdf:resource="http://viaf.org/viaf/sourceID/PTBNP%7C1373604#skos:Concept"/>
+</rdf:Description>
+
+</rdf:RDF>

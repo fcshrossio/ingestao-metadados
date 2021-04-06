@@ -1,0 +1,144 @@
+package rossio.ingest.solr.manager;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.logging.LogManager;
+
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
+
+
+import rossio.ingest.solr.Indexer;
+import rossio.ingest.solr.RepositoryWithSolr;
+import rossio.util.HttpsUtil;
+
+public class CommandLineManagerOfHarvestAndIndexing {
+
+	//CommandLineInterface --dataset_uri http://data.bibliotheken.nl/id/dataset/rise-centsprenten --output_file ./data/crawled/rise-centsprenten.nt
+	public static void main(String[] args) {
+		try {
+			LogManager.getLogManager().reset();
+			HttpsUtil.initSslTrustingHostVerifier();
+			CommandLineParser parser = new DefaultParser();
+			
+			// create the Options
+			Options options = new Options();
+			options.addOption( "sources_file", true, "A file listing the OAI-PMH sources");
+			options.addOption( "solr_url_repository", true, "Solr base URL of the repository core");
+			options.addOption( "solr_url_search", true, "Solr base URL of the search core");
+			options.addOption( "run_index", false, "Run the indexing");
+			options.addOption( "commit_interval", true, "Commit changes every x records");
+			options.addOption( "log_file", true, "Write a log with the result of the harvests. If ommited no log is created.");
+			
+			CommandLine line=null;
+	
+			boolean argsOk=true;
+			try {
+			    line = parser.parse( options, args );
+	
+			    if( !line.hasOption("sources_file") || !line.hasOption("solr_url_repository") ||
+			    		(line.hasOption("run_index") && !line.hasOption("solr_url_search"))	) 
+			    	argsOk=false;
+			    if(argsOk) {
+			    	//TODO: check timestamps 
+			    }
+			} catch( ParseException exp ) {
+				argsOk=false;
+				exp.printStackTrace();
+			}
+		    String result=null;
+		    String logFilePath=null;
+		    int commitInterval=20000;
+		    Logger log=null;
+		    if(argsOk) {
+		    	logFilePath = line.getOptionValue("log_file");
+		    	boolean runIndexing=line.hasOption("run_index");
+		    	if(!StringUtils.isEmpty(logFilePath))
+		    		log=new Logger(logFilePath);
+		    	else
+		    		log=new Logger(null);
+		    	if(!StringUtils.isEmpty(line.getOptionValue("commit_interval")))
+	    			commitInterval = Integer.parseInt(line.getOptionValue("commit_interval"));
+		    	
+		    	RepositoryWithSolr repository=new RepositoryWithSolr(line.getOptionValue("solr_url_repository"));
+		    	File sourcesFile = new File(line.getOptionValue("sources_file"));
+		    	File sourcesLockFile = new File(line.getOptionValue("sources_file")+".lock");
+		    	if(sourcesLockFile.exists()) {
+			    	System.out.println("Lock file found at "+sourcesLockFile.getCanonicalPath()+
+			    			" (Is another instance of this program running? If not, remove the file before executing.)");
+			    	System.out.println("Exiting without running...");
+		    		return;
+		    	}else {
+		    		FileUtils.write(sourcesLockFile, "", StandardCharsets.UTF_8);
+					sourcesLockFile.deleteOnExit();
+		    	}
+		    	
+				OaiSources oaiSources=new OaiSources(sourcesFile);
+		    	Indexer indexer=null;
+		    	if(runIndexing) 
+		    		indexer=new Indexer(line.getOptionValue("solr_url_search"));
+				
+		    	ManagerOfHarvest managerHarvester=new ManagerOfHarvest(repository, oaiSources, log, commitInterval);
+		    	TaskThread harvesterTask=new TaskThread(managerHarvester, log);
+		    	TaskThread indexerTask=null;
+		    	
+		    	if(runIndexing) {
+			    	ManagerOfIndexing managerIndexer=new ManagerOfIndexing(repository, indexer, oaiSources, log, commitInterval);
+			    	indexerTask=new TaskThread(managerIndexer, log);
+		    	}
+		    	
+		    	if(runIndexing) {
+		    		while (!harvesterTask.isFinished() || !indexerTask.isFinished()) 
+		    			Thread.sleep(5000);		    			
+		    		//run once again for the latest harvests
+		    		ManagerOfIndexing managerIndexer=new ManagerOfIndexing(repository, indexer, oaiSources, log, commitInterval);
+		    		indexerTask=new TaskThread(managerIndexer, log);
+		    		while (!indexerTask.isFinished()) 
+		    			Thread.sleep(5000);		    			
+		    	} else {
+		    		while (!harvesterTask.isFinished())
+		    			Thread.sleep(5000);
+		    	}
+		    	if (harvesterTask.getError()!=null) {
+		    		System.out.println("Harvester exited with ERROR: ");
+		    		harvesterTask.getError().printStackTrace(System.out);
+		    	} else
+		    		System.out.println("Harvester exited with SUCCESS");
+		    	
+		    	if(runIndexing) {
+			    	if (indexerTask.getError()!=null) {
+			    		System.out.println("Indexer exited with ERROR: ");
+			    		indexerTask.getError().printStackTrace(System.out);
+			    	} else
+			    		System.out.println("Indexer exited with SUCCESS");
+		    	}
+				log.log(oaiSources.printStatus());
+		    } else {
+		    	StringWriter sw=new StringWriter();
+		    	PrintWriter w=new PrintWriter(sw);
+		    	HelpFormatter formatter = new HelpFormatter();
+		    	formatter.printUsage( w, 120, "harvest_manager.sh", options );
+		    	w.close();
+		    	result="INVALID PARAMETERS\n"+sw.toString();
+		    	System.out.println(result);
+		    }
+		} catch (Exception e) {
+			System.err.println("FATAL EXCEPTION:");
+			e.printStackTrace();
+		}
+	}
+	
+}

@@ -21,6 +21,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.xml.sax.SAXException;
 
+import rossio.oaipmh.OaiWrappedException;
+
 /**
  * This class represents an Identify response on either the server or
  * on the client
@@ -43,8 +45,9 @@ public class Identify extends HarvesterVerb {
      * @exception IOException an I/O error occurred
      */
     public Identify(String baseURL)
-    throws IOException, ParserConfigurationException, SAXException,
-    TransformerException {
+    		throws OaiWrappedException {
+//    throws IOException, ParserConfigurationException, SAXException,
+//    TransformerException {
         super(getRequestURL(baseURL));
     }
     
