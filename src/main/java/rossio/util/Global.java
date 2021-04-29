@@ -12,6 +12,8 @@ import java.util.regex.Pattern;
 import rossio.http.HttpRequestService;
 
 public class Global {
+	public static boolean DEBUG = false;
+
 	public static Pattern urlPattern=Pattern.compile("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]");
 	
 	private static HttpRequestService httpRequestService=new HttpRequestService();

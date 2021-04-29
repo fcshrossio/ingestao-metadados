@@ -12,7 +12,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
 
-import rossio.ingest.solr.old.CommandLineManagerOfHarvest;
 
 public class OaiSources{
 	File sourcesFile;

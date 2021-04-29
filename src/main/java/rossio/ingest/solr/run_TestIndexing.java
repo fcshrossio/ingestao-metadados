@@ -31,7 +31,7 @@ public class run_TestIndexing {
 				reader.parse(model);
 				RdfUtil.printOutRdf(model);
 				
-				indexer.addItem(source, model, Rossio.NS_ITEM+uuid, Rossio.NS_ITEM+uuid+"#aggregation");
+				indexer.addItem(source, model, Rossio.NS_ITEM+uuid);
 				return true;
 			}
 		});

@@ -700,5 +700,11 @@ public class RdfUtil {
 			return true;
 		return false;
 	}
+
+	public static Resource getResourceIfExists(String uri, Model model) {
+		if(exists(uri, model))
+			return model.createResource(uri);
+		return null;
+	}
 	
 }

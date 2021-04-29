@@ -29,7 +29,7 @@ public abstract class RecordEnrichmentVocabAbstract implements RecordEnrichment 
 	
 	public RecordEnrichmentVocabAbstract(String sparqlEndpointOfVocab, String labelsQuery) {
 		this.sparqlRossioVocab=SparqlClient.newInstanceRossio(sparqlEndpointOfVocab);
-		sparqlRossioVocab.setDebug(true);
+//		sparqlRossioVocab.setDebug(true);
 		sparqlRossioVocab.query(labelsQuery, new Handler<QuerySolution>() {
 			public boolean handle(QuerySolution solution) throws Exception {
 				String uri = solution.getResource("s").getURI();
@@ -65,7 +65,7 @@ public abstract class RecordEnrichmentVocabAbstract implements RecordEnrichment 
 			geoProps.addAll(scho.listProperties(prop).toList());			
 		}
 		Model model = scho.getModel();
-		Resource proxy=null;
+		Resource proxy=RdfUtil.getResourceIfExists(scho.getURI()+"#proxy", scho.getModel());
 		
 		for(Statement st: geoProps) {
 			if(!st.getObject().isLiteral())
@@ -80,7 +80,7 @@ public abstract class RecordEnrichmentVocabAbstract implements RecordEnrichment 
 				continue;
 			
 			if (langLabelToUri.containsKey(lang, label)) {
-				System.out.println("Enrich "+label+" "+langLabelToUri.get(lang, label));
+//				System.out.println("Enrich "+label+" "+langLabelToUri.get(lang, label));
 				if(proxy==null) {
 					proxy=model.createResource(scho.getURI()+"#proxy", Ore.Proxy);
 
@@ -93,8 +93,8 @@ public abstract class RecordEnrichmentVocabAbstract implements RecordEnrichment 
 
 		}
 		
-		if (proxy!=null )
-			RdfUtil.printOutRdf(proxy.getModel());		
+//		if (proxy!=null )
+//			RdfUtil.printOutRdf(proxy.getModel());		
 	}
 	
 	

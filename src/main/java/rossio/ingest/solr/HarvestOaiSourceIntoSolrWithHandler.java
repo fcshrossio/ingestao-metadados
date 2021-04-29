@@ -121,9 +121,17 @@ public class HarvestOaiSourceIntoSolrWithHandler {
 			String uuid=harvestTo.getRecordUuid(sourceId, r.getIdentifier());
 			if(uuid==null)
 				uuid = UUID.randomUUID().toString();
+			else
+				report.incRecordUpdated();
 			harvestTo.addItem(uuid, sourceId, r.getIdentifier(), serializeToRossioRdfRift(uuid, r.getMetadata()));
-		} else
+		} else {
+			String uuid=harvestTo.getRecordUuid(sourceId, r.getIdentifier());
+			if(uuid!=null) {
+				harvestTo.delete(uuid);
+				report.incDeletedRecordExisting();
+			}
 			report.incDeletedRecord();
+		}
 	}
 
 	private byte[] serializeToRossioRdfRift(String uuid, Element metadata) {

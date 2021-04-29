@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -34,6 +35,8 @@ import rossio.ingest.datasets.dspace.DcatToDctermsConverter;
 import rossio.ingest.datasets.dspace.SimpleArchive;
 import rossio.ingest.solr.RepositoryWithSolr;
 import rossio.ingest.solr.RepositoryWithSolr.ItemHandler;
+import rossio.ingest.solr.manager.OaiSource;
+import rossio.ingest.solr.manager.OaiSources;
 import rossio.util.RdfUtil;
 import rossio.util.RdfUtil.Jena;
 
@@ -41,7 +44,8 @@ public class run_DatasetExportInHtml {
 	
 	
 	public static void main(String[] args) throws Exception {
-
+		File exportFolder=new File("c:/users/nfrei/desktop/ROSSIO_Exports/html");
+			
 //http://vocabs.rossio.fcsh.unl.pt/agentes/c_f99bcabf|https://medievalista.iem.fcsh.unl.pt/index.php/medievalista/oai|medievalista|oai_dc|SUCCESS|SUCCESS|
 //http://vocabs.rossio.fcsh.unl.pt/agentes/c_5fdab3ef|https://www.fcsh.unl.pt/rcl/index.php/rcl/oai|rcl|oai_dc|SUCCESS|SUCCESS|
 //http://vocabs.rossio.fcsh.unl.pt/agentes/c_5fdab3ef|https://impactum-journals.uc.pt/mj/oai|mj|oai_dc|SUCCESS|SUCCESS|
@@ -57,12 +61,16 @@ public class run_DatasetExportInHtml {
 //		String sourceId="https://www.fcsh.unl.pt/rcl/index.php/rcl/oai#rcl";
 //		String sourceId="https://medievalista.iem.fcsh.unl.pt/index.php/medievalista/oai#medievalista";
 		
-		for(String sourceId: new String[] {
-			"https://projetos.dhlab.fcsh.unl.pt/oai#sociedadedasnacoes",	
-			"https://projetos.dhlab.fcsh.unl.pt/oai#memoriacovid",	
-			"https://projetos.dhlab.fcsh.unl.pt/oai#ulmeiro50anos",	
-			"https://projetos.dhlab.fcsh.unl.pt/oai#GTComenta",	
-			"https://projetos.dhlab.fcsh.unl.pt/oai#ulmeiro50anos_en",	
+//		for(String sourceId: getAllSourceIds()	
+				for(String sourceId: 	
+			new String[] {
+//			"https://projetos.dhlab.fcsh.unl.pt/oai#sociedadedasnacoes",	
+//			"https://projetos.dhlab.fcsh.unl.pt/oai#memoriacovid",	
+//			"https://projetos.dhlab.fcsh.unl.pt/oai#ulmeiro50anos",	
+//			"https://projetos.dhlab.fcsh.unl.pt/oai#GTComenta",	
+//			"https://projetos.dhlab.fcsh.unl.pt/oai#ulmeiro50anos_en",	
+			"https://projetos.dhlab.fcsh.unl.pt/oai#wsdroadmap",	
+			
 //			"https://impactum-journals.uc.pt/mj/oai#mj",
 //			"https://www.fcsh.unl.pt/rcl/index.php/rcl/oai#rcl",
 //			"https://medievalista.iem.fcsh.unl.pt/index.php/medievalista/oai#medievalista",
@@ -71,12 +79,23 @@ public class run_DatasetExportInHtml {
 //			"http://oai.openedition.org/#journals:cultura",
 //			"http://oai.openedition.org/#journals:sociologico",
 //			"http://oai.openedition.org/#journals:etnografica",
-		}) {
-	    	RepositoryWithSolr repository=new RepositoryWithSolr("http://192.168.111.115:8983/solr/repositorio");
-	    	DatasetExporterInHtml exporter=new DatasetExporterInHtml(repository);
-	    	File outFile=new File("target/"+URLEncoder.encode(sourceId,StandardCharsets.UTF_8)+".html");
-	    	exporter.exportDataset(outFile, sourceId, -1);
 		}
+		) {
+//	    	RepositoryWithSolr repository=new RepositoryWithSolr("http://192.168.111.115:8983/solr/repositorio");
+	    	RepositoryWithSolr repository=new RepositoryWithSolr("http://192.168.111.170:8983/solr/repositorio");
+	    	DatasetExporterInHtml exporter=new DatasetExporterInHtml(repository);
+	    	File outFile=new File(exportFolder, URLEncoder.encode(sourceId,StandardCharsets.UTF_8)+".html");
+	    	exporter.exportDataset(outFile, sourceId, 100);
+		}
+	}
+
+	private static List<String> getAllSourceIds() throws IOException {
+		List<String> list=new ArrayList<String>();
+    	OaiSources oaiSources=new OaiSources(new File("src/data/oai_sources.txt"));
+    	for(OaiSource source:oaiSources.getAllSources()) {
+    		list.add(source.getSourceId());
+    	}
+    	return list;
 	}
 	
 }

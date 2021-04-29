@@ -61,7 +61,7 @@ public class DatasetExporterInHtml {
 				RDFParser reader = RDFParser.create().lang(Lang.RDFTHRIFT).source(new ByteArrayInputStream(content)).build();
 				Model model = Jena.createModel();
 				reader.parse(model);
-				writeItem(writer, sourceId, model, Rossio.NS_ITEM+uuid, Rossio.NS_ITEM+uuid+"#aggregation");
+				writeItem(writer, sourceId, model, Rossio.NS_ITEM+uuid);
 				recCount++;
 				return sampleSize<=0 || recCount<sampleSize;
 			}
@@ -70,9 +70,9 @@ public class DatasetExporterInHtml {
     	writer.close();
 	}
 	
-	public void writeItem(Appendable writer, String source, Model model, String providedChoUri, String aggregationUri) throws SolrServerException, IOException {
+	public static void writeItem(Appendable writer, String source, Model model, String providedChoUri) throws SolrServerException, IOException {
 		Resource cho = model.createResource(providedChoUri);
-		Resource aggregation = model.createResource(aggregationUri);
+//		Resource aggregation = model.createResource(providedChoUri+"#aggregation");
 		
 		String itemId = providedChoUri.substring(providedChoUri.lastIndexOf('/'));
 		writer.append("<table border='1' cellspacing='0' cellpadding='0'>");

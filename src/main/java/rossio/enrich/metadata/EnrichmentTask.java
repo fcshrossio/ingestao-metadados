@@ -69,6 +69,7 @@ public class EnrichmentTask {
 		enrichTask.addEnrichment(new RecordEnrichmentAgents("http://skosmos.dglab.gov.pt:3030/skosmos/sparql"));
 		enrichTask.addEnrichment(new RecordEnrichmentTemporal("http://skosmos.dglab.gov.pt:3030/skosmos/sparql"));
 		enrichTask.addEnrichment(new RecordEnrichmentNormalizeDate());
+		enrichTask.addEnrichment(new RecordEnrichmentNormalizeLinks());
 		return enrichTask;
 	}
 }

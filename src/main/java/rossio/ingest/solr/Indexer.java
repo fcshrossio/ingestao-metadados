@@ -57,9 +57,10 @@ public class Indexer {
 	}
 
 //	public void addItem(String source, Resource item) throws SolrServerException, IOException {
-	public void addItem(String source, Model model, String providedChoUri, String aggregationUri) throws SolrServerException, IOException {
+	public void addItem(String source, Model model, String providedChoUri) throws SolrServerException, IOException {
 		Resource cho = model.createResource(providedChoUri);
-		Resource aggregation = model.createResource(aggregationUri);
+		Resource aggregation = model.createResource(providedChoUri+"#aggregation");
+		Resource proxy = RdfUtil.getResourceIfExists(cho.getURI()+"#proxy", model);
 		
 		String itemId = providedChoUri.substring(providedChoUri.lastIndexOf('/'));
 		final SolrInputDocument doc = new SolrInputDocument();
@@ -68,79 +69,29 @@ public class Indexer {
 //		doc.addField("rossio_provider", "TODO");
 		
 		JSONObject agg = new JSONObject();
-//		agg.put("edm_dataProvider", aggregation.getProperty(Edm.dataProvider).getObject().asResource().getURI());
-//		agg.put("edm_datasetName", aggregation.getProperty(Edm.datasetName).getObject().asLiteral().getString());
+//		writePropertiesToJson(aggregation, agg);
+		agg.put("edm_dataProvider", aggregation.getProperty(Edm.dataProvider).getObject().asResource().getURI());
+		agg.put("edm_datasetName", aggregation.getProperty(Edm.datasetName).getObject().asLiteral().getString());
 		
-		//add normalized dates to a particular solr field for date ranges
-		for(Statement st:aggregation.listProperties(DcTerms.date).toList()) {
-			if (st.getObject().isLiteral()) 
-				doc.addField("dcterms_date_range", st.getObject().asLiteral().getValue());
-		}
-		
-		for(Statement st:aggregation.listProperties().toList()) {
-			JSONArray propValues = new JSONArray();
-			if(st.getPredicate().getNameSpace().equals(DcTerms.NS)) {
-				if (st.getObject().isLiteral()) {
-					doc.addField("dcterms_"+st.getPredicate().getLocalName(), st.getObject().asLiteral().getValue());
+		JSONObject proxyJson = null;
+		if(proxy!=null) {
+			proxyJson = new JSONObject();
+			writePropertiesToJsonAndSolrDoc(proxy, proxyJson, doc);
 
-					JSONObject value = new JSONObject();
-					value.put("value", st.getObject().asLiteral().getValue());
-					if(!StringUtils.isEmpty(st.getObject().asLiteral().getLanguage()))
-						value.put("lang", st.getObject().asLiteral().getLanguage());
-					
-					propValues.add(value);
-				} else if(st.getObject().isResource() && RdfUtil.isSeq(st.getObject().asResource())) {
-					Seq seq = RdfUtil.getAsSeq(st.getObject().asResource());
-					NodeIterator iter2 = seq.iterator();
-				    while (iter2.hasNext()) {
-				    	Literal litValue = iter2.next().asLiteral();
-						doc.addField("dcterms_"+st.getPredicate().getLocalName(), litValue.getValue());
-				    	
-					    JSONObject value = new JSONObject();
-					    value.put("value", litValue.getValue());
-					    if(!StringUtils.isEmpty(litValue.getLanguage()))
-					    	value.put("lang", litValue.getLanguage());
-					    propValues.add(value);
-				    }
-				}
-				agg.put(st.getPredicate().getLocalName(), propValues);
+			//add normalized dates to a particular solr field for date ranges
+			for(Statement st:proxy.listProperties(DcTerms.date).toList()) {
+				if (st.getObject().isLiteral()) 
+					doc.addField("dcterms_date_range", st.getObject().asLiteral().getValue());
 			}
 		}
 		
 		JSONObject record = new JSONObject();
-		for(Statement st:cho.listProperties().toList()) {
-			JSONArray propValues = new JSONArray();
-			if(st.getPredicate().getNameSpace().equals(DcTerms.NS)) {
-				if (st.getObject().isLiteral()) {
-					doc.addField("dcterms_"+st.getPredicate().getLocalName(), st.getObject().asLiteral().getValue());
-
-					JSONObject value = new JSONObject();
-					value.put("value", st.getObject().asLiteral().getValue());
-					if(!StringUtils.isEmpty(st.getObject().asLiteral().getLanguage()))
-						value.put("lang", st.getObject().asLiteral().getLanguage());
-					
-					propValues.add(value);
-				} else if(st.getObject().isResource() && RdfUtil.isSeq(st.getObject().asResource())) {
-					Seq seq = RdfUtil.getAsSeq(st.getObject().asResource());
-					NodeIterator iter2 = seq.iterator();
-				    while (iter2.hasNext()) {
-				    	Literal litValue = iter2.next().asLiteral();
-						doc.addField("dcterms_"+st.getPredicate().getLocalName(), litValue.getValue());
-				    	
-					    JSONObject value = new JSONObject();
-					    value.put("value", litValue.getValue());
-					    if(!StringUtils.isEmpty(litValue.getLanguage()))
-					    	value.put("lang", litValue.getLanguage());
-					    propValues.add(value);
-				    }
-				}
-				record.put(st.getPredicate().getLocalName(), propValues);
-			}
-		}
+		writePropertiesToJsonAndSolrDoc(cho, record, doc);
 
 		JSONObject json = new JSONObject();
 		json.put("ore_aggregation", agg);
 		json.put("edm_providedCho", record);
+		json.put("ore_proxy", proxy);
 		
 		doc.addField("rossio_record", json.toJSONString());
 //System.out.println(json.toJSONString());
@@ -148,6 +99,45 @@ public class Indexer {
 		solr.add(doc);
 	}
 	
+	private void writePropertiesToJsonAndSolrDoc(Resource aggregation, JSONObject agg, SolrInputDocument doc) {
+		for(Statement st:aggregation.listProperties().toList()) {
+			JSONArray propValues = new JSONArray();
+			for(String namespace: new String[] {DcTerms.NS, Edm.NS}) {
+				String prefix=namespace.equals(DcTerms.NS) ? "dcterms" : "edm";
+				if(st.getPredicate().getNameSpace().equals(namespace)) {
+					if (st.getObject().isLiteral()) {
+						if(doc!=null)
+							doc.addField(prefix+"_"+st.getPredicate().getLocalName(), st.getObject().asLiteral().getValue());
+	
+						JSONObject value = new JSONObject();
+						value.put("value", st.getObject().asLiteral().getValue());
+						if(!StringUtils.isEmpty(st.getObject().asLiteral().getLanguage()))
+							value.put("lang", st.getObject().asLiteral().getLanguage());
+						
+						propValues.add(value);
+					} else if(st.getObject().isResource() && RdfUtil.isSeq(st.getObject().asResource())) {
+						Seq seq = RdfUtil.getAsSeq(st.getObject().asResource());
+						NodeIterator iter2 = seq.iterator();
+					    while (iter2.hasNext()) {
+					    	Literal litValue = iter2.next().asLiteral();
+					    	if(doc!=null)
+					    		doc.addField(prefix+"_"+st.getPredicate().getLocalName(), litValue.getValue());
+					    	
+						    JSONObject value = new JSONObject();
+						    value.put("value", litValue.getValue());
+						    if(!StringUtils.isEmpty(litValue.getLanguage()))
+						    	value.put("lang", litValue.getLanguage());
+						    propValues.add(value);
+					    }
+					}
+					agg.put(st.getPredicate().getLocalName(), propValues);
+					break;
+				}
+			}
+		}
+	}
+
+
 	public void commit() throws SolrServerException, IOException {
 		solr.commit();
 	}
@@ -185,9 +175,12 @@ public class Indexer {
 //						addItem(source, model.createResource(Rossio.NS_ITEM+uuid));
 						if(runEnrichment) {
 							enrichmentTask.runOnRecord(model.createResource(choUri));
+
+							//DEBUG
+//							RdfUtil.printOutRdf(model);
 						}
 						
-						addItem(source, model, choUri, choUri+"#aggregation");
+						addItem(source, model, choUri);
 						report.incRecord();
 						return true;
 					} catch (SolrServerException e) {

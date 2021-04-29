@@ -16,6 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
@@ -23,10 +24,12 @@ import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 
+import jdk.internal.org.jline.utils.Log;
 import rossio.data.models.DcTerms;
 import rossio.data.models.Ore;
 import rossio.data.models.Rossio;
 import rossio.sparql.SparqlClient;
+import rossio.util.Global;
 import rossio.util.Handler;
 import rossio.util.MapOfMaps;
 import rossio.util.RdfUtil;
@@ -37,12 +40,36 @@ public class RecordEnrichmentNormalizeDate implements RecordEnrichment {
 	public abstract class DatePattern {
 		protected String normalized;
 		protected ChronoField precision;
-		public DatePattern(String valueToNormalize) {
-			normalize(valueToNormalize);
+		protected String toNormalize;		
+		
+		public DatePattern(String toNormalize) {
+			this.toNormalize = toNormalize;
 		}
 		protected abstract void normalize(String toNormalize);
 		
+		protected void normalizeWithFix(int year, int month, int day, ChronoField precision) {
+			try {				
+				normalized=formatDateForSolr(ZonedDateTime.of(year, month, day, 0, 0, 0, 0, ZoneId.systemDefault()), precision);
+			} catch (Exception e) {
+				if (precision==ChronoField.DAY_OF_MONTH) {
+					try {				
+						normalized=formatDateForSolr(ZonedDateTime.of(year, month, 1, 0, 0, 0, 0, ZoneId.systemDefault()), ChronoField.MONTH_OF_YEAR);
+						this.precision=ChronoField.MONTH_OF_YEAR;
+					} catch (Exception e2) {
+						normalized=formatDateForSolr(ZonedDateTime.of(year, 1, 1, 0, 0, 0, 0, ZoneId.systemDefault()), ChronoField.YEAR);
+						this.precision=ChronoField.YEAR;
+					}
+				}else if (precision==ChronoField.MONTH_OF_YEAR) {
+					normalized=formatDateForSolr(ZonedDateTime.of(year, 1, 1, 0, 0, 0, 0, ZoneId.systemDefault()), ChronoField.YEAR);					
+					this.precision=ChronoField.YEAR;
+				}
+			}
+		}
+		
+		
 		public String getNormalized() {
+			if(normalized==null)
+				normalize(toNormalize);
 			return normalized;
 		}
 		public ChronoField getPrecision() {
@@ -69,7 +96,14 @@ public class RecordEnrichmentNormalizeDate implements RecordEnrichment {
 					precision=ChronoField.YEAR;
 					month=1;
 				}
-				normalized=formatDateForSolr(ZonedDateTime.of(year, month, day, 0, 0, 0, 0, ZoneId.systemDefault()), precision);
+				if(month>12 && day>0 && day<=12) {
+					int tmp=day;
+					day=month;
+					month=tmp;
+				}
+				
+//					normalized=formatDateForSolr(ZonedDateTime.of(year, month, day, 0, 0, 0, 0, ZoneId.systemDefault()), precision);
+				normalizeWithFix(year, month, day, precision);
 			}
 		}
 	}
@@ -93,8 +127,14 @@ public class RecordEnrichmentNormalizeDate implements RecordEnrichment {
 					precision=ChronoField.YEAR;
 					month=1;
 				}
-				normalized=formatDateForSolr(ZonedDateTime.of(year, month, day, 0, 0, 0, 0, ZoneId.systemDefault()), precision);
-			}
+				if(month>12 && day>0 && day<=12) {
+					int tmp=day;
+					day=month;
+					month=tmp;
+				}
+					
+//				normalized=formatDateForSolr(ZonedDateTime.of(year, month, day, 0, 0, 0, 0, ZoneId.systemDefault()), precision);
+				normalizeWithFix(year, month, day, precision);			}
 		}
 	}
 
@@ -113,7 +153,8 @@ public class RecordEnrichmentNormalizeDate implements RecordEnrichment {
 					precision=ChronoField.YEAR;
 					month=1;
 				}
-				normalized=formatDateForSolr(ZonedDateTime.of(year, month, 1, 0, 0, 0, 0, ZoneId.systemDefault()), precision);
+//				normalized=formatDateForSolr(ZonedDateTime.of(year, month, 1, 0, 0, 0, 0, ZoneId.systemDefault()), precision);
+				normalizeWithFix(year, month, 0, precision);
 			}
 		}
 	}
@@ -127,11 +168,11 @@ public class RecordEnrichmentNormalizeDate implements RecordEnrichment {
 			if(matcher.matches()) {
 				int year=Integer.parseInt(matcher.group(1));
 				ChronoField precision=ChronoField.YEAR;
-				normalized=formatDateForSolr(ZonedDateTime.of(year, 1, 1, 0, 0, 0, 0, ZoneId.systemDefault()), precision);
+//				normalized=formatDateForSolr(ZonedDateTime.of(year, 1, 1, 0, 0, 0, 0, ZoneId.systemDefault()), precision);
+				normalizeWithFix(year, 1, 0, precision);
 			}
 		}
 	}
-	
 	
 	public RecordEnrichmentNormalizeDate() {
 		
@@ -161,8 +202,8 @@ public class RecordEnrichmentNormalizeDate implements RecordEnrichment {
 			geoProps.addAll(scho.listProperties(prop).toList());			
 		}
 		Model model = scho.getModel();
-		Resource proxy=null;
-		
+		Resource proxy=RdfUtil.getResourceIfExists(scho.getURI()+"#proxy", scho.getModel());
+
 		for(Statement st: geoProps) {
 			if(!st.getObject().isLiteral())
 				continue;
@@ -175,12 +216,17 @@ public class RecordEnrichmentNormalizeDate implements RecordEnrichment {
 				new DatePatternYyyyMm(label), 
 				new DatePatternYyyyMmDd(label), 
 				new DatePatternYyyy(label) }) {
-				normalized=dtPat.getNormalized();
+				try {
+					normalized=dtPat.getNormalized();
+				} catch (Exception e) {
+					if(Global.DEBUG)
+						System.out.println("DEBUG: Error on '"+label+"'\n"+ExceptionUtils.getStackTrace(e));
+				}
 				if(normalized!=null) break;
 			}
 			
 			if (normalized!=null) {
-				System.out.println("Normalized: "+label+" "+normalized);
+//				System.out.println("Normalized: "+label+" "+normalized);
 				if(proxy==null) {
 					proxy=model.createResource(scho.getURI()+"#proxy", Ore.Proxy);
 					proxy.addProperty(Ore.proxyFor, scho);
@@ -190,8 +236,8 @@ public class RecordEnrichmentNormalizeDate implements RecordEnrichment {
 			}
 		}
 		
-		if (proxy!=null )
-			RdfUtil.printOutRdf(proxy.getModel());		
+//		if (proxy!=null )
+//			RdfUtil.printOutRdf(proxy.getModel());		
 	}
 
 	private static String formatDateForSolr(TemporalAccessor time, ChronoField precision) {

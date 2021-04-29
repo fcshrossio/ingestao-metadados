@@ -11,21 +11,32 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 public class HarvestReport {
 	int recordCount;
+	int recordUpdatedCount;
 	int deletedRecordCount;
+	int deletedRecordExistedCount;
 	HashMap<String, String> errorRecords=new HashMap<String, String>();
 	String failureCause;
 	Date harvestStart=new Date();
 	String resumptionTokenOfLastCommit=null;
 	List<String> warnings=new ArrayList<String>();
-	
+
 	public int incRecord() {
 		recordCount++;
 		return recordCount;
+	}
+	public int incRecordUpdated() {
+		recordUpdatedCount++;
+		return recordUpdatedCount;
 	}
 
 	public int incDeletedRecord() {
 		deletedRecordCount++;
 		return deletedRecordCount;
+	}
+	
+	public int incDeletedRecordExisting() {
+		deletedRecordExistedCount++;
+		return deletedRecordExistedCount;
 	}
 
 	public int addErrorOnRecord(String recId, String errorMessage) {
@@ -70,8 +81,10 @@ public class HarvestReport {
 		if(!isSuccessful())
 			result="FAILURE\nHarvest started at:"+dateStartStr+"\nFail cause: "+getFailureCause();
 		else {
-			String summary=dateStartStr+"Record count: "+getRecordCount()+"\n";
+			String summary=dateStartStr+"Created Record count: "+(getRecordCount()-getRecordUpdatedCount())+"\n";
+			summary+="Updated record count: "+getRecordUpdatedCount()+"\n";
 			summary+="Deleted record count: "+getDeletedRecordCount()+"\n";
+			summary+="Deleted record from repository count: "+getDeletedRecordExistedCount()+"\n";
 			if(!getErrorRecords().isEmpty()) {
 				summary+="Error on record count: "+getErrorRecords().size()+"\n";
 				for(Entry<String, String> error: getErrorRecords().entrySet())
@@ -109,6 +122,12 @@ public class HarvestReport {
 
 	public List<String> getWarnings() {
 		return warnings;
+	}
+	public int getRecordUpdatedCount() {
+		return recordUpdatedCount;
+	}
+	public int getDeletedRecordExistedCount() {
+		return deletedRecordExistedCount;
 	}
 	
 }

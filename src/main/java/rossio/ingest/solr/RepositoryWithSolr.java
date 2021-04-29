@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -61,6 +63,7 @@ public class RepositoryWithSolr {
 		doc.addField("id", uuid);
 		doc.addField("rossio_source", source);
 		doc.addField("rossio_idAtSource", identifier);	
+		doc.addField("rossio_last_update", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(new Date()));	
 		doc.addField("rossio_content", content);
 		solr.add(doc);
 	}
@@ -156,7 +159,7 @@ public class RepositoryWithSolr {
 	public String getRecordUuid(String sourceId, String identifier) throws SolrServerException, IOException {
 		SolrQuery solrQuery = new SolrQuery();
         solrQuery.setQuery("rossio_idAtSource:"+ClientUtils.escapeQueryChars(identifier)+
-        		" rossio_source:"+ClientUtils.escapeQueryChars(sourceId) );
+        		" AND rossio_source:"+ClientUtils.escapeQueryChars(sourceId) );
 		solrQuery.addField("id");
         solrQuery.setStart(0);
         solrQuery.setRows(1);
@@ -169,5 +172,9 @@ public class RepositoryWithSolr {
         SolrDocument solrDocument = iterator.next();
         String docId = (String) solrDocument.getFieldValue("id");
 		return docId;
+	}
+
+	public void delete(String uuid) throws SolrServerException, IOException {
+		solr.deleteById(uuid);
 	}
 }

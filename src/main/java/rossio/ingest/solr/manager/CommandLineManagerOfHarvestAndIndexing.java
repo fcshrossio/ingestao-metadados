@@ -23,6 +23,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import rossio.ingest.solr.Indexer;
 import rossio.ingest.solr.RepositoryWithSolr;
+import rossio.util.Global;
+import rossio.util.HttpUtil;
 import rossio.util.HttpsUtil;
 
 public class CommandLineManagerOfHarvestAndIndexing {
@@ -40,6 +42,7 @@ public class CommandLineManagerOfHarvestAndIndexing {
 			options.addOption( "solr_url_repository", true, "Solr base URL of the repository core");
 			options.addOption( "solr_url_search", true, "Solr base URL of the search core");
 			options.addOption( "run_index", false, "Run the indexing");
+			options.addOption( "debug", false, "Print debuging information");
 			options.addOption( "commit_interval", true, "Commit changes every x records");
 			options.addOption( "log_file", true, "Write a log with the result of the harvests. If ommited no log is created.");
 			
@@ -62,10 +65,12 @@ public class CommandLineManagerOfHarvestAndIndexing {
 		    String result=null;
 		    String logFilePath=null;
 		    int commitInterval=20000;
+//		    int commitInterval=1000;
 		    Logger log=null;
 		    if(argsOk) {
 		    	logFilePath = line.getOptionValue("log_file");
 		    	boolean runIndexing=line.hasOption("run_index");
+		    	Global.DEBUG=line.hasOption("debug");
 		    	if(!StringUtils.isEmpty(logFilePath))
 		    		log=new Logger(logFilePath);
 		    	else
@@ -87,6 +92,9 @@ public class CommandLineManagerOfHarvestAndIndexing {
 		    	}
 		    	
 				OaiSources oaiSources=new OaiSources(sourcesFile);
+
+				Global.init_componentHttpRequestService();
+				
 		    	Indexer indexer=null;
 		    	if(runIndexing) 
 		    		indexer=new Indexer(line.getOptionValue("solr_url_search"));
