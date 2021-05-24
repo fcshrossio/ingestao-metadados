@@ -1,0 +1,15 @@
+@prefix :      <http://data.rossio.fcsh.unl.pt/conjunto-de-dados/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rossio: <http://data.rossio.fcsh.unl.pt/ingestao/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+
+:b5769b36-44da-4081-a568-bb664ec1428a
+        a                          dcat:Dataset ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-05-17T07:58:28.158Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+
+:74aca156-f12d-4706-8c24-564073a1d71b
+        a                          dcat:Dataset ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-05-17T07:56:19.661Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .

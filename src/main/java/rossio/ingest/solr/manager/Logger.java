@@ -13,8 +13,13 @@ public class Logger{
 	File logFile;
 	SimpleDateFormat timeFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	
-	public Logger(String logFilePath) {
+	public Logger(String logFilePath) throws IOException {
 		this.logFile = new File(logFilePath);
+		if(logFile.exists()) {
+			File bakFile=new File(logFile.getParent(), logFile.getName()+".bak");
+			FileUtils.copyFile(logFile, bakFile);
+			logFile.delete();
+		}
 	}
 
 	public void log(String message) {

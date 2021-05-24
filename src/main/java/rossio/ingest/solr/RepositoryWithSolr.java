@@ -33,9 +33,8 @@ import org.w3c.dom.Element;
 
 public class RepositoryWithSolr {
 	public interface ItemHandler {
-		public boolean handle(String uuid, byte[] content) throws Exception;
+		public boolean handle(String uuid, String identifierAtSource, String lastHarvestTimestamp, byte[] content) throws Exception;
 	}
-	
 	
 	SolrClient solr;
 
@@ -98,6 +97,8 @@ public class RepositoryWithSolr {
 		final SolrQuery solrQuery = new SolrQuery("*:*");
 		solrQuery.addSort("id", ORDER.asc); 
 		solrQuery.addField("id");
+		solrQuery.addField("rossio_idAtSource");
+		solrQuery.addField("rossio_last_update");
 		solrQuery.addField("rossio_content");
 		
 //		System.out.println(source);
@@ -117,7 +118,7 @@ public class RepositoryWithSolr {
 		    String nextCursorMark = rsp.getNextCursorMark();
 		    for (SolrDocument document : rsp.getResults()) {
 		    	try {
-					if(!handler.handle(document.getFirstValue("id").toString(), (byte[])document.getFirstValue("rossio_content")))
+					if(!handler.handle(document.getFirstValue("id").toString(), document.getFirstValue("rossio_idAtSource").toString(), document.getFirstValue("rossio_last_update").toString(), (byte[])document.getFirstValue("rossio_content")))
 						break QUERY;
 				} catch (Exception e) {
 					System.err.println("Error handling record: "+document.getFirstValue("id"));

@@ -1,0 +1,29 @@
+@prefix :      <http://data.rossio.fcsh.unl.pt/conjunto-de-dados/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rossio: <http://data.rossio.fcsh.unl.pt/ingestao/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+
+:84892373-80b7-4a19-bae2-39521bad2e9c
+        a                            dcat:Dataset ;
+        rdfs:label                   "Media & Jornalismo" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_5fdab3ef> ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:lastHarvestTimestamp  "2021-05-16T20:49:25.983Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:oaiBaseUrl            <https://impactum-journals.uc.pt/mj/oai> ;
+        rossio:oaiMetadataPrefix     "oai_dc" ;
+        rossio:oaiSet                "mj" .
+
+:b5769b36-44da-4081-a568-bb664ec1428a
+        a                            dcat:Dataset ;
+        rdfs:label                   "Práticas da História. Journal on Theory, Historiography and Uses of the Past" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_83388296> ;
+        rossio:harvestPeriodicity    "MONTHLY" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:lastHarvestTimestamp  "2021-05-15T21:07:38.065Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:oaiBaseUrl            <https://revistas.rcaap.pt/index.php/pdh/oai> ;
+        rossio:oaiMetadataPrefix     "oai_dc" ;
+        rossio:oaiSet                "pdh" .

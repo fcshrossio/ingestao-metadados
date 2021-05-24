@@ -1,0 +1,225 @@
+@prefix :      <http://data.rossio.fcsh.unl.pt/conjunto-de-dados/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rossio: <http://data.rossio.fcsh.unl.pt/ingestao/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+
+:e56dd3e8-31cd-474f-bcc9-a6d0452b8d92
+        a                           dcat:Dataset ;
+        rdfs:label                  "Folhetos de teatro de cordel" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_1674913a> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://biblioteca.teatro-dmaria.pt/OAI/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "FOLHETOS" .
+
+:8cb42bc6-a7ef-4d68-b7ea-d5cb6d6eec84
+        a                           dcat:Dataset ;
+        rdfs:label                  "Etnografia" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_fe8a7b7e> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://oai.openedition.org/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "journals:etnografica" .
+
+:f1c5f069-9bb5-4fe1-84d1-6438b034f4fe
+        a                           dcat:Dataset ;
+        rdfs:label                  "Fotografias de cena" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_1674913a> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://biblioteca.teatro-dmaria.pt/OAI/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "FOTOGRAFIAS" .
+
+:6bb81ed9-e79c-4818-b2c2-6081ed6ba97d
+        a                           dcat:Dataset ;
+        rdfs:label                  "G&T Comenta" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_abe90675> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://projetos.dhlab.fcsh.unl.pt/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "GTComenta" .
+
+:25864ef9-68b1-47cf-97f9-d4119a52d687
+        a                           dcat:Dataset ;
+        rdfs:label                  "Translation Matters" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_9d49ab59> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://ojs.letras.up.pt/index.php/tm/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "tm" .
+
+:74aca156-f12d-4706-8c24-564073a1d71b
+        a                           dcat:Dataset ;
+        rdfs:label                  "Anais de História de Além-Mar" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_9becc4f7> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://revistas.rcaap.pt/aham/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "aham" .
+
+:42cc3495-aec6-46a0-94e8-1d64cc4f0b72
+        a                           dcat:Dataset ;
+        rdfs:label                  "Arquivo Municipal da Câmara de Lisboa" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_2064d7eb> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://arquivomunicipal3.cm-lisboa.pt/X-arqOAI/oai2.aspx> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "" .
+
+:b5769b36-44da-4081-a568-bb664ec1428a
+        a                           dcat:Dataset ;
+        rdfs:label                  "Práticas da História. Journal on Theory, Historiography and Uses of the Past" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_83388296> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://revistas.rcaap.pt/index.php/pdh/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "pdh" .
+
+:f2c542ec-673f-4125-a6e9-0c6927410d3b
+        a                           dcat:Dataset ;
+        rdfs:label                  "Journal of Communication and Languages" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_5fdab3ef> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://www.fcsh.unl.pt/rcl/index.php/rcl/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "rcl" .
+
+:2aa6a823-4a81-4e96-9465-41608676814d
+        a                           dcat:Dataset ;
+        rdfs:label                  "Coleção de partituras do TNDMII" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_1674913a> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://biblioteca.teatro-dmaria.pt/OAI/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "PARTITURAS" .
+
+:26b92397-cbf8-44ec-aa79-849c84fa4a1f
+        a                           dcat:Dataset ;
+        rdfs:label                  "EJM - Espólio José Marques" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_1674913a> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://biblioteca.teatro-dmaria.pt/OAI/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "EJM" .
+
+:f6227253-3799-4a15-a973-c38ba075903f
+        a                           dcat:Dataset ;
+        rdfs:label                  "Memória COVID" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_abe90675> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://projetos.dhlab.fcsh.unl.pt/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "memoriacovid" .
+
+:c5fb0937-6027-4815-902a-8c616f16887e
+        a                           dcat:Dataset ;
+        rdfs:label                  "Coleção de cartazes do TNDMII" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_1674913a> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://biblioteca.teatro-dmaria.pt/OAI/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "CARTAZES" .
+
+:bbd76664-bc3f-41ff-ad8d-14161b510325
+        a                           dcat:Dataset ;
+        rdfs:label                  "Cultura" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_9becc4f7> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://oai.openedition.org/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "journals:cultura" .
+
+:941e1be7-017f-4b7a-8889-a5527458deea
+        a                           dcat:Dataset ;
+        rdfs:label                  "Medievalista" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_f99bcabf> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://medievalista.iem.fcsh.unl.pt/index.php/medievalista/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "medievalista" .
+
+:106df6a5-0cb8-4a52-8e97-21ec1acf3664
+        a                           dcat:Dataset ;
+        rdfs:label                  "Coleção de programas do TNDMII" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_1674913a> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://biblioteca.teatro-dmaria.pt/OAI/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "PROGRAMAS" .
+
+:84892373-80b7-4a19-bae2-39521bad2e9c
+        a                           dcat:Dataset ;
+        rdfs:label                  "Media & Jornalismo" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_5fdab3ef> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://impactum-journals.uc.pt/mj/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "mj" .
+
+:f9a52428-027f-4811-9123-82c2296e562e
+        a                           dcat:Dataset ;
+        rdfs:label                  "Textos cénicos do TNDMII" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_1674913a> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://biblioteca.teatro-dmaria.pt/OAI/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "TEXTOS_CENICOS" .
+
+:128fc830-07d4-4ff2-b39e-58bc32a520a0
+        a                           dcat:Dataset ;
+        rdfs:label                  "Faculdade de Ciências Sociais e Humanas (FCSH)" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_c37b6dc5> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://run.unl.pt/oaiextended/request> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "com_10362_1967" .
+
+:7fbe62d3-3a12-40e6-9f58-39e02c162e6a
+        a                           dcat:Dataset ;
+        rdfs:label                  "Sociológico" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_0ef7b7e5> ;
+        rossio:harvestingStatus     "" ;
+        rossio:indexingStatus       "" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://oai.openedition.org/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "journals:sociologico" .

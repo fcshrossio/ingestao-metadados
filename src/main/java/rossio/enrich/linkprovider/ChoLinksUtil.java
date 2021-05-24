@@ -62,10 +62,7 @@ public class ChoLinksUtil {
 				identifiers.add(st.getObject().asResource().getURI());
 			else if(RdfUtil.isSeq(st.getObject().asResource())) {
 				for(RDFNode node: RdfUtil.getAsSeq(st.getObject().asResource()).iterator().toList()) {
-					if(node.isLiteral()) 
-						identifiers.add(node.asLiteral().getString());
-					else if(node.isURIResource())
-						identifiers.add(node.asResource().getURI());
+					identifiers.add( RdfUtil.getUriOrLiteralValue(node));
 				}
 			}
 

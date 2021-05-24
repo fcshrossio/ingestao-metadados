@@ -1,8 +1,12 @@
 package rossio.ingest.solr.manager;
 
-public class TaskThread {
+import rossio.ingest.solr.manager.StopFile.StopFileListener;
+
+public class TaskThread implements StopFileListener {
 	public interface Task {
 		public void run() throws Exception;
+
+		public void stopWhenPossible();
 
 		public String getTitle();
 	}
@@ -37,6 +41,10 @@ public class TaskThread {
 
 	public Exception getError() {
 		return error;
+	}
+
+	public void signalStop() {
+		task.stopWhenPossible();
 	}
 	
 	

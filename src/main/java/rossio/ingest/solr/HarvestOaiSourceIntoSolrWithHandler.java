@@ -2,6 +2,8 @@ package rossio.ingest.solr;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -26,6 +28,7 @@ public class HarvestOaiSourceIntoSolrWithHandler {
 	String set;
 	String metadataPrefix;
 	String resumptionToken;
+	Date lastHarvestTimestamp;
 	
 	String sourceId;
 	String dataProviderUri;
@@ -34,7 +37,7 @@ public class HarvestOaiSourceIntoSolrWithHandler {
 
 	HarvestReport report;
 	
-	public HarvestOaiSourceIntoSolrWithHandler(String sourceId, String dataProviderUri, String baseUrl, String set, String metadataPrefix, RepositoryWithSolr harvestTo) {
+	public HarvestOaiSourceIntoSolrWithHandler(String sourceId, String dataProviderUri, String baseUrl, String set, String metadataPrefix, Date lastHarvestTimestamp, RepositoryWithSolr harvestTo) {
 		super();
 		this.harvestTo = harvestTo;
 		this.baseUrl = baseUrl;
@@ -42,6 +45,7 @@ public class HarvestOaiSourceIntoSolrWithHandler {
 		this.metadataPrefix = metadataPrefix;
 		this.sourceId = sourceId;
 		this.dataProviderUri = dataProviderUri;
+		this.lastHarvestTimestamp = lastHarvestTimestamp;
 	}
 	
 	public HarvestReport run(Logger log) throws HarvestException {
@@ -54,12 +58,17 @@ public class HarvestOaiSourceIntoSolrWithHandler {
 
         while (retry>=0 && retry<=maximumRetries && (report==null || !report.isFailure())) {
              report=new HarvestReport();
+			 report.setResumptionTokenOfLastCommit(resumptionToken);
 			 try {
 				 OaipmhHarvestWithHandler harvest;
 				 if(resumptionToken!=null)
 					 harvest=new OaipmhHarvestWithHandler(baseUrl, resumptionToken);
-				 else
+				 else if(lastHarvestTimestamp==null)
 					 harvest=new OaipmhHarvestWithHandler(baseUrl, metadataPrefix, set);
+				 else {
+					 SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+					 harvest=new OaipmhHarvestWithHandler(baseUrl, format.format(lastHarvestTimestamp), null, metadataPrefix, set);
+				 }
 	             
 				 harvest.run(new Handler() {
 					@Override
@@ -82,6 +91,7 @@ public class HarvestOaiSourceIntoSolrWithHandler {
 									report.getRecordCount() % commitInterval == 0) {
 								harvestTo.commit();
 								report.setResumptionTokenOfLastCommit(harvest.getLastResumptionToken());
+								resumptionToken=harvest.getLastResumptionToken();
 							}
 						} catch (Exception e) {
 							errorOnRecord(record, e);

@@ -1,0 +1,27 @@
+@prefix :      <http://data.rossio.fcsh.unl.pt/conjunto-de-dados/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rossio: <http://data.rossio.fcsh.unl.pt/ingestao/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+
+:b5769b36-44da-4081-a568-bb664ec1428a
+        a                           dcat:Dataset ;
+        rdfs:label                  "Práticas da História. Journal on Theory, Historiography and Uses of the Past" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_83388296> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:harvestingStatus     "SUCCESS" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://revistas.rcaap.pt/index.php/pdh/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "pdh" .
+
+:6bb81ed9-e79c-4818-b2c2-6081ed6ba97d
+        a                           dcat:Dataset ;
+        rdfs:label                  "G&T Comenta" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_abe90675> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:harvestingStatus     "SUCCESS" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://projetos.dhlab.fcsh.unl.pt/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "GTComenta" .

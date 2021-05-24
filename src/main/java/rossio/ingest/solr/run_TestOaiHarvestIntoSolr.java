@@ -15,7 +15,7 @@ public class run_TestOaiHarvestIntoSolr {
 //		HarvestOaiSourceIntoSolrWithHandler harvest=new HarvestOaiSourceIntoSolrWithHandler("CML-AML", "http://vocabs.rossio.fcsh.unl.pt/agente/xpto", "https://arquivomunicipal3.cm-lisboa.pt/X-arqOAI/oai2.aspx", null, "oai_dc", repository);
 
 //http://vocabs.rossio.fcsh.unl.pt/agentes/c_438671c9|https://digitarq.adbgc.arquivos.pt/oai-pmh/|ADBGC|oai_dc|FAILURE||oai_dc:::ADBGC:105000
-		HarvestOaiSourceIntoSolrWithHandler harvest=new HarvestOaiSourceIntoSolrWithHandler("CML-AML", "http://vocabs.rossio.fcsh.unl.pt/agente/xpto", "https://digitarq.adbgc.arquivos.pt/oai-pmh/", "ADBGC", "oai_dc", repository);
+		HarvestOaiSourceIntoSolrWithHandler harvest=new HarvestOaiSourceIntoSolrWithHandler("CML-AML", "http://vocabs.rossio.fcsh.unl.pt/agente/xpto", "https://digitarq.adbgc.arquivos.pt/oai-pmh/", "ADBGC", "oai_dc", null, repository);
 		harvest.resumeWithToken("oai_dc:::ADBGC:119000");
 		
 //		HarvestOaiSourceIntoSimpleArchive harvest=new HarvestOaiSourceIntoSimpleArchive("https://digitarq.arquivos.pt/oai-pmh", "DO", archive);

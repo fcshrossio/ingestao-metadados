@@ -1,0 +1,115 @@
+@prefix :      <http://data.rossio.fcsh.unl.pt/conjunto-de-dados/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rossio: <http://data.rossio.fcsh.unl.pt/ingestao/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+
+:b5769b36-44da-4081-a568-bb664ec1428a
+        a                           dcat:Dataset ;
+        rdfs:label                  "Práticas da História. Journal on Theory, Historiography and Uses of the Past" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_83388296> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:harvestingStatus     "SUCCESS" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://revistas.rcaap.pt/index.php/pdh/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "pdh" .
+
+:74aca156-f12d-4706-8c24-564073a1d71b
+        a                           dcat:Dataset ;
+        rdfs:label                  "Anais de História de Além-Mar" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_9becc4f7> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:harvestingStatus     "SUCCESS" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://revistas.rcaap.pt/aham/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "aham" .
+
+:6bb81ed9-e79c-4818-b2c2-6081ed6ba97d
+        a                           dcat:Dataset ;
+        rdfs:label                  "G&T Comenta" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_abe90675> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:harvestingStatus     "SUCCESS" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://projetos.dhlab.fcsh.unl.pt/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "GTComenta" .
+
+:f2c542ec-673f-4125-a6e9-0c6927410d3b
+        a                           dcat:Dataset ;
+        rdfs:label                  "Journal of Communication and Languages" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_5fdab3ef> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:harvestingStatus     "SUCCESS" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://www.fcsh.unl.pt/rcl/index.php/rcl/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "rcl" .
+
+:f6227253-3799-4a15-a973-c38ba075903f
+        a                           dcat:Dataset ;
+        rdfs:label                  "Memória COVID" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_abe90675> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:harvestingStatus     "SUCCESS" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://projetos.dhlab.fcsh.unl.pt/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "memoriacovid" .
+
+:25864ef9-68b1-47cf-97f9-d4119a52d687
+        a                           dcat:Dataset ;
+        rdfs:label                  "Translation Matters" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_9d49ab59> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:harvestingStatus     "SUCCESS" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://ojs.letras.up.pt/index.php/tm/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "tm" .
+
+:8cb42bc6-a7ef-4d68-b7ea-d5cb6d6eec84
+        a                           dcat:Dataset ;
+        rdfs:label                  "Etnografia" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_fe8a7b7e> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:harvestingStatus     "SUCCESS" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://oai.openedition.org/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "journals:etnografica" .
+
+:bbd76664-bc3f-41ff-ad8d-14161b510325
+        a                           dcat:Dataset ;
+        rdfs:label                  "Cultura" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_9becc4f7> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:harvestingStatus     "SUCCESS" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://oai.openedition.org/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "journals:cultura" .
+
+:84892373-80b7-4a19-bae2-39521bad2e9c
+        a                           dcat:Dataset ;
+        rdfs:label                  "Media & Jornalismo" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_5fdab3ef> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:harvestingStatus     "SUCCESS" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://impactum-journals.uc.pt/mj/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "mj" .
+
+:7fbe62d3-3a12-40e6-9f58-39e02c162e6a
+        a                           dcat:Dataset ;
+        rdfs:label                  "Sociológico" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_0ef7b7e5> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:harvestingStatus     "SUCCESS" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://oai.openedition.org/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "journals:sociologico" .

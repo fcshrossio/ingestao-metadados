@@ -17,12 +17,21 @@
 
 	<profiles>
 		<profile>
-			<id>devel</id>
+			<id>dev</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<linked-data-resolver.log>c:/users/nfrei/Desktop/rossio-ingestao-log.txt</linked-data-resolver.log>
+				<assembly.inc.dir>src/assemble/dev</assembly.inc.dir>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<assembly.inc.dir>src/assemble/prod</assembly.inc.dir>
 			</properties>
 		</profile>
 	</profiles>

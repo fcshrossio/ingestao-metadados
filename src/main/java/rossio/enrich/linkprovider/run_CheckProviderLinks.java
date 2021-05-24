@@ -73,7 +73,7 @@ public class run_CheckProviderLinks {
 			repository.getItemsInSource(sourceId, new ItemHandler() {
 				int recCount=0;
 				@Override
-				public boolean handle(String uuid, byte[] content) throws Exception {
+				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {
 					RDFParser reader = RDFParser.create().lang(Lang.RDFTHRIFT).source(new ByteArrayInputStream(content)).build();
 					Model model = Jena.createModel();
 					reader.parse(model);

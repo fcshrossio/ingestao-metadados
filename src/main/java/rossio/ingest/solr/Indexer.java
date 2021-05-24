@@ -34,6 +34,7 @@ import rossio.util.RdfUtil.Jena;
 public class Indexer {
 	SolrClient solr;
 	boolean runEnrichment=true;
+	int commitInterval=1000;
 
 	public Indexer(String solrUrl) {
 //		final String solrUrl = "http://localhost:8983/solr";
@@ -165,7 +166,7 @@ public class Indexer {
 			removeAllFrom(source);
 			repository.getItemsInSource(source, new ItemHandler() {
 				@Override
-				public boolean handle(String uuid, byte[] content) throws Exception {
+				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {
 					try {
 						RDFParser reader = RDFParser.create().lang(Lang.RDFTHRIFT).source(new ByteArrayInputStream(content)).build();
 						Model model = Jena.createModel();
@@ -175,13 +176,13 @@ public class Indexer {
 //						addItem(source, model.createResource(Rossio.NS_ITEM+uuid));
 						if(runEnrichment) {
 							enrichmentTask.runOnRecord(model.createResource(choUri));
-
 							//DEBUG
 //							RdfUtil.printOutRdf(model);
 						}
-						
 						addItem(source, model, choUri);
 						report.incRecord();
+						if(commitInterval>0 && 	report.getRecordCount() % commitInterval == 0) 
+							commit();
 						return true;
 					} catch (SolrServerException e) {
 						report.addErrorOnRecord(uuid, e.getMessage());
@@ -201,6 +202,10 @@ public class Indexer {
 	}
 
 
+	public void setCommitInterval(int commitInterval) {
+		this.commitInterval=commitInterval;
+	}
+	
 	public void setRunEnrichment(boolean runEnrichment) {
 		this.runEnrichment = runEnrichment;
 	}
