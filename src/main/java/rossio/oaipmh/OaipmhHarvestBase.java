@@ -17,6 +17,7 @@ import javax.xml.transform.TransformerException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.oclc.oai.harvester2.verb.HarvesterVerb;
 import org.oclc.oai.harvester2.verb.ListRecords;
 import org.w3c.dom.Element;
@@ -316,6 +317,8 @@ public abstract class OaipmhHarvestBase {
             }
 
             nextResumptionToken = listRecords.getResumptionToken();
+            if (StringUtils.isEmpty(nextResumptionToken))
+            	nextResumptionToken=null;
 
             if (this.completeListSize == -1) {
                 String listSizeXpath = "/oai20:OAI-PMH/oai20:ListRecords/oai20:resumptionToken/@completeListSize";

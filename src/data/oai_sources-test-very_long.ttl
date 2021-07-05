@@ -1,0 +1,386 @@
+@prefix :      <http://data.rossio.fcsh.unl.pt/conjunto-de-dados/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rossio: <http://data.rossio.fcsh.unl.pt/ingestao/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+
+:ab26a151-4a05-4a64-97df-b7eaa3d456e9
+        a                           dcat:Dataset ;
+        rdfs:label                  "Arquivo Distrital de Leiria" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_7054d2d4> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://digitarq.adlra.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "ADLRA" .
+
+:2fdf92b0-09e0-434c-9f03-bed92d158d6f
+        a                           dcat:Dataset ;
+        rdfs:label                  "Arquivo Distrital de Bragança" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_438671c9> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://digitarq.adbgc.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "ADBGC" .
+
+:763b78c6-4111-4369-93c0-04992dc9d695
+        a                           dcat:Dataset ;
+        rdfs:label                  "Coleção de partituras do TNDMII" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_1674913a> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://biblioteca.tndm.pt/OAI/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "PARTITURAS" .
+
+:f95d50f2-c137-406d-9327-2c05e650fab2
+        a                           dcat:Dataset ;
+        rdfs:label                  "Arquivo Distrital da Guarda" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_5062b87f> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://digitarq.adgrd.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "ADGRD" .
+
+:2ff8b429-162b-4ddc-aeab-b3a3edfc844f
+        a                           dcat:Dataset ;
+        rdfs:label                  "Arquivo Distrital de Viseu" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_5672cf6f> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://digitarq.advis.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "ADVIS" .
+
+:749746bb-d907-4929-85f3-17dfe7aaf8ab
+        a                           dcat:Dataset ;
+        rdfs:label                  "Medievalista" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_f99bcabf> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://medievalista.iem.fcsh.unl.pt/index.php/medievalista/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "medievalista" .
+
+:326434f0-0502-4ebc-adb6-3d734aafa94c
+        a                           dcat:Dataset ;
+        rdfs:label                  "Textos cénicos do TNDMII" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_1674913a> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://biblioteca.tndm.pt/OAI/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "TEXTOS_CENICOS" .
+
+:2a5c39a6-6887-4608-9c31-486fe4416922
+        a                           dcat:Dataset ;
+        rdfs:label                  "Faculdade de Ciências Sociais e Humanas (FCSH)" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_c37b6dc5> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://run.unl.pt/oaiextended/request> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "com_10362_1967" .
+
+:98c71111-5111-48bd-a5d5-d7d3cfe4c8ae
+        a                           dcat:Dataset ;
+        rdfs:label                  "Anais de História de Além-Mar" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_9becc4f7> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://revistas.rcaap.pt/aham/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "aham" .
+
+:ce689720-9b83-4140-a94d-7d429f59cca7
+        a                           dcat:Dataset ;
+        rdfs:label                  "" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_9becc4f7> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://oai.openedition.org/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "journals:cultura" .
+
+:fe5cd006-f909-4995-b0ad-5c217303f679
+        a                           dcat:Dataset ;
+        rdfs:label                  "Arquivo Distrital de Castelo Branco" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_50a5323c> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://digitarq.adctb.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "ADCTB" .
+
+:483ebb9f-6820-4614-9260-987a6027ddb9
+        a                           dcat:Dataset ;
+        rdfs:label                  "Arquivo Distrital de Portalegre" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_76e2d079> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://digitarq.adptg.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "ADPTG" .
+
+:2cbb86e1-f457-4283-ae45-f4648d2a9a10
+        a                           dcat:Dataset ;
+        rdfs:label                  "" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_fe8a7b7e> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://oai.openedition.org/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "journals:etnografica" .
+
+:8f0ee87d-601a-44fd-a37a-29876d500f6e
+        a                           dcat:Dataset ;
+        rdfs:label                  "Arquivo Distrital de Vila Real" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_95ebe093> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://digitarq.advrl.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "ADVRL" .
+
+:dca33395-bcff-429b-8020-c19d5a72c3d1
+        a                           dcat:Dataset ;
+        rdfs:label                  "Práticas da História. Journal on Theory, Historiography and Uses of the Past" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_83388296> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://revistas.rcaap.pt/index.php/pdh/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "pdh" .
+
+:5df79ca1-86fe-46fd-bce3-532579f89526
+        a                           dcat:Dataset ;
+        rdfs:label                  "" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_0ef7b7e5> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://oai.openedition.org/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "journals:sociologico" .
+
+:81a1340e-58ce-472a-a50c-62f52bd87f32
+        a                           dcat:Dataset ;
+        rdfs:label                  "Arquivo Distrital de Setúbal" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_6da5082f> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://digitarq.adstb.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "ADSTB" .
+
+:bccd5352-518a-45d4-9810-91b9c9346003
+        a                           dcat:Dataset ;
+        rdfs:label                  "Arquivo Nacional da Torre do Tombo" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_4229e047> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:harvestingStatus     "PAUSED" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://digitarq.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "TT" .
+
+:b12f9d99-a176-485e-a5af-590d2215cd51
+        a                           dcat:Dataset ;
+        rdfs:label                  "Centro Português de Fotografia" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_f9e05c96> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://digitarq.cpf.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "CPF" .
+
+:64889c40-0251-47c5-9470-b78f6a8e67d2
+        a                           dcat:Dataset ;
+        rdfs:label                  "Arquivo Histórico Ultramarino" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_6fde27ba> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://digitarq.ahu.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "AHU" .
+
+:ee698a62-720c-42bc-aeb2-204effcc0c85
+        a                           dcat:Dataset ;
+        rdfs:label                  "Arquivo Distrital do Porto" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_53e2aa91> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://pesquisa.adporto.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "ADPRT" .
+
+:80adb019-5cc2-458a-a4a6-d48bf3075e27
+        a                           dcat:Dataset ;
+        rdfs:label                  "Journal of Communication and Languages" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_5fdab3ef> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://www.fcsh.unl.pt/rcl/index.php/rcl/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "rcl" .
+
+:4a742df8-76be-46f3-8457-6cbc46932703
+        a                           dcat:Dataset ;
+        rdfs:label                  "EJM - Espólio José Marques" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_1674913a> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://biblioteca.tndm.pt/OAI/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "EJM" .
+
+:7274db57-4823-4ca0-857b-915ac6fa4bb1
+        a                           dcat:Dataset ;
+        rdfs:label                  "Media & Jornalismo" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_5fdab3ef> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://impactum-journals.uc.pt/mj/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "mj" .
+
+:61bdf166-496c-4fc3-a04c-21acf2e3db1f
+        a                           dcat:Dataset ;
+        rdfs:label                  "G&T Comenta" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_abe90675> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://projetos.dhlab.fcsh.unl.pt/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "GTComenta" .
+
+:cd040b3b-364b-4824-ba97-058e4705badb
+        a                           dcat:Dataset ;
+        rdfs:label                  "Arquivo Distrital de Aveiro" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_64c458fe> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://digitarq.adavr.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "ADAVR" .
+
+:b7e5685a-f1ca-41a7-869e-8d62c99a55e0
+        a                           dcat:Dataset ;
+        rdfs:label                  "Arquivo Distrital de Faro" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_129780c4> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://digitarq.adfar.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "ADFAR" .
+
+:c0fcd660-eedb-4937-bd11-bb23fc846132
+        a                           dcat:Dataset ;
+        rdfs:label                  "Fotografias de cena" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_1674913a> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://biblioteca.tndm.pt/OAI/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "FOTOGRAFIAS" .
+
+:5a78c42e-9380-4465-bb84-b813f9751b11
+        a                           dcat:Dataset ;
+        rdfs:label                  "Arquivo Distrital de Beja" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_d69788b6> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://digitarq.adbja.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "ADBJA" .
+
+:dd54098d-aa84-4238-b248-5a1b2ebfa2c8
+        a                           dcat:Dataset ;
+        rdfs:label                  "Memória COVID" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_abe90675> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://projetos.dhlab.fcsh.unl.pt/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "memoriacovid" .
+
+:abab3959-0a52-4a0a-b20a-098f0bde5f22
+        a                           dcat:Dataset ;
+        rdfs:label                  "" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_2064d7eb> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://arquivomunicipal3.cm-lisboa.pt/X-arqOAI/oai2.aspx> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "" .
+
+:ec78d121-ffc8-43cb-b66b-03743818797a
+        a                           dcat:Dataset ;
+        rdfs:label                  "Arquivo Distrital de Santarém" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_20311d92> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://digitarq.adstr.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "ADSTR" .
+
+:5e457bbd-a722-496a-886e-2e1b46bb611f
+        a                           dcat:Dataset ;
+        rdfs:label                  "Arquivo Distrital de Evora" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_819ef5cf> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://digitarq.adevr.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "ADEVR" .
+
+:2ab7770d-9bea-49c7-be25-a3f3e9450fb3
+        a                           dcat:Dataset ;
+        rdfs:label                  "Folhetos de teatro de cordel" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_1674913a> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://biblioteca.tndm.pt/OAI/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "FOLHETOS" .
+
+:3ad998d3-c398-41cc-b052-791b3b422a06
+        a                           dcat:Dataset ;
+        rdfs:label                  "Coleção de cartazes do TNDMII" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_1674913a> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://biblioteca.tndm.pt/OAI/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "CARTAZES" .
+
+:b86ab116-5da1-4112-824e-9c7b1e56e007
+        a                           dcat:Dataset ;
+        rdfs:label                  "Coleção de programas do TNDMII" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_1674913a> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://biblioteca.tndm.pt/OAI/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "PROGRAMAS" .
+
+:94d361ce-d560-4b3b-845a-33bbdaa7b780
+        a                           dcat:Dataset ;
+        rdfs:label                  "Translation Matters" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_9d49ab59> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <http://ojs.letras.up.pt/index.php/tm/oai> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "tm" .
+
+:22412960-56a0-48c4-bbca-f45dc7b77b05
+        a                           dcat:Dataset ;
+        rdfs:label                  "Arquivo Distrital de Viana do Castelo" ;
+        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_f95496ad> ;
+        rossio:harvestPeriodicity   "NONE" ;
+        rossio:lastResumptionToken  "" ;
+        rossio:oaiBaseUrl           <https://digitarq.advct.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix    "oai_dc" ;
+        rossio:oaiSet               "ADVCT" .

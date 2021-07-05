@@ -27,6 +27,8 @@ public class ConvertTxtConfigToRdf {
 	public static void main(String[] args) throws Exception {
 		String filename="C:\\Users\\nfrei\\Desktop\\oai_sources.txt";
 		String outFilename="C:\\Users\\nfrei\\Desktop\\oai_sources.ttl";
+//		String filename="src\\data\\oai_sources-test-very_long.txt";
+//		String outFilename="src\\data\\oai_sources-test-very_long.ttl";
 //		String filename="oai_sources-test-long.txt";
 //		String outFilename="oai_sources-test-long.ttl";
 		

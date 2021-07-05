@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.riot.Lang;
@@ -61,7 +62,7 @@ public class HarvestOaiSourceIntoSolrWithHandler {
 			 report.setResumptionTokenOfLastCommit(resumptionToken);
 			 try {
 				 OaipmhHarvestWithHandler harvest;
-				 if(resumptionToken!=null)
+				 if(!StringUtils.isEmpty(resumptionToken))
 					 harvest=new OaipmhHarvestWithHandler(baseUrl, resumptionToken);
 				 else if(lastHarvestTimestamp==null)
 					 harvest=new OaipmhHarvestWithHandler(baseUrl, metadataPrefix, set);

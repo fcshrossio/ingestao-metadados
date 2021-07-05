@@ -1,6 +1,8 @@
 package rossio.ingest.solr;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
@@ -31,12 +33,16 @@ import org.apache.solr.common.params.StatsParams;
 import org.apache.solr.common.util.Base64;
 import org.w3c.dom.Element;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class RepositoryWithSolr {
 	public interface ItemHandler {
 		public boolean handle(String uuid, String identifierAtSource, String lastHarvestTimestamp, byte[] content) throws Exception;
 	}
 	
 	SolrClient solr;
+	String solrUrl;
 
 	public RepositoryWithSolr(String solrUrl) {
 //		final String solrUrl = "http://localhost:8983/solr";
@@ -44,6 +50,7 @@ public class RepositoryWithSolr {
 		    .withConnectionTimeout(10000)
 		    .withSocketTimeout(60000)
 		    .build();
+		this.solrUrl = solrUrl;
 	}
 	
 	public void restart() throws SolrServerException, IOException {
@@ -177,5 +184,25 @@ public class RepositoryWithSolr {
 
 	public void delete(String uuid) throws SolrServerException, IOException {
 		solr.deleteById(uuid);
+	}
+
+	public Map<String, Integer> getSourcesSizes() throws IOException {
+		Map<String, Integer> ret=new HashMap<String, Integer>();
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+
+		//read JSON like DOM Parser
+		JsonNode rootNode = objectMapper.readTree(new URL(solrUrl+"/select?q=*%3A*&facet=true&facet.field=rossio_source"));
+		JsonNode sources = rootNode.get("facet_counts").get("facet_fields").get("rossio_source");
+		boolean odd=true;
+		String sourceId=null;
+		for(JsonNode jn: sources) {
+			if(odd){
+				sourceId=jn.asText();
+			} else 
+				ret.put(sourceId, jn.asInt());
+			odd=!odd;
+		}
+		return ret;
 	}
 }

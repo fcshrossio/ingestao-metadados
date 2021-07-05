@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
@@ -63,8 +64,12 @@ public class OaiSources{
 		List<String> sourcesUnparsed = FileUtils.readLines(sourcesFileTxt, StandardCharsets.UTF_8);
 		srcs.sources=new ArrayList<OaiSource>(sourcesUnparsed.size());
 		for(String unparsed:sourcesUnparsed) {
-			if(!StringUtils.isEmpty(unparsed) && ! unparsed.startsWith("#"))
-				srcs.sources.add(new OaiSource(unparsed));
+			if(!StringUtils.isEmpty(unparsed) && ! unparsed.startsWith("#")) {
+				OaiSource src = new OaiSource(unparsed);
+				if(src.status==TaskStatus.SUCCESS)
+					src.lastHarvestTimestamp=new Date();
+				srcs.sources.add(src);
+			}
 		}
 		return srcs;
 	}

@@ -107,7 +107,8 @@ public class OaiSource{
 	
 
 	public String getSourceId() {
-		return uri;
+		return getSourceIdDeprecated();
+//		return uri;
 	}
 	public String getSourceIdDeprecated() {
 		return baseUrl+"#"+(set==null ? "" : set);
