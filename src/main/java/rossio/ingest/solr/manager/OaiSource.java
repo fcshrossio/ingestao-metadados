@@ -4,6 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.util.Date;
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.transform.TransformerException;
 
@@ -44,6 +47,8 @@ public class OaiSource{
 	public static final Property harvestPeriodicityProp=Jena.createProperty(NS_INGESTAO+"harvestPeriodicity");
 //	public static final Property harvestDayOfWeekProp=Jena.createProperty(NS_INGESTAO+"lastResumptionToken");
 	
+	private static final Pattern newUriPattern=Pattern.compile("\\/(new|novo)[^\\/]*$");
+	
 	public String uri;
 	public String dataProvider;
 	public String baseUrl;
@@ -79,6 +84,11 @@ public class OaiSource{
 	}
 	public OaiSource(Resource dsRes) {
 		uri=dsRes.getURI();
+		Matcher newUriMatcher=newUriPattern.matcher(uri);
+		if(newUriMatcher.find()) {
+			uri=Rossio.NS_CONJUNTO_DE_DADOS + UUID.randomUUID().toString();
+		}
+		
 		dataProvider=dsRes.getProperty(dataProviderProp).getObject().asResource().getURI();
 		baseUrl=dsRes.getProperty(oaiBaseUrlProp).getObject().asResource().getURI();
 		metadataPrefix=dsRes.getProperty(oaiMetadataPrefixProp).getObject().asLiteral().getString();

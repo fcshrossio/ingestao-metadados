@@ -32,6 +32,8 @@ import org.xerial.snappy.OSInfo;
 import com.ctc.wstx.util.StringUtil;
 
 import rossio.ingest.solr.manager.Logger;
+import rossio.ingest.solr.manager.OaiSource;
+import rossio.ingest.solr.manager.OaiSources;
 import rossio.oaipmh.HarvestException;
 import rossio.oaipmh.HarvestReport;
 import rossio.util.AccessException;
@@ -48,6 +50,7 @@ public class CommandLineRemoveCollectionFromSearch {
 			
 			// create the Options
 			Options options = new Options();
+			options.addOption( "sources_file", true, "A file listing the OAI-PMH sources");
 			options.addOption( "solr_url_search", true, "Solr base URL of the search core");
 			options.addOption( "source_id", true, "Source ID of the collection");
 			
@@ -56,7 +59,6 @@ public class CommandLineRemoveCollectionFromSearch {
 			boolean argsOk=true;
 			try {
 			    line = parser.parse( options, args );
-	
 			    if( !line.hasOption("source_id") || !line.hasOption("solr_url_search")  ) 
 			    	argsOk=false;
 			} catch( ParseException exp ) {
@@ -66,7 +68,13 @@ public class CommandLineRemoveCollectionFromSearch {
 		    String result=null;
 		    if(argsOk) {
 		    	Indexer indexer=new Indexer(line.getOptionValue("solr_url_search"));
-		    	indexer.removeAllFrom(line.getOptionValue("source_id"));
+		    	File sourcesFile = new File(line.getOptionValue("sources_file"));
+				OaiSources oaiSources=new OaiSources(sourcesFile);
+		    	OaiSource src = oaiSources.findSource(line.getOptionValue("source_id"));
+		    	if(src==null)
+		    		indexer.removeAllFrom(line.getOptionValue("source_id"));
+		    	else
+		    		indexer.removeAllFrom(src.getSourceIdDeprecated());
 				result="SUCCESS";
 		    } else {
 		    	StringWriter sw=new StringWriter();

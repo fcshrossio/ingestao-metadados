@@ -76,7 +76,6 @@ public class OaiSourceIndexStatus{
 			status=TaskStatus.FAILURE;
 	}
 
-
 	public boolean todoIndex() {
 		if(oaiSource==null || oaiSource.status!=TaskStatus.SUCCESS)
 			return false;

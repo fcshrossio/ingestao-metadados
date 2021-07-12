@@ -32,6 +32,9 @@ import org.xerial.snappy.OSInfo;
 import com.ctc.wstx.util.StringUtil;
 
 import rossio.ingest.solr.manager.Logger;
+import rossio.ingest.solr.manager.OaiSource;
+import rossio.ingest.solr.manager.OaiSources;
+import rossio.ingest.solr.manager.StopFile;
 import rossio.oaipmh.HarvestException;
 import rossio.oaipmh.HarvestReport;
 import rossio.util.AccessException;
@@ -48,7 +51,8 @@ public class CommandLineRemoveCollectionFromRepository {
 			
 			// create the Options
 			Options options = new Options();
-			options.addOption( "solr_url_repository", true, "Solr base URL of the search core");
+			options.addOption( "sources_file", true, "A file listing the OAI-PMH sources");
+			options.addOption( "solr_url_repository", true, "Solr base URL of the repository core");
 			options.addOption( "source_id", true, "Source ID of the collection");
 			
 			CommandLine line=null;
@@ -66,7 +70,13 @@ public class CommandLineRemoveCollectionFromRepository {
 		    String result=null;
 		    if(argsOk) {
 		    	RepositoryWithSolr repo=new RepositoryWithSolr(line.getOptionValue("solr_url_repository"));
-		    	repo.removeAllFrom(line.getOptionValue("source_id"));
+		    	File sourcesFile = new File(line.getOptionValue("sources_file"));
+				OaiSources oaiSources=new OaiSources(sourcesFile);
+		    	OaiSource src = oaiSources.findSource(line.getOptionValue("source_id"));
+		    	if(src==null)
+		    		repo.removeAllFrom(line.getOptionValue("source_id"));
+		    	else
+		    		repo.removeAllFrom(src.getSourceIdDeprecated());
 				result="SUCCESS";
 		    } else {
 		    	StringWriter sw=new StringWriter();
