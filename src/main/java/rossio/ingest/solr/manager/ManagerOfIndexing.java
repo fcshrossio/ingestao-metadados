@@ -16,6 +16,7 @@ public class ManagerOfIndexing  implements Task {
 	Indexer indexer;
 //	OaiSources oaiSources;
 	OaiSourcesIndexStatus oaiSourcesIndexStatus;
+	String vocabsSparqlEndpoint;
 	Logger log;
 	int commitInterval;
 	String title=this.getClass().getCanonicalName();
@@ -24,12 +25,13 @@ public class ManagerOfIndexing  implements Task {
 	Date lastRun=null;
 	boolean stopWhenPossible=false;
 	
-	public ManagerOfIndexing(RepositoryWithSolr repository, Indexer indexer, OaiSourcesIndexStatus oaiSources, Logger log, int commitInterval) {
+	public ManagerOfIndexing(RepositoryWithSolr repository, Indexer indexer, OaiSourcesIndexStatus oaiSources, String vocabsSparqlEndpoint, Logger log, int commitInterval) {
 		super();
 		this.repository = repository;
 		this.indexer = indexer;
 		this.oaiSourcesIndexStatus = oaiSources;
 		this.log = log;
+		this.vocabsSparqlEndpoint = vocabsSparqlEndpoint;
 		this.commitInterval = commitInterval;
 	}
 
@@ -54,7 +56,7 @@ public class ManagerOfIndexing  implements Task {
 		
 		    		String result=null;
 			    	try {
-			    		IndexingReport report=indexer.indexSourceFromRepository(src.getSourceId(), repository, log);
+			    		IndexingReport report=indexer.indexSourceFromRepository(src.getSourceId(), repository, vocabsSparqlEndpoint, log);
 						result=report.toLogString();
 					} catch (Exception e) {
 						result="FAILURE\nstackTrace:\n"+ExceptionUtils.getStackTrace(e);

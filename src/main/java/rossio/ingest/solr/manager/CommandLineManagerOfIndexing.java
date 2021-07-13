@@ -23,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import rossio.ingest.solr.Indexer;
 import rossio.ingest.solr.RepositoryWithSolr;
+import rossio.ingest.solr.manager.StopFile.StopFileListener;
 import rossio.util.Global;
 import rossio.util.HttpUtil;
 import rossio.util.HttpsUtil;
@@ -42,6 +43,7 @@ public class CommandLineManagerOfIndexing {
 			options.addOption( "indexing_status_file", true, "A file listing the indexing status of the OAI-PMH sources");
 			options.addOption( "solr_url_repository", true, "Solr base URL of the repository core");
 			options.addOption( "solr_url_search", true, "Solr base URL of the search core");
+			options.addOption( "sparql_vocabs", true, "Sparql endpoint URL with the ROSSIO vocabularies");
 			options.addOption( "debug", false, "Print debuging information");
 			options.addOption( "commit_interval", true, "Commit changes every x records");
 			options.addOption( "log_file", true, "Write a log with the result of the indexing. If ommited no log is created.");
@@ -53,7 +55,8 @@ public class CommandLineManagerOfIndexing {
 			    line = parser.parse( options, args );
 	
 			    if( !line.hasOption("sources_file") || !line.hasOption("solr_url_repository") ||
-			    		!line.hasOption("solr_url_search") || !line.hasOption("indexing_status_file")) 
+			    		!line.hasOption("solr_url_search") || !line.hasOption("indexing_status_file")
+			    		 || !line.hasOption("sparql_vocabs")) 
 			    	argsOk=false;
 			    if(argsOk) {
 			    	//TODO: check timestamps 
@@ -78,10 +81,12 @@ public class CommandLineManagerOfIndexing {
 	    			commitInterval = Integer.parseInt(line.getOptionValue("commit_interval"));
 		    	
 		    	RepositoryWithSolr repository=new RepositoryWithSolr(line.getOptionValue("solr_url_repository"));
+		    	String sparqlVocabs=line.getOptionValue("sparql_vocabs");
 		    	File sourcesFile = new File(line.getOptionValue("sources_file"));
 		    	File indexingStatusFile = new File(line.getOptionValue("indexing_status_file"));
 		    	File indexingStatusLockFile = new File(line.getOptionValue("indexing_status_file")+".lock");
-		    	StopFile stopFile = new StopFile(new File(line.getOptionValue("indexing_status_file")+".stop"));
+		    	File stopFileFile = new File(line.getOptionValue("indexing_status_file")+".stop");
+				StopFile stopFile = new StopFile(stopFileFile);
 		    	if(indexingStatusLockFile.exists()) {
 			    	System.out.println("Lock file found at "+indexingStatusLockFile.getCanonicalPath()+
 			    			" (Is another instance of this program running? If not, remove the lock file before executing.)");
@@ -100,10 +105,20 @@ public class CommandLineManagerOfIndexing {
 		    	Indexer indexer=new Indexer(line.getOptionValue("solr_url_search"));
 		    	indexer.setCommitInterval(commitInterval);
 		    	TaskThread indexerTask=null;
-		    	ManagerOfIndexing managerIndexer=new ManagerOfIndexing(repository, indexer, indexStatus, log, commitInterval);
+		    	ManagerOfIndexing managerIndexer=new ManagerOfIndexing(repository, indexer, indexStatus, sparqlVocabs, log, commitInterval);
 		    	indexerTask=new TaskThread(managerIndexer, log);
 
 		    	stopFile.addListener(indexerTask);
+		    	stopFile.addListener(new StopFileListener() {
+					@Override
+					public void signalStop() {
+						try {
+							FileUtils.write(stopFileFile, "", StandardCharsets.UTF_8);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				});
 		    	stopFile.waitUntilStop();    			
 		    	
 			    	if (indexerTask.getError()!=null) {

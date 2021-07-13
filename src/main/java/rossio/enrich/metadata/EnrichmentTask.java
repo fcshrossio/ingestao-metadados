@@ -63,11 +63,11 @@ public class EnrichmentTask {
 	}
 	
 	
-	public static EnrichmentTask newInstanceForRossio() {
+	public static EnrichmentTask newInstanceForRossio(String vocabsSparqlEndpointUrl) {
 		EnrichmentTask enrichTask=new EnrichmentTask();
-		enrichTask.addEnrichment(new RecordEnrichmentGeo("http://skosmos.dglab.gov.pt:3030/skosmos/sparql"));
-		enrichTask.addEnrichment(new RecordEnrichmentAgents("http://skosmos.dglab.gov.pt:3030/skosmos/sparql"));
-		enrichTask.addEnrichment(new RecordEnrichmentTemporal("http://skosmos.dglab.gov.pt:3030/skosmos/sparql"));
+		enrichTask.addEnrichment(new RecordEnrichmentGeo(vocabsSparqlEndpointUrl));
+		enrichTask.addEnrichment(new RecordEnrichmentAgents(vocabsSparqlEndpointUrl));
+		enrichTask.addEnrichment(new RecordEnrichmentTemporal(vocabsSparqlEndpointUrl));
 		enrichTask.addEnrichment(new RecordEnrichmentNormalizeDate());
 		enrichTask.addEnrichment(new RecordEnrichmentNormalizeLinks());
 		return enrichTask;

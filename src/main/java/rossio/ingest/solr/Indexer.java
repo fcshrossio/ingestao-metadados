@@ -154,10 +154,10 @@ public class Indexer {
 		}
 	}
 
-	public IndexingReport indexSourceFromRepository(String source, RepositoryWithSolr repository, Logger log) {
+	public IndexingReport indexSourceFromRepository(String source, RepositoryWithSolr repository, String vocabsSparqlEndpoint, Logger log) {
 		final EnrichmentTask enrichmentTask;
 		if(runEnrichment) 
-			enrichmentTask=EnrichmentTask.newInstanceForRossio();
+			enrichmentTask=EnrichmentTask.newInstanceForRossio(vocabsSparqlEndpoint);
 		else
 			enrichmentTask=null;
 			
