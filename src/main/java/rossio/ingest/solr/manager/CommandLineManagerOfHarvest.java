@@ -23,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import rossio.ingest.solr.Indexer;
 import rossio.ingest.solr.RepositoryWithSolr;
+import rossio.ingest.solr.manager.StopFile.StopFileListener;
 import rossio.util.Global;
 import rossio.util.HttpUtil;
 import rossio.util.HttpsUtil;
@@ -77,7 +78,8 @@ public class CommandLineManagerOfHarvest {
 		    	RepositoryWithSolr repository=new RepositoryWithSolr(line.getOptionValue("solr_url_repository"));
 		    	File sourcesFile = new File(line.getOptionValue("sources_file"));
 		    	File sourcesLockFile = new File(line.getOptionValue("sources_file")+".lock");
-		    	StopFile stopFile = new StopFile(new File(line.getOptionValue("sources_file")+".stop"));
+		    	File stopFileFile = new File(line.getOptionValue("sources_file")+".stop");
+				StopFile stopFile = new StopFile(stopFileFile);
 		    	if(sourcesLockFile.exists()) {
 			    	System.out.println("Lock file found at "+sourcesLockFile.getCanonicalPath()+
 			    			" (Is another instance of this program running? If not, remove the file before executing.)");
@@ -96,6 +98,16 @@ public class CommandLineManagerOfHarvest {
 		    	TaskThread harvesterTask=new TaskThread(managerHarvester, log);
 
 		    	stopFile.addListener(harvesterTask);
+		    	stopFile.addListener(new StopFileListener() {
+					@Override
+					public void signalStop() {
+						try {
+							FileUtils.write(stopFileFile, "", StandardCharsets.UTF_8);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				});
 		    	stopFile.waitUntilStop();
 	    		
 		    	if (harvesterTask.getError()!=null) {

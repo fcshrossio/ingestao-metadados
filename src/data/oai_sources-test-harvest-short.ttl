@@ -4,26 +4,26 @@
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcat:  <http://www.w3.org/ns/dcat#> .
 
-:84892373-80b7-4a19-bae2-39521bad2e9c
+:d1c713fa-77af-423f-87e8-eddbabb49f1f
         a                            dcat:Dataset ;
-        rdfs:label                   "Media & Jornalismo" ;
-        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_5fdab3ef> ;
+        rdfs:label                   "" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_fe8a7b7e> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-05-16T20:49:25.983Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2021-07-12T19:20:13.638Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
-        rossio:oaiBaseUrl            <https://impactum-journals.uc.pt/mj/oai> ;
+        rossio:oaiBaseUrl            <http://oai.openedition.org/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
-        rossio:oaiSet                "mj" .
+        rossio:oaiSet                "journals:etnografica" .
 
-:b5769b36-44da-4081-a568-bb664ec1428a
+:b6ccf29f-245b-432c-826f-043a7b94efb2
         a                            dcat:Dataset ;
-        rdfs:label                   "Práticas da História. Journal on Theory, Historiography and Uses of the Past" ;
-        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_83388296> ;
-        rossio:harvestPeriodicity    "MONTHLY" ;
+        rdfs:label                   "" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_9becc4f7> ;
+        rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-05-15T21:07:38.065Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2021-07-12T19:21:20.967Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
-        rossio:oaiBaseUrl            <https://revistas.rcaap.pt/index.php/pdh/oai> ;
+        rossio:oaiBaseUrl            <http://oai.openedition.org/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
-        rossio:oaiSet                "pdh" .
+        rossio:oaiSet                "journals:cultura" .
