@@ -71,7 +71,7 @@ public class OaiSourceIndexStatus{
 	public void updateStatus(String result) {
 		if (result.startsWith("SUCCESS")) {
 			status=TaskStatus.SUCCESS;
-			lastIndexTimestamp=new Date();
+			lastIndexTimestamp=oaiSource.lastHarvestTimestamp;
 		} else
 			status=TaskStatus.FAILURE;
 	}
