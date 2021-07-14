@@ -14,6 +14,7 @@ import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFParser;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.ConcurrentUpdateSolrClient;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.impl.HttpSolrClient.RemoteSolrException;
 import org.apache.solr.client.solrj.response.UpdateResponse;
@@ -34,14 +35,18 @@ import rossio.util.RdfUtil.Jena;
 public class Indexer {
 	SolrClient solr;
 	boolean runEnrichment=true;
-	int commitInterval=1000;
+	int commitInterval=20000;
 
 	public Indexer(String solrUrl) {
 //		final String solrUrl = "http://localhost:8983/solr";
-		solr= new HttpSolrClient.Builder(solrUrl)
-		    .withConnectionTimeout(10000)
-		    .withSocketTimeout(60000)
-		    .build();
+//		solr= new HttpSolrClient.Builder(solrUrl)
+//		    .withConnectionTimeout(10000)
+//		    .withSocketTimeout(60000)
+//		    .build();
+		solr= new ConcurrentUpdateSolrClient.Builder(solrUrl)
+				.withConnectionTimeout(10000)
+				.withSocketTimeout(60000)
+				.build();
 	}
 	
 
@@ -67,7 +72,7 @@ public class Indexer {
 		final SolrInputDocument doc = new SolrInputDocument();
 		doc.addField("id", itemId);
 		doc.addField("rossio_source", source);
-//		doc.addField("rossio_provider", "TODO");
+		doc.addField("rossio_provider", aggregation.getProperty(Edm.dataProvider).getObject().asResource().getURI());
 		
 		JSONObject agg = new JSONObject();
 //		writePropertiesToJson(aggregation, agg);
