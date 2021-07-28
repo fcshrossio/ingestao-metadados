@@ -78,6 +78,7 @@ public class Indexer {
 //		writePropertiesToJson(aggregation, agg);
 		agg.put("edm_dataProvider", aggregation.getProperty(Edm.dataProvider).getObject().asResource().getURI());
 		agg.put("edm_datasetName", aggregation.getProperty(Edm.datasetName).getObject().asLiteral().getString());
+		writePropertiesToJsonAndSolrDoc(aggregation, agg, doc);
 		
 		JSONObject proxyJson = null;
 		if(proxy!=null) {
@@ -97,7 +98,8 @@ public class Indexer {
 		JSONObject json = new JSONObject();
 		json.put("ore_aggregation", agg);
 		json.put("edm_providedCho", record);
-		json.put("ore_proxy", proxy);
+		if (proxy!=null)
+			json.put("ore_proxy", proxy);
 		
 		doc.addField("rossio_record", json.toJSONString());
 //System.out.println(json.toJSONString());
