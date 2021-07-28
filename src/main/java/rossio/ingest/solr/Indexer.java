@@ -76,9 +76,9 @@ public class Indexer {
 		
 		JSONObject agg = new JSONObject();
 //		writePropertiesToJson(aggregation, agg);
-		agg.put("edm_dataProvider", aggregation.getProperty(Edm.dataProvider).getObject().asResource().getURI());
-		agg.put("edm_datasetName", aggregation.getProperty(Edm.datasetName).getObject().asLiteral().getString());
-		writePropertiesToJsonAndSolrDoc(aggregation, agg, doc);
+//		agg.put("edm_dataProvider", aggregation.getProperty(Edm.dataProvider).getObject().asResource().getURI());
+//		agg.put("edm_datasetName", aggregation.getProperty(Edm.datasetName).getObject().asLiteral().getString());
+		writePropertiesToJsonAndSolrDoc(aggregation, agg, null);
 		
 		JSONObject proxyJson = null;
 		if(proxy!=null) {
