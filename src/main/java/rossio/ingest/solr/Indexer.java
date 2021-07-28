@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.NodeIterator;
+import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Seq;
 import org.apache.jena.rdf.model.Statement;
@@ -107,15 +108,15 @@ public class Indexer {
 		solr.add(doc);
 	}
 	
-	private void writePropertiesToJsonAndSolrDoc(Resource aggregation, JSONObject agg, SolrInputDocument doc) {
-		for(Statement st:aggregation.listProperties().toList()) {
+	private void writePropertiesToJsonAndSolrDoc(Resource rdfResource, JSONObject jsonObj, SolrInputDocument solrDoc) {
+		for(Statement st:rdfResource.listProperties().toList()) {
 			JSONArray propValues = new JSONArray();
 			for(String namespace: new String[] {DcTerms.NS, Edm.NS}) {
 				String prefix=namespace.equals(DcTerms.NS) ? "dcterms" : "edm";
 				if(st.getPredicate().getNameSpace().equals(namespace)) {
 					if (st.getObject().isLiteral()) {
-						if(doc!=null)
-							doc.addField(prefix+"_"+st.getPredicate().getLocalName(), st.getObject().asLiteral().getValue());
+						if(solrDoc!=null)
+							solrDoc.addField(prefix+"_"+st.getPredicate().getLocalName(), st.getObject().asLiteral().getValue());
 	
 						JSONObject value = new JSONObject();
 						value.put("value", st.getObject().asLiteral().getValue());
@@ -127,18 +128,29 @@ public class Indexer {
 						Seq seq = RdfUtil.getAsSeq(st.getObject().asResource());
 						NodeIterator iter2 = seq.iterator();
 					    while (iter2.hasNext()) {
-					    	Literal litValue = iter2.next().asLiteral();
-					    	if(doc!=null)
-					    		doc.addField(prefix+"_"+st.getPredicate().getLocalName(), litValue.getValue());
-					    	
-						    JSONObject value = new JSONObject();
-						    value.put("value", litValue.getValue());
-						    if(!StringUtils.isEmpty(litValue.getLanguage()))
-						    	value.put("lang", litValue.getLanguage());
-						    propValues.add(value);
+					    	RDFNode node = iter2.next();
+					    	if (node.isLiteral()) {
+								Literal litValue = node.asLiteral();
+						    	if(solrDoc!=null)
+						    		solrDoc.addField(prefix+"_"+st.getPredicate().getLocalName(), litValue.getValue());
+						    	
+							    JSONObject value = new JSONObject();
+							    value.put("value", litValue.getValue());
+							    if(!StringUtils.isEmpty(litValue.getLanguage()))
+							    	value.put("lang", litValue.getLanguage());
+							    propValues.add(value);
+					    	} else if(node.isResource())  {
+					    		JSONObject value = new JSONObject();
+					    		value.put("value", node.asResource().getURI());
+					    		propValues.add(value);							    
+					    	}
 					    }
+					} else if(st.getObject().isResource())  {
+						JSONObject value = new JSONObject();
+						value.put("value", st.getObject().asResource().getURI());
+						propValues.add(value);
 					}
-					agg.put(st.getPredicate().getLocalName(), propValues);
+					jsonObj.put(st.getPredicate().getLocalName(), propValues);
 					break;
 				}
 			}
