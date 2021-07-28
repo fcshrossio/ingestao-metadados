@@ -1,6 +1,7 @@
 package rossio.enrich.linkprovider;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class ChoLinksUtil {
 	
 	public static ArrayList<LinkTest> testAllLinks(Resource choRes, Property... inProperties) {
 		ArrayList<LinkTest> tests=new ArrayList<LinkTest>();
-		ArrayList<String> identifiers=new ArrayList<String>();
+		HashSet<String> identifiers=new HashSet<String>();
 		for(Property p: inProperties)
 			identifiers.addAll(listUrls(choRes, p));
 		for(String url: identifiers) 
@@ -51,10 +52,10 @@ public class ChoLinksUtil {
 	}
 	
 
-	protected static ArrayList<String> listUrls(Resource choRes, Property identifier) {
+	protected static ArrayList<String> listUrls(Resource choRes, Property prop) {
 		ArrayList<String> identifiers=new ArrayList<String>();
-		List<Statement> propsList = choRes.listProperties(DcTerms.identifier).toList();
-		propsList.addAll(choRes.listProperties(DcTerms.relation).toList());
+		List<Statement> propsList = choRes.listProperties(prop).toList();
+//		propsList.addAll(choRes.listProperties(DcTerms.relation).toList());
 		for(Statement st: propsList) {
 			if(st.getObject().isLiteral()) 
 				identifiers.add(st.getObject().asLiteral().getString());
@@ -65,7 +66,6 @@ public class ChoLinksUtil {
 					identifiers.add( RdfUtil.getUriOrLiteralValue(node));
 				}
 			}
-
 		}
 		
 		for(Iterator<String> it=identifiers.iterator(); it.hasNext() ;) {

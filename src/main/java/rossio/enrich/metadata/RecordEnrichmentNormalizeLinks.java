@@ -53,9 +53,9 @@ public class RecordEnrichmentNormalizeLinks implements RecordEnrichment {
 			}
 		}
 		
-		if (rep.thumbnail !=null) {
+		if (rep.thumbnail ==null) {
 			ArrayList<LinkTest> relations = ChoLinksUtil.testAllLinks(cho, DcTerms.relation);
-			for( LinkTest test: rep.tests ) {
+			for( LinkTest test: relations ) {
 				String mime=test.getResult().toLowerCase();
 				if(mime.startsWith("image/jpeg") || mime.startsWith("image/gif") || mime.startsWith("image/png")) {
 					rep.setThumbnailIfEmpty(test.getUrl());
