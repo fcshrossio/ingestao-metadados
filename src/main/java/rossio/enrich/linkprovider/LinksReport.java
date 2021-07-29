@@ -29,11 +29,15 @@ public class LinksReport {
 		}
 	}
 	
-	public void setThumbnailIfEmpty(String thumbnail) {
+	public void setThumbnailAndIsShownByIfEmpty(String thumbnail) {
 		if(this.thumbnail==null)
 			this.thumbnail = thumbnail;
 //		else
 		setIsShownByIfEmpty(thumbnail);
+	}
+	public void setThumbnailIfEmpty(String thumbnail) {
+		if(this.thumbnail==null)
+			this.thumbnail = thumbnail;
 	}
 
 //	public void setLinkWithErrorIfEmpty(String linkWithError) {

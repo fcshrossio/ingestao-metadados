@@ -47,7 +47,7 @@ public class RecordEnrichmentNormalizeLinks implements RecordEnrichment {
 			if(mime.startsWith("text/html")) {
 				rep.setIsShownAtIfEmpty(test.getUrl());
 			} else if(mime.startsWith("image/jpeg") || mime.startsWith("image/gif") || mime.startsWith("image/png")) {
-				rep.setThumbnailIfEmpty(test.getUrl());
+				rep.setThumbnailAndIsShownByIfEmpty(test.getUrl());
 			} else if(mime.startsWith("application/pdf")) {
 				rep.setIsShownByIfEmpty(test.getUrl());
 			}
