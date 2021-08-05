@@ -96,7 +96,14 @@ public class OaiSource{
 		dataProvider=dsRes.getProperty(dataProviderProp).getObject().asResource().getURI();
 		baseUrl=dsRes.getProperty(oaiBaseUrlProp).getObject().asResource().getURI();
 		metadataPrefix=dsRes.getProperty(oaiMetadataPrefixProp).getObject().asLiteral().getString();
-		set=dsRes.getProperty(oaiSetProp).getObject().asLiteral().getString();
+		Statement setProperty = dsRes.getProperty(oaiSetProp);
+		if(setProperty==null)
+			set=null;
+		else {
+			set=setProperty.getObject().asLiteral().getString();
+			if(StringUtils.isEmpty(set))
+				set=null;
+		}
 		resumptionToken=dsRes.getProperty(lastResumptionTokenProp).getObject().asLiteral().getString();
 		
 		Statement preprocessorSt = dsRes.getProperty(metadataPreprocessorProp);
