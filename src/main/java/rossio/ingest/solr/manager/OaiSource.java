@@ -26,6 +26,7 @@ import rossio.data.models.Dcat;
 import rossio.data.models.Rdf;
 import rossio.data.models.Rdfs;
 import rossio.data.models.Rossio;
+import rossio.ingest.preprocess.MetadataPreprocessor;
 import rossio.oaipmh.OaiWrappedException;
 import rossio.util.XmlUtil;
 import rossio.util.RdfUtil.Jena;
@@ -42,6 +43,7 @@ public class OaiSource{
 	public static final Property oaiMetadataPrefixProp=Jena.createProperty(NS_INGESTAO+"oaiMetadataPrefix");
 	public static final Property harvestingStatusProp=Jena.createProperty(NS_INGESTAO+"harvestingStatus");
 	public static final Property lastResumptionTokenProp=Jena.createProperty(NS_INGESTAO+"lastResumptionToken");
+	public static final Property metadataPreprocessorProp=Jena.createProperty(NS_INGESTAO+"metadataPreprocessor");
 
 	public static final Property lastHarvestTimestampProp=Jena.createProperty(NS_INGESTAO+"lastHarvestTimestamp");
 	public static final Property harvestPeriodicityProp=Jena.createProperty(NS_INGESTAO+"harvestPeriodicity");
@@ -57,6 +59,8 @@ public class OaiSource{
 	public TaskStatus status=null;
 	public String resumptionToken="";
 	public String name="";
+	
+	public MetadataPreprocessor preprocessor=null;
 	
 	public Date lastHarvestTimestamp;
 	public Periodicity harvestPeriodicity;
@@ -94,6 +98,17 @@ public class OaiSource{
 		metadataPrefix=dsRes.getProperty(oaiMetadataPrefixProp).getObject().asLiteral().getString();
 		set=dsRes.getProperty(oaiSetProp).getObject().asLiteral().getString();
 		resumptionToken=dsRes.getProperty(lastResumptionTokenProp).getObject().asLiteral().getString();
+		
+		Statement preprocessorSt = dsRes.getProperty(metadataPreprocessorProp);
+		if(preprocessorSt!=null) {
+			String preprocessorClassName=preprocessorSt.getObject().asLiteral().getString();
+			try {
+				preprocessor=(MetadataPreprocessor) Class.forName(preprocessorClassName).newInstance();
+			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+				throw new RuntimeException(e.getMessage(), e);
+			}
+		}
+				
 		Statement statusSt=dsRes.getProperty(harvestingStatusProp);
 		if( statusSt!=null && !(StringUtils.isEmpty(statusSt.getObject().asLiteral().getString())))
 			status=TaskStatus.valueOf(statusSt.getObject().asLiteral().getString());
@@ -149,6 +164,8 @@ public class OaiSource{
 		res.addProperty(oaiSetProp, set==null? "" : set);
 		res.addProperty(lastResumptionTokenProp, resumptionToken==null? "" : resumptionToken);
 //		res.addProperty(indexingStatusProp, statusIndexing);
+		if (preprocessor!=null)
+			res.addProperty(metadataPreprocessorProp, preprocessor.getClass().getCanonicalName()); 
 		if (status!=null)
 			res.addProperty(harvestingStatusProp, status.toString()); 
 		res.addProperty(Rdfs.label, name==null? "" : name);

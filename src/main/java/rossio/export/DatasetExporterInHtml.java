@@ -48,13 +48,13 @@ public class DatasetExporterInHtml {
 		this.repository = repository;
 	}
 	
-	public void exportDataset(File outFile, String sourceId, int sampleSize) throws IOException, SolrServerException {
+	public void exportDataset(File outFile, String sourceId, int sampleSize, boolean versionAtSource) throws IOException, SolrServerException {
 		final FileWriterWithEncoding fileWriter = new FileWriterWithEncoding(outFile, StandardCharsets.UTF_8);
 		BufferedWriter writer=new BufferedWriter(fileWriter);
 		writer.append("<html><body>");
 		
     	//iterate all records and write rdf to bitStream 
-    	repository.getItemsInSource(sourceId, new ItemHandler() {
+		ItemHandler handler=new ItemHandler() {
     		int recCount=0;
 			@Override
 			public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {
@@ -65,7 +65,11 @@ public class DatasetExporterInHtml {
 				recCount++;
 				return sampleSize<=0 || recCount<sampleSize;
 			}
-		});
+		};
+		if(versionAtSource)
+			repository.getItemsInSourceVersionAtSource(sourceId, handler);
+		else
+			repository.getItemsInSourceVersionRossio(sourceId, handler);
 		writer.append("</body></html>");
     	writer.close();
 	}

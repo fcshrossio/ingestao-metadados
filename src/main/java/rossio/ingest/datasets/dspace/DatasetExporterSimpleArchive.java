@@ -70,7 +70,7 @@ public class DatasetExporterSimpleArchive {
 			final StreamRDF writer = StreamRDFWriter.getWriterStream(outStream, Lang.TURTLE) ;
 			
 	    	//iterate all records and write rdf to bitStream 
-	    	repository.getItemsInSource(repositorySourceId, new ItemHandler() {
+	    	repository.getItemsInSourceVersionAtSource(repositorySourceId, new ItemHandler() {
 				@Override
 				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {
 					RDFParser reader = RDFParser.create().lang(Lang.RDFTHRIFT).source(new ByteArrayInputStream(content)).build();

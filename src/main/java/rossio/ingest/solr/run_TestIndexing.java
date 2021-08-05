@@ -23,7 +23,7 @@ public class run_TestIndexing {
 		Indexer indexer=new Indexer("http://dados.rossio.fcsh.unl.pt:8984/solr/testes-pesquisa/");
 		
 		String source = "CML-AML";
-		repository.getItemsInSource(source, new ItemHandler() {
+		repository.getItemsInSourceVersionAtSource(source, new ItemHandler() {
 			@Override
 			public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {
 				RDFParser reader = RDFParser.create().lang(Lang.RDFTHRIFT).source(new ByteArrayInputStream(content)).build();

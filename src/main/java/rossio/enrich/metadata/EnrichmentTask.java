@@ -34,7 +34,7 @@ public class EnrichmentTask {
 	
 	public void runOnCollection(RepositoryWithSolr repository, String sourceId) {
     	try {
-			repository.getItemsInSource(sourceId, new ItemHandler() {
+			repository.getItemsInSourceVersionAtSource(sourceId, new ItemHandler() {
 				int recCount=0;
 				@Override
 				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {

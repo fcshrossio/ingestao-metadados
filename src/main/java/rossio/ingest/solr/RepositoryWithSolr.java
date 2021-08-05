@@ -73,6 +73,18 @@ public class RepositoryWithSolr {
 		doc.addField("rossio_content", content);
 		solr.add(doc);
 	}
+
+	public void updateItem(String uuid, String source, String identifier, byte[] content, byte[] contentRossio) throws SolrServerException, IOException {
+		final SolrInputDocument doc = new SolrInputDocument();
+		doc.addField("id", uuid);
+		doc.addField("rossio_source", source);
+		doc.addField("rossio_idAtSource", identifier);	
+		doc.addField("rossio_last_update", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(new Date()));	
+		doc.addField("rossio_content", content);
+		doc.addField("rossio_contentRossio", contentRossio);
+		solr.add(doc);
+	}
+	
 	
 	public void commit() throws SolrServerException, IOException {
 		solr.commit();
@@ -99,15 +111,25 @@ public class RepositoryWithSolr {
 	    return rsp.getResults().getNumFound();
 	}
 	
-	public void getItemsInSource(String source, ItemHandler handler) throws SolrServerException, IOException {
+	public void getItemsInSourceVersionAtSource(String source, ItemHandler handler) throws SolrServerException, IOException {
+		getItemsInSource(source, handler, true);
+	}
+
+	public void getItemsInSourceVersionRossio(String source, ItemHandler handler) throws SolrServerException, IOException {
+		getItemsInSource(source, handler, false);
+	}
+	
+	private void getItemsInSource(String source, ItemHandler handler, boolean versionAtSource) throws SolrServerException, IOException {
 //		final SolrQuery solrQuery = new SolrQuery("rossio_source:"+ClientUtils.escapeQueryChars(source));
 		final SolrQuery solrQuery = new SolrQuery("*:*");
 		solrQuery.addSort("id", ORDER.asc); 
 		solrQuery.addField("id");
 		solrQuery.addField("rossio_idAtSource");
 		solrQuery.addField("rossio_last_update");
-		solrQuery.addField("rossio_content");
-		
+		if(versionAtSource)
+			solrQuery.addField("rossio_content");
+		else
+			solrQuery.addField("rossio_contentRossio");
 //		System.out.println(source);
 
 //		solrQuery.addFilterQuery("rossio_source:"+ClientUtils.escapeQueryChars(URLEncoder.encode(source, "UTF8")));
@@ -125,8 +147,13 @@ public class RepositoryWithSolr {
 		    String nextCursorMark = rsp.getNextCursorMark();
 		    for (SolrDocument document : rsp.getResults()) {
 		    	try {
-					if(!handler.handle(document.getFirstValue("id").toString(), document.getFirstValue("rossio_idAtSource").toString(), document.getFirstValue("rossio_last_update").toString(), (byte[])document.getFirstValue("rossio_content")))
-						break QUERY;
+		    		if(versionAtSource) {
+						if(!handler.handle(document.getFirstValue("id").toString(), document.getFirstValue("rossio_idAtSource").toString(), document.getFirstValue("rossio_last_update").toString(), (byte[])document.getFirstValue("rossio_content")))
+							break QUERY;
+		    		} else {
+		    			if(!handler.handle(document.getFirstValue("id").toString(), document.getFirstValue("rossio_idAtSource").toString(), document.getFirstValue("rossio_last_update").toString(), (byte[])document.getFirstValue("rossio_contentRossio")))
+		    				break QUERY;		    			
+		    		}
 				} catch (Exception e) {
 					System.err.println("Error handling record: "+document.getFirstValue("id"));
 					e.printStackTrace();
@@ -138,25 +165,6 @@ public class RepositoryWithSolr {
 		    }
 		    cursorMark = nextCursorMark;
 		}
-		
-//		
-//		
-//		
-//
-//		int start=0;
-//		int results=-1;
-//		QUERY: while (results==-1 || start<results) {
-//			final SolrQuery query = new SolrQuery("rossio_source:"+source);
-//			query.setRows(100);
-//			query.setStart(start+1);
-//			final QueryResponse response = solr.query(query);
-//			final SolrDocumentList documents = response.getResults();
-//			results=response.get
-//			for(SolrDocument document : documents) {
-//				
-//			}
-//		}
-		
 	}
 
 	public byte[] getItem(String uuid) throws SolrServerException, IOException {
@@ -164,6 +172,11 @@ public class RepositoryWithSolr {
 		return it==null? null : (byte[]) it.getFirstValue("rossio_content");		
 	}
 
+	public byte[] getItemVersionRossio(String uuid) throws SolrServerException, IOException {
+		SolrDocument it=solr.getById(uuid);
+		return it==null? null : (byte[]) it.getFirstValue("rossio_contentRossio");		
+	}
+	
 	public String getRecordUuid(String sourceId, String identifier) throws SolrServerException, IOException {
 		SolrQuery solrQuery = new SolrQuery();
         solrQuery.setQuery("rossio_idAtSource:"+ClientUtils.escapeQueryChars(identifier)+

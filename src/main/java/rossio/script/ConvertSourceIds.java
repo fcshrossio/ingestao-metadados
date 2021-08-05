@@ -42,7 +42,7 @@ public class ConvertSourceIds {
 		OaiSources oaiSources=new OaiSources(new File(filename));
 		for(OaiSource s: oaiSources.getAllSources()) {
 			System.out.println("convert "+s.getSourceIdDeprecated());
-			repositorySource.getItemsInSource(s.getSourceIdDeprecated(), new ItemHandler() {
+			repositorySource.getItemsInSourceVersionAtSource(s.getSourceIdDeprecated(), new ItemHandler() {
 				int cnt=0;
 				@Override
 				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {

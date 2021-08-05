@@ -73,7 +73,8 @@ public class ManagerOfHarvest implements Task{
 		    		log.log("Start harvesting: "+src.getSourceId());
 		    		
 		//			HarvestOaiSourceIntoSolr harvest=new HarvestOaiSourceIntoSolr(src.getSourceId(), src.dataProvider, src.baseUrl, src.set, src.metadataPrefix, repository);
-					HarvestOaiSourceIntoSolrWithHandler harvest=new HarvestOaiSourceIntoSolrWithHandler(src.getSourceId(), src.dataProvider, src.baseUrl, src.set, src.metadataPrefix, src.lastHarvestTimestamp, repository);
+//					HarvestOaiSourceIntoSolrWithHandler harvest=new HarvestOaiSourceIntoSolrWithHandler(src.getSourceId(), src.dataProvider, src.baseUrl, src.set, src.metadataPrefix, src.lastHarvestTimestamp, repository);
+					HarvestOaiSourceIntoSolrWithHandler harvest=new HarvestOaiSourceIntoSolrWithHandler(src, repository);
 					harvest.setCommitInterval(commitInterval);
 					if(!StringUtils.isEmpty(src.resumptionToken)) {
 						harvest.resumeWithToken(src.resumptionToken);

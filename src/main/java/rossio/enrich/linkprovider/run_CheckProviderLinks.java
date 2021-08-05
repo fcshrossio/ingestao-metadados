@@ -70,7 +70,7 @@ public class run_CheckProviderLinks {
 		ArrayList<LinksReport> reports=new ArrayList<LinksReport>();
 		
 		try {
-			repository.getItemsInSource(sourceId, new ItemHandler() {
+			repository.getItemsInSourceVersionAtSource(sourceId, new ItemHandler() {
 				int recCount=0;
 				@Override
 				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {

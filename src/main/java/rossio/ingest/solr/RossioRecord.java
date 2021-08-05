@@ -31,7 +31,9 @@ public class RossioRecord {
 				
 		MapOfLists<String, Element> elementsByProperty=new MapOfLists<String, Element>();
 		for (Element xmlElement: XmlUtil.elements(metadata)) {
-			elementsByProperty.put(DcTerms.NS+xmlElement.getLocalName(), xmlElement);
+			String value=XmlUtil.getText(xmlElement);	
+			if(!StringUtils.isEmpty(value))
+				elementsByProperty.put(DcTerms.NS+xmlElement.getLocalName(), xmlElement);
 		}
 		
 		for (String property: elementsByProperty.keySet()) {
@@ -59,7 +61,6 @@ public class RossioRecord {
 				}
 				String value=XmlUtil.getText(xmlElement);
 				m.add(m.createStatement(subject, m.createProperty(property), m.createLiteral(value, lang)));
-				
 			}
 		}
 		return m;

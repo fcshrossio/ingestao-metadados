@@ -1,6 +1,7 @@
 package rossio.ingest.solr;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
@@ -13,6 +14,7 @@ import org.apache.jena.rdf.model.Seq;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFParser;
+import org.apache.jena.riot.RDFWriter;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.ConcurrentUpdateSolrClient;
@@ -183,7 +185,7 @@ public class Indexer {
 		IndexingReport report=new IndexingReport();
 		try {
 			removeAllFrom(source);
-			repository.getItemsInSource(source, new ItemHandler() {
+			repository.getItemsInSourceVersionAtSource(source, new ItemHandler() {
 				@Override
 				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {
 					try {
@@ -197,11 +199,18 @@ public class Indexer {
 							enrichmentTask.runOnRecord(model.createResource(choUri));
 							//DEBUG
 //							RdfUtil.printOutRdf(model);
+							
+							RDFWriter writer = RDFWriter.create().lang(Lang.RDFTHRIFT).source(model.getGraph()).build();
+							ByteArrayOutputStream outstream=new ByteArrayOutputStream();
+							writer.output(outstream);
+							repository.updateItem(uuid, source, vocabsSparqlEndpoint, content, outstream.toByteArray());
 						}
 						addItem(source, model, choUri);
 						report.incRecord();
-						if(commitInterval>0 && 	report.getRecordCount() % commitInterval == 0) 
+						if(commitInterval>0 && 	report.getRecordCount() % commitInterval == 0) {
 							commit();
+							repository.commit();
+						}
 						return true;
 					} catch (SolrServerException e) {
 						report.addErrorOnRecord(uuid, e.getMessage());
@@ -213,6 +222,7 @@ public class Indexer {
 				}
 			});
 			commit();
+			repository.commit();
 			report.finish();
 		} catch (Exception e) {
 			report.failure(e);

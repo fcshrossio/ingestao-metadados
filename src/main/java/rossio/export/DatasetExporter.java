@@ -34,35 +34,37 @@ import rossio.ingest.datasets.dspace.DcatToDctermsConverter;
 import rossio.ingest.datasets.dspace.SimpleArchive;
 import rossio.ingest.solr.RepositoryWithSolr;
 import rossio.ingest.solr.RepositoryWithSolr.ItemHandler;
+import rossio.ingest.solr.manager.OaiSource;
+import rossio.ingest.solr.manager.OaiSources;
 import rossio.util.RdfUtil;
 import rossio.util.RdfUtil.Jena;
 
 public class DatasetExporter {
 	RepositoryWithSolr repository;
+	 OaiSources oaiSources;
 
-	public DatasetExporter(RepositoryWithSolr repository) {
+	public DatasetExporter(RepositoryWithSolr repository, OaiSources oaiSources) {
 		this.repository = repository;
+		this.oaiSources = oaiSources;
 	}
 	
 	@SuppressWarnings("serial")
 	public void exportAllDatasets(File homeFolder, int sampleSize) throws IOException, SolrServerException {
-		HashMap<String, String> dspaceCollectionToRepositorySourceId=readCollectionsIdsMap(homeFolder);
 		
-		for(Entry<String, String> collections: dspaceCollectionToRepositorySourceId.entrySet()) {
-			String repositorySourceId=collections.getValue();
-//			repositorySourceId=URLEncoder.encode(repositorySourceId, "UTF8");
-			File outFile=new File(homeFolder, URLEncoder.encode(repositorySourceId, "UTF8")+".ttl.gz");
-			exportDataset(outFile, repositorySourceId, sampleSize);
+		for(OaiSource oaiSource: oaiSources.getAllSources()) {
+			exportDataset(homeFolder, oaiSource.getSourceId(), sampleSize);
 		}
 	}
 
-	public void exportDataset(File outFile, String sourceId, int sampleSize) throws IOException, SolrServerException {
-    	FileOutputStream fos=new FileOutputStream(outFile);
+	public void exportDataset(File homeFolder, String sourceId, int sampleSize) throws IOException, SolrServerException {
+		File outFile=new File(homeFolder, URLEncoder.encode(sourceId, "UTF8")+".ttl.gz");
+
+		FileOutputStream fos=new FileOutputStream(outFile);
 		GZIPOutputStream outStream=new GZIPOutputStream(fos);
 		final StreamRDF writer = StreamRDFWriter.getWriterStream(outStream, Lang.TURTLE) ;
 		
     	//iterate all records and write rdf to bitStream 
-    	repository.getItemsInSource(sourceId, new ItemHandler() {
+    	repository.getItemsInSourceVersionRossio(sourceId, new ItemHandler() {
     		int recCount=0;
 			@Override
 			public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {
@@ -76,31 +78,6 @@ public class DatasetExporter {
 		});
     	outStream.close();
     	fos.close();
-		
-	}
-	
-	
-	private HashMap<String, String> readCollectionsIdsMap(File homeFolder) throws IOException {
-		HashMap<String, String> map=new HashMap<String, String>();
-		List<String> collections = FileUtils.readLines(new File(homeFolder, "dspaceCollectionToRepositorySourceIdMap.txt"), StandardCharsets.UTF_8);
-		for(String collectionLine: collections) {
-			if(StringUtils.isEmpty(collectionLine)) continue;
-			int idxTab=collectionLine.indexOf('\t');
-			if(idxTab<=0)
-				throw new IOException("dspaceCollectionToRepositorySourceIdMap.txt has invalid line: "+collectionLine);
-			map.put(collectionLine.substring(0, idxTab), collectionLine.substring(idxTab+1));
-		}
-		return map;
-	}
-	
-	
-	public static void main(String[] args) throws Exception {
-    	RepositoryWithSolr repository=new RepositoryWithSolr("http://192.168.111.115:8984/solr/repositorio");
-    	File outFolder=new File("src/data/test");
-    	
-    	DatasetExporter exporter=new DatasetExporter(repository);
-    	
-    	exporter.exportAllDatasets(outFolder, 100);
 	}
 	
 }

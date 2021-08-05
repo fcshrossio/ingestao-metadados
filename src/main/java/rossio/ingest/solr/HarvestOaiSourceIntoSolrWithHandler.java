@@ -15,6 +15,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.w3c.dom.Element;
 
 import rossio.ingest.solr.manager.Logger;
+import rossio.ingest.solr.manager.OaiSource;
 import rossio.oaipmh.HarvestException;
 import rossio.oaipmh.HarvestReport;
 import rossio.oaipmh.OaiPmhRecord;
@@ -25,30 +26,36 @@ import rossio.oaipmh.OaipmhHarvestWithHandler.Handler;
 public class HarvestOaiSourceIntoSolrWithHandler {
 	RepositoryWithSolr harvestTo;
 	
-	String baseUrl;
-	String set;
-	String metadataPrefix;
+//	String baseUrl;
+//	String set;
+//	String metadataPrefix;
+//	Date lastHarvestTimestamp;
+	OaiSource source;
 	String resumptionToken;
-	Date lastHarvestTimestamp;
 	
-	String sourceId;
-	String dataProviderUri;
+//	String sourceId;
+//	String dataProviderUri;
 
 	int commitInterval;
 
 	HarvestReport report;
 	
-	public HarvestOaiSourceIntoSolrWithHandler(String sourceId, String dataProviderUri, String baseUrl, String set, String metadataPrefix, Date lastHarvestTimestamp, RepositoryWithSolr harvestTo) {
-		super();
-		this.harvestTo = harvestTo;
-		this.baseUrl = baseUrl;
-		this.set = set;
-		this.metadataPrefix = metadataPrefix;
-		this.sourceId = sourceId;
-		this.dataProviderUri = dataProviderUri;
-		this.lastHarvestTimestamp = lastHarvestTimestamp;
-	}
+//	public HarvestOaiSourceIntoSolrWithHandler(String sourceId, String dataProviderUri, String baseUrl, String set, String metadataPrefix, Date lastHarvestTimestamp, RepositoryWithSolr harvestTo) {
+//		super();
+//		this.harvestTo = harvestTo;
+//		this.baseUrl = baseUrl;
+//		this.set = set;
+//		this.metadataPrefix = metadataPrefix;
+//		this.sourceId = sourceId;
+//		this.dataProviderUri = dataProviderUri;
+//		this.lastHarvestTimestamp = lastHarvestTimestamp;
+//	}
 	
+	public HarvestOaiSourceIntoSolrWithHandler(OaiSource src, RepositoryWithSolr repository) {
+		this.harvestTo = repository;
+		this.source=src;
+	}
+
 	public HarvestReport run(Logger log) throws HarvestException {
 		return run(null, log);
 	}
@@ -63,12 +70,12 @@ public class HarvestOaiSourceIntoSolrWithHandler {
 			 try {
 				 OaipmhHarvestWithHandler harvest;
 				 if(!StringUtils.isEmpty(resumptionToken))
-					 harvest=new OaipmhHarvestWithHandler(baseUrl, resumptionToken);
-				 else if(lastHarvestTimestamp==null)
-					 harvest=new OaipmhHarvestWithHandler(baseUrl, metadataPrefix, set);
+					 harvest=new OaipmhHarvestWithHandler(source.baseUrl, resumptionToken);
+				 else if(source.lastHarvestTimestamp==null)
+					 harvest=new OaipmhHarvestWithHandler(source.baseUrl, source.metadataPrefix, source.set);
 				 else {
 					 SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
-					 harvest=new OaipmhHarvestWithHandler(baseUrl, format.format(lastHarvestTimestamp), null, metadataPrefix, set);
+					 harvest=new OaipmhHarvestWithHandler(source.baseUrl, format.format(source.lastHarvestTimestamp), null, source.metadataPrefix, source.set);
 				 }
 	             
 				 harvest.run(new Handler() {
@@ -129,14 +136,19 @@ public class HarvestOaiSourceIntoSolrWithHandler {
 	private void handleRecord(OaiPmhRecord r) throws IOException, SolrServerException {
 		if(!r.isDeleted()) {
 			report.incRecord();
-			String uuid=harvestTo.getRecordUuid(sourceId, r.getIdentifier());
+			String uuid=harvestTo.getRecordUuid(source.getSourceId(), r.getIdentifier());
 			if(uuid==null)
 				uuid = UUID.randomUUID().toString();
 			else
 				report.incRecordUpdated();
-			harvestTo.addItem(uuid, sourceId, r.getIdentifier(), serializeToRossioRdfRift(uuid, r.getMetadata()));
+			Element metadata = r.getMetadata();
+			if(source.preprocessor!=null) {
+				Model mdRdf=source.preprocessor.preprocess(uuid, source.getSourceId(),source.dataProvider, metadata);				
+				harvestTo.addItem(uuid, source.getSourceId(), r.getIdentifier(), serializeToRdfRift(mdRdf));
+			} else
+				harvestTo.addItem(uuid, source.getSourceId(), r.getIdentifier(), serializeToRossioRdfRift(uuid, metadata));
 		} else {
-			String uuid=harvestTo.getRecordUuid(sourceId, r.getIdentifier());
+			String uuid=harvestTo.getRecordUuid(source.getSourceId(), r.getIdentifier());
 			if(uuid!=null) {
 				harvestTo.delete(uuid);
 				report.incDeletedRecordExisting();
@@ -146,9 +158,11 @@ public class HarvestOaiSourceIntoSolrWithHandler {
 	}
 
 	private byte[] serializeToRossioRdfRift(String uuid, Element metadata) {
-		Model m=RossioRecord.fromOaidcToRossio(uuid, sourceId, dataProviderUri, metadata);
+		Model m=RossioRecord.fromOaidcToRossio(uuid, source.getSourceId(), source.dataProvider, metadata);
 //		RdfUtil.printOutRdf(m);
-		
+		return serializeToRdfRift(m);
+	}
+	private byte[] serializeToRdfRift(Model m) {
 		RDFWriter writer = RDFWriter.create().lang(Lang.RDFTHRIFT).source(m.getGraph()).build();
 		ByteArrayOutputStream outstream=new ByteArrayOutputStream();
 		writer.output(outstream);
