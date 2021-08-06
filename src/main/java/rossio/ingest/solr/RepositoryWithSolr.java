@@ -185,6 +185,8 @@ public class RepositoryWithSolr {
         solrQuery.setStart(0);
         solrQuery.setRows(1);
 
+//        System.out.println(solrQuery.toString());
+        
         QueryResponse queryResponse = solr.query(solrQuery);
         SolrDocumentList solrDocs = queryResponse.getResults();
         Iterator<SolrDocument> iterator = solrDocs.iterator();

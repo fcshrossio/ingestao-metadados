@@ -203,7 +203,7 @@ public class Indexer {
 							RDFWriter writer = RDFWriter.create().lang(Lang.RDFTHRIFT).source(model.getGraph()).build();
 							ByteArrayOutputStream outstream=new ByteArrayOutputStream();
 							writer.output(outstream);
-							repository.updateItem(uuid, source, vocabsSparqlEndpoint, content, outstream.toByteArray());
+							repository.updateItem(uuid, source, idAtSource, content, outstream.toByteArray());
 						}
 						addItem(source, model, choUri);
 						report.incRecord();

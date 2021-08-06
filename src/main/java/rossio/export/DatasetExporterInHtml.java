@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.zip.GZIPOutputStream;
 
@@ -76,32 +77,61 @@ public class DatasetExporterInHtml {
 	
 	public static void writeItem(Appendable writer, String source, Model model, String providedChoUri) throws SolrServerException, IOException {
 		Resource cho = model.createResource(providedChoUri);
-//		Resource aggregation = model.createResource(providedChoUri+"#aggregation");
+		Resource aggregation = model.createResource(providedChoUri+"#aggregation");
+		Resource proxy = model.createResource(providedChoUri+"#proxy");
 		
-		String itemId = providedChoUri.substring(providedChoUri.lastIndexOf('/'));
+//		String itemId = providedChoUri.substring(providedChoUri.lastIndexOf('/'));
 		writer.append("<table border='1' cellspacing='0' cellpadding='0'>");
 		
+		writer.append("<tr><td valign='top'><b>Object</b></td><td></td></tr>");
 		for(Statement st:cho.listProperties().toList()) {
 			if(st.getPredicate().getNameSpace().equals(DcTerms.NS)) {
-				if (st.getObject().isLiteral()) {
-					writer.append("<tr><td valign='top'>"+st.getPredicate().getLocalName()+"</td><td>"+st.getObject().asLiteral().getValue()+"</td></tr>");
-				} else if(st.getObject().isResource() && RdfUtil.isSeq(st.getObject().asResource())) {
-					Seq seq = RdfUtil.getAsSeq(st.getObject().asResource());
-					NodeIterator iter2 = seq.iterator();
-					boolean first=true;
-				    while (iter2.hasNext()) {
-				    	Literal litValue = iter2.next().asLiteral();
-//				    	if(first) 
-//				    		first=false;
-//				    	else
-//				    		writer.append("<br />");
-				    	writer.append("<tr><td valign='top'>"+st.getPredicate().getLocalName()+"</td><td>");
-						writer.append(litValue.getValue().toString());
-						writer.append("</td></tr>");
-				    }
+				writeStatement(st, writer);
+			}
+		}
+		if(aggregation!=null) {
+			List<Statement> aggProps = aggregation.listProperties().toList();
+			if(!aggProps.isEmpty()) {
+				writer.append("<tr><td valign='top'><b>Aggregation</b></td><td></td></tr>");
+				for(Statement st:aggProps) {
+					writeStatement(st, writer);
+				}
+			}
+		}
+		if(proxy!=null) {
+			List<Statement> proxyProps = proxy.listProperties().toList();
+			if(!proxyProps.isEmpty()) {
+				writer.append("<tr><td valign='top'><b>Proxy</b></td><td></td></tr>");
+				for(Statement st:proxyProps) {
+					writeStatement(st, writer);
 				}
 			}
 		}
 		writer.append("</table><br /><br />");
+	}
+
+	private static void writeStatement(Statement st, Appendable writer) throws IOException {
+		if (st.getObject().isLiteral()) {
+			writer.append("<tr><td valign='top'>"+st.getPredicate().getLocalName()+"</td><td>"+st.getObject().asLiteral().getValue()+"</td></tr>");
+		} else if(st.getObject().isResource() && RdfUtil.isSeq(st.getObject().asResource())) {
+			Seq seq = RdfUtil.getAsSeq(st.getObject().asResource());
+			NodeIterator iter2 = seq.iterator();
+			boolean first=true;
+		    while (iter2.hasNext()) {
+		    	Literal litValue = iter2.next().asLiteral();
+//		    	if(first) 
+//		    		first=false;
+//		    	else
+//		    		writer.append("<br />");
+		    	writer.append("<tr><td valign='top'>"+st.getPredicate().getLocalName()+"</td><td>");
+				writer.append(litValue.getValue().toString());
+				writer.append("</td></tr>");
+		    }
+		} else if(st.getObject().isResource()) {
+			writer.append("<tr><td valign='top'>"+st.getPredicate().getLocalName()+"</td><td>");
+			writer.append(st.getObject().asResource().getURI());
+			writer.append("</td></tr>");			
+		}
+
 	}
 }

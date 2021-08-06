@@ -69,7 +69,14 @@ public class run_DatasetExportInHtml {
 //			"https://projetos.dhlab.fcsh.unl.pt/oai#ulmeiro50anos",	
 //			"https://projetos.dhlab.fcsh.unl.pt/oai#GTComenta",	
 //			"https://projetos.dhlab.fcsh.unl.pt/oai#ulmeiro50anos_en",	
-			"https://projetos.dhlab.fcsh.unl.pt/oai#wsdroadmap",	
+//			"https://projetos.dhlab.fcsh.unl.pt/oai#wsdroadmap",	
+			"https://vvpducalmus.fcsh.unl.pt/fontes/oai#",	
+			"https://arouca.fcsh.unl.pt/fontes/oai#",	
+			"https://arquivojosemariobranco.fcsh.unl.pt/cancoes/oai#",	
+			"https://dicionario-biografico.caravelas.fcsh.unl.pt/dicionario/oai#",	
+			"https://databasemusic-ofm.fcsh.unl.pt/nomes/oai#",	
+			"https://arquivojosemariobranco.fcsh.unl.pt/albuns/oai#",	
+			
 			
 //			"https://impactum-journals.uc.pt/mj/oai#mj",
 //			"https://www.fcsh.unl.pt/rcl/index.php/rcl/oai#rcl",
@@ -81,11 +88,12 @@ public class run_DatasetExportInHtml {
 //			"http://oai.openedition.org/#journals:etnografica",
 		}
 		) {
-//	    	RepositoryWithSolr repository=new RepositoryWithSolr("http://192.168.111.115:8983/solr/repositorio");
-	    	RepositoryWithSolr repository=new RepositoryWithSolr("http://192.168.111.170:8983/solr/repositorio");
+	    	RepositoryWithSolr repository=new RepositoryWithSolr("http://192.168.111.115:8983/solr/testes-repositorio");
+//	    	RepositoryWithSolr repository=new RepositoryWithSolr("http://192.168.111.170:8983/solr/repositorio");
 	    	DatasetExporterInHtml exporter=new DatasetExporterInHtml(repository);
 	    	File outFile=new File(exportFolder, URLEncoder.encode(sourceId,StandardCharsets.UTF_8)+".html");
 	    	exporter.exportDataset(outFile, sourceId, 100, true);
+//	    	exporter.exportDataset(outFile, sourceId, 100, false);
 		}
 	}
 

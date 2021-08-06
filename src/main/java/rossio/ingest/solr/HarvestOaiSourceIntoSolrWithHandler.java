@@ -64,6 +64,15 @@ public class HarvestOaiSourceIntoSolrWithHandler {
         int retry=0;
         report=null;
 
+        
+//        try {
+//			harvestTo.removeAllFrom(source.getSourceId());
+//		} catch (SolrServerException e2) {
+//			e2.printStackTrace();
+//		} catch (IOException e2) {
+//			e2.printStackTrace();
+//		}
+        
         while (retry>=0 && retry<=maximumRetries && (report==null || !report.isFailure())) {
              report=new HarvestReport();
 			 report.setResumptionTokenOfLastCommit(resumptionToken);

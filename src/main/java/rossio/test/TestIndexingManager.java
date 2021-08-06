@@ -8,9 +8,10 @@ public class TestIndexingManager {
 		CommandLineManagerOfIndexing.main(new String[] {
 		"-solr_url_repository", "http://datarossio.dglab.gov.pt:8983/solr/testes-repositorio",
 		"-solr_url_search", "http://datarossio.dglab.gov.pt:8983/solr/testes-pesquisa",
-		"-sources_file", "src/data/oai_sources-test-harvest-short.ttl",		
+//		"-sources_file", "src/data/oai_sources-test-harvest-short.ttl",		
+		"-sources_file", "src/data/oai_sources_debug.ttl",		
 		"-sparql_vocabs", "http://vocabs.rossio.fcsh.pt:3030/skosmos/sparql",		
-		"-indexing_status_file", "src/data/indexing_status-test-harvest-short.ttl",		
+		"-indexing_status_file", "src/data/indexing_status_debug.ttl",		
 		"-log_file", "target/indexing-manager.log.txt"
 		});
 	}
