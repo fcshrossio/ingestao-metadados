@@ -33,7 +33,9 @@ public class LinksReport {
 		if(this.thumbnail==null)
 			this.thumbnail = thumbnail;
 //		else
-		setIsShownByIfEmpty(thumbnail);
+		String thumbLc=thumbnail.toLowerCase();
+		if(!thumbLc.contains("thumb"))
+			setIsShownByIfEmpty(thumbnail);
 	}
 	public void setThumbnailIfEmpty(String thumbnail) {
 		if(this.thumbnail==null)

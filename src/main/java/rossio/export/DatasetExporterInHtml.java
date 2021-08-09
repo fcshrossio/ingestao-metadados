@@ -35,6 +35,7 @@ import com.afrozaar.wordpress.wpapi.v2.model.User;
 
 import rossio.data.models.DcTerms;
 import rossio.data.models.Edm;
+import rossio.data.models.Ore;
 import rossio.data.models.Rdf;
 import rossio.data.models.Rossio;
 import rossio.ingest.solr.RepositoryWithSolr;
@@ -94,7 +95,9 @@ public class DatasetExporterInHtml {
 			if(!aggProps.isEmpty()) {
 				writer.append("<tr><td valign='top'><b>Aggregation</b></td><td></td></tr>");
 				for(Statement st:aggProps) {
-					writeStatement(st, writer);
+					if(!st.getPredicate().getNameSpace().equals(Rdf.NS) && 
+							!st.getPredicate().equals(Edm.aggregatedCHO)) 
+						writeStatement(st, writer);
 				}
 			}
 		}
@@ -103,7 +106,9 @@ public class DatasetExporterInHtml {
 			if(!proxyProps.isEmpty()) {
 				writer.append("<tr><td valign='top'><b>Proxy</b></td><td></td></tr>");
 				for(Statement st:proxyProps) {
-					writeStatement(st, writer);
+					if(!st.getPredicate().getNameSpace().equals(Rdf.NS) &&
+							!st.getPredicate().getNameSpace().equals(Ore.NS) ) 
+						writeStatement(st, writer);
 				}
 			}
 		}

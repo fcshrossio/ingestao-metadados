@@ -24,7 +24,6 @@ import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 
-import jdk.internal.org.jline.utils.Log;
 import rossio.data.models.DcTerms;
 import rossio.data.models.Ore;
 import rossio.data.models.Rossio;
@@ -108,11 +107,11 @@ public class RecordEnrichmentNormalizeDate implements RecordEnrichment {
 		}
 	}
 	public class DatePatternDdMmYyyy extends DatePattern {
+		Pattern pattern=Pattern.compile("(\\d{1,2})[-/](\\d{1,2})[-/](\\d{4})");
 		public DatePatternDdMmYyyy(String valueToNormalize) {
 			super(valueToNormalize);
 		}
 		protected void normalize(String valueToNormalize) {
-			Pattern pattern=Pattern.compile("(\\d{1,2})[-/](\\d{1,2})[-/](\\d{4})");
 			Matcher matcher = pattern.matcher(valueToNormalize);
 			if(matcher.matches()) {
 				int year=Integer.parseInt(matcher.group(3));
@@ -139,11 +138,11 @@ public class RecordEnrichmentNormalizeDate implements RecordEnrichment {
 	}
 
 	public class DatePatternYyyyMm extends DatePattern {
+		Pattern pattern=Pattern.compile("(\\d{4})[-/](\\d{1,2})");
 		public DatePatternYyyyMm(String valueToNormalize) {
 			super(valueToNormalize);
 		}
 		protected void normalize(String valueToNormalize) {
-			Pattern pattern=Pattern.compile("(\\d{4})[-/](\\d{1,2})");
 			Matcher matcher = pattern.matcher(valueToNormalize);
 			if(matcher.matches()) {
 				int year=Integer.parseInt(matcher.group(1));
@@ -159,17 +158,18 @@ public class RecordEnrichmentNormalizeDate implements RecordEnrichment {
 		}
 	}
 	public class DatePatternYyyy extends DatePattern {
+		Pattern pattern=Pattern.compile("[^\\d]*(\\d{4})[^\\d]*");
+//		Pattern pattern=Pattern.compile("[\\[\\s]*(\\d{4})[\\s\\?\\]]*");
 		public DatePatternYyyy(String valueToNormalize) {
 			super(valueToNormalize);
 		}
 		protected void normalize(String valueToNormalize) {
-			Pattern pattern=Pattern.compile("(\\d{4})");
 			Matcher matcher = pattern.matcher(valueToNormalize);
 			if(matcher.matches()) {
 				int year=Integer.parseInt(matcher.group(1));
 				ChronoField precision=ChronoField.YEAR;
 //				normalized=formatDateForSolr(ZonedDateTime.of(year, 1, 1, 0, 0, 0, 0, ZoneId.systemDefault()), precision);
-				normalizeWithFix(year, 1, 0, precision);
+				normalizeWithFix(year, 1, 1, precision);
 			}
 		}
 	}
@@ -197,14 +197,14 @@ public class RecordEnrichmentNormalizeDate implements RecordEnrichment {
 	
 	@Override
 	public void enrich(Resource scho) {
-		List<Statement> geoProps = new ArrayList<Statement>();
+		List<Statement> dateProps = new ArrayList<Statement>();
 		for(Property prop: getPropertiesToNormalize()) {
-			geoProps.addAll(scho.listProperties(prop).toList());			
+			dateProps.addAll(scho.listProperties(prop).toList());			
 		}
 		Model model = scho.getModel();
 		Resource proxy=RdfUtil.getResourceIfExists(scho.getURI()+"#proxy", scho.getModel());
 
-		for(Statement st: geoProps) {
+		for(Statement st: dateProps) {
 			if(!st.getObject().isLiteral())
 				continue;
 			Literal lableLiteral = st.getObject().asLiteral();

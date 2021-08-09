@@ -92,8 +92,8 @@ public class run_DatasetExportInHtml {
 //	    	RepositoryWithSolr repository=new RepositoryWithSolr("http://192.168.111.170:8983/solr/repositorio");
 	    	DatasetExporterInHtml exporter=new DatasetExporterInHtml(repository);
 	    	File outFile=new File(exportFolder, URLEncoder.encode(sourceId,StandardCharsets.UTF_8)+".html");
-	    	exporter.exportDataset(outFile, sourceId, 100, true);
-//	    	exporter.exportDataset(outFile, sourceId, 100, false);
+//	    	exporter.exportDataset(outFile, sourceId, 100, true);
+	    	exporter.exportDataset(outFile, sourceId, 100, false);
 		}
 	}
 
