@@ -168,6 +168,7 @@ public abstract class OaipmhHarvestBase {
                 		recoverToken=true;
                 	}else if(e.getCause() instanceof IOException) {
                         System.out.println("IOException block");
+                        e.printStackTrace();
                         if (tries > retriesOnError) throw new HarvestException("Failed <" + getRequestURL(baseURL, nextResumptionToken), e);
                         try {
 //                            long time = 15000 * (tries * tries * tries);

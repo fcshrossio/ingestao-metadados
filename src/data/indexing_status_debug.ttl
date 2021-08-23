@@ -7,4 +7,4 @@
 :9672a23a-94f9-4d39-bf85-affc71f9751c
         a                          dcat:Dataset ;
         rossio:indexingStatus      "SUCCESS" ;
-        rossio:lastIndexTimestamp  "2021-08-06T01:04:47.916Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+        rossio:lastIndexTimestamp  "2021-08-09T02:04:21.481Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .

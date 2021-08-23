@@ -4,15 +4,13 @@
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcat:  <http://www.w3.org/ns/dcat#> .
 
-:9672a23a-94f9-4d39-bf85-affc71f9751c
+:ef7ad88a-3892-4f45-ae2f-df61453c0d22
         a                            dcat:Dataset ;
         rdfs:label                   "" ;
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_6c5278f6> ;
         rossio:harvestPeriodicity    "NONE" ;
-        rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-08-06T01:04:47.916Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
-        rossio:metadataPreprocessor  "rossio.ingest.preprocess.WordpressPreprocessor" ;
-        rossio:oaiBaseUrl            <https://arouca.fcsh.unl.pt/fontes/oai> ;
-        rossio:oaiMetadataPrefix     "oai_dc" ;
-        rossio:oaiSet                "" .
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.EfgPreprocessor" ;
+        rossio:oaiBaseUrl            <http://localhost:8765/PortalEXT/pt-PT/0/PEX/Oaipmh/OAIService> ;
+        rossio:oaiMetadataPrefix     "efg" ;
+        rossio:oaiSet                "NonAvCreation" .

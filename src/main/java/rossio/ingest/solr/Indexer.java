@@ -86,12 +86,34 @@ public class Indexer {
 		JSONObject proxyJson = null;
 		if(proxy!=null) {
 			proxyJson = new JSONObject();
-			writePropertiesToJsonAndSolrDoc(proxy, proxyJson, doc);
+			writePropertiesToJsonAndSolrDoc(proxy, proxyJson, null);
 
 			//add normalized dates to a particular solr field for date ranges
 			for(Statement st:proxy.listProperties(DcTerms.date).toList()) {
 				if (st.getObject().isLiteral()) 
 					doc.addField("dcterms_date_range", st.getObject().asLiteral().getValue());
+				else if (st.getObject().isResource()) 
+					doc.addField("dcterms_date_vocab", st.getObject().asResource().getURI());
+			}
+			for(Statement st:proxy.listProperties(DcTerms.creator).toList()) {
+				if (st.getObject().isResource()) 
+					doc.addField("dcterms_creator_vocab", st.getObject().asResource().getURI());
+			}
+			for(Statement st:proxy.listProperties(DcTerms.contributor).toList()) {
+				if (st.getObject().isResource()) 
+					doc.addField("dcterms_contributor_vocab", st.getObject().asResource().getURI());
+			}
+			for(Statement st:proxy.listProperties(DcTerms.publisher).toList()) {
+				if (st.getObject().isResource()) 
+					doc.addField("dcterms_publisher_vocab", st.getObject().asResource().getURI());
+			}
+			for(Statement st:proxy.listProperties(DcTerms.subject).toList()) {
+				if (st.getObject().isResource()) 
+					doc.addField("dcterms_subject_vocab", st.getObject().asResource().getURI());
+			}
+			for(Statement st:proxy.listProperties(DcTerms.coverage).toList()) {
+				if (st.getObject().isResource()) 
+					doc.addField("dcterms_coverage_vocab", st.getObject().asResource().getURI());
 			}
 		}
 		

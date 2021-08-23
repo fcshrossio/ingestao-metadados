@@ -50,7 +50,7 @@ public class DatasetExporterInHtml {
 		this.repository = repository;
 	}
 	
-	public void exportDataset(File outFile, String sourceId, int sampleSize, boolean versionAtSource) throws IOException, SolrServerException {
+	public void exportDataset(File outFile, String sourceId, int sampleSize, boolean versionAtSource, boolean showAggregationAndProxyb) throws IOException, SolrServerException {
 		final FileWriterWithEncoding fileWriter = new FileWriterWithEncoding(outFile, StandardCharsets.UTF_8);
 		BufferedWriter writer=new BufferedWriter(fileWriter);
 		writer.append("<html><body>");
@@ -63,7 +63,7 @@ public class DatasetExporterInHtml {
 				RDFParser reader = RDFParser.create().lang(Lang.RDFTHRIFT).source(new ByteArrayInputStream(content)).build();
 				Model model = Jena.createModel();
 				reader.parse(model);
-				writeItem(writer, sourceId, model, Rossio.NS_ITEM+uuid);
+				writeItem(writer, sourceId, model, Rossio.NS_ITEM+uuid, showAggregationAndProxyb);
 				recCount++;
 				return sampleSize<=0 || recCount<sampleSize;
 			}
@@ -76,7 +76,7 @@ public class DatasetExporterInHtml {
     	writer.close();
 	}
 	
-	public static void writeItem(Appendable writer, String source, Model model, String providedChoUri) throws SolrServerException, IOException {
+	public static void writeItem(Appendable writer, String source, Model model, String providedChoUri, boolean showAggregationAndProxy) throws SolrServerException, IOException {
 		Resource cho = model.createResource(providedChoUri);
 		Resource aggregation = model.createResource(providedChoUri+"#aggregation");
 		Resource proxy = model.createResource(providedChoUri+"#proxy");
@@ -90,25 +90,27 @@ public class DatasetExporterInHtml {
 				writeStatement(st, writer);
 			}
 		}
-		if(aggregation!=null) {
-			List<Statement> aggProps = aggregation.listProperties().toList();
-			if(!aggProps.isEmpty()) {
-				writer.append("<tr><td valign='top'><b>Aggregation</b></td><td></td></tr>");
-				for(Statement st:aggProps) {
-					if(!st.getPredicate().getNameSpace().equals(Rdf.NS) && 
-							!st.getPredicate().equals(Edm.aggregatedCHO)) 
-						writeStatement(st, writer);
+		if(showAggregationAndProxy) {
+			if(aggregation!=null) {
+				List<Statement> aggProps = aggregation.listProperties().toList();
+				if(!aggProps.isEmpty()) {
+					writer.append("<tr><td valign='top'><b>Aggregation</b></td><td></td></tr>");
+					for(Statement st:aggProps) {
+						if(!st.getPredicate().getNameSpace().equals(Rdf.NS) && 
+								!st.getPredicate().equals(Edm.aggregatedCHO)) 
+							writeStatement(st, writer);
+					}
 				}
 			}
-		}
-		if(proxy!=null) {
-			List<Statement> proxyProps = proxy.listProperties().toList();
-			if(!proxyProps.isEmpty()) {
-				writer.append("<tr><td valign='top'><b>Proxy</b></td><td></td></tr>");
-				for(Statement st:proxyProps) {
-					if(!st.getPredicate().getNameSpace().equals(Rdf.NS) &&
-							!st.getPredicate().getNameSpace().equals(Ore.NS) ) 
-						writeStatement(st, writer);
+			if(proxy!=null) {
+				List<Statement> proxyProps = proxy.listProperties().toList();
+				if(!proxyProps.isEmpty()) {
+					writer.append("<tr><td valign='top'><b>Proxy</b></td><td></td></tr>");
+					for(Statement st:proxyProps) {
+						if(!st.getPredicate().getNameSpace().equals(Rdf.NS) &&
+								!st.getPredicate().getNameSpace().equals(Ore.NS) ) 
+							writeStatement(st, writer);
+					}
 				}
 			}
 		}

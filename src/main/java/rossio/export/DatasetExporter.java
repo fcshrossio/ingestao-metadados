@@ -73,7 +73,7 @@ public class DatasetExporter {
 				reader.parse(model);
 				StreamRDFOps.graphToStream(model.getGraph(), writer) ;
 				recCount++;
-				return recCount<sampleSize;
+				return sampleSize<=0 || recCount<sampleSize;
 			}
 		});
     	outStream.close();

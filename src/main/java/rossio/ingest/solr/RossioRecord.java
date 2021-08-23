@@ -19,7 +19,7 @@ import rossio.util.RdfUtil.Jena;
 
 public class RossioRecord {
 
-	public static Model fromOaidcToRossio(String uuid, String sourceId, String dataProviderUri, Element metadata) {
+	public static Model createBaseRecord(String uuid, String sourceId, String dataProviderUri) {
 		Model m=Jena.createModel();
 		Resource subject=m.createResource(Rossio.NS_ITEM+uuid);
 		subject.addProperty(Rdf.type, Edm.ProvidedCHO);
@@ -28,6 +28,12 @@ public class RossioRecord {
 		subjectAggregation.addProperty(Edm.dataProvider, m.createResource(dataProviderUri));
 		subjectAggregation.addProperty(Edm.datasetName, sourceId);
 		subjectAggregation.addProperty(Edm.aggregatedCHO, subject);
+		return m;
+	}
+	
+	public static Model fromOaidcToRossio(String uuid, String sourceId, String dataProviderUri, Element metadata) {
+		Model m=createBaseRecord(uuid, sourceId, dataProviderUri);
+		Resource subject=m.createResource(Rossio.NS_ITEM+uuid);
 				
 		MapOfLists<String, Element> elementsByProperty=new MapOfLists<String, Element>();
 		for (Element xmlElement: XmlUtil.elements(metadata)) {

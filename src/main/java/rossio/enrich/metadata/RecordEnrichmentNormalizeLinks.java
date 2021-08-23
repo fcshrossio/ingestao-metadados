@@ -1,35 +1,17 @@
 package rossio.enrich.metadata;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.jena.query.QuerySolution;
-import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.Statement;
 
 import rossio.data.models.DcTerms;
 import rossio.data.models.Edm;
 import rossio.data.models.Ore;
-import rossio.data.models.Rossio;
 import rossio.enrich.linkprovider.ChoLinksUtil;
 import rossio.enrich.linkprovider.LinkTest;
 import rossio.enrich.linkprovider.LinksReport;
-import rossio.http.HttpRequest;
-import rossio.sparql.SparqlClient;
-import rossio.util.Handler;
-import rossio.util.HttpUtil;
-import rossio.util.MapOfMaps;
 import rossio.util.RdfUtil;
-import rossio.util.RdfUtil.Jena;
 
 public class RecordEnrichmentNormalizeLinks implements RecordEnrichment {
 	

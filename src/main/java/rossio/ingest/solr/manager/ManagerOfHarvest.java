@@ -1,39 +1,15 @@
 package rossio.ingest.solr.manager;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.Date;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.Properties;
-import java.util.logging.LogManager;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.xerial.snappy.OSInfo;
 
-import com.ctc.wstx.util.StringUtil;
-
-import rossio.ingest.solr.HarvestOaiSourceIntoSolrWithHandler;
+import rossio.ingest.solr.HarvestOaiSourceIntoSolr;
 import rossio.ingest.solr.RepositoryWithSolr;
 import rossio.ingest.solr.manager.TaskThread.Task;
-import rossio.ingest.solr.old.HarvestOaiSourceIntoSolr;
-import rossio.oaipmh.HarvestException;
 import rossio.oaipmh.HarvestReport;
-import rossio.util.AccessException;
-import rossio.util.HttpsUtil;
 
 public class ManagerOfHarvest implements Task{
 	RepositoryWithSolr repository;
@@ -74,7 +50,7 @@ public class ManagerOfHarvest implements Task{
 		    		
 		//			HarvestOaiSourceIntoSolr harvest=new HarvestOaiSourceIntoSolr(src.getSourceId(), src.dataProvider, src.baseUrl, src.set, src.metadataPrefix, repository);
 //					HarvestOaiSourceIntoSolrWithHandler harvest=new HarvestOaiSourceIntoSolrWithHandler(src.getSourceId(), src.dataProvider, src.baseUrl, src.set, src.metadataPrefix, src.lastHarvestTimestamp, repository);
-					HarvestOaiSourceIntoSolrWithHandler harvest=new HarvestOaiSourceIntoSolrWithHandler(src, repository);
+					HarvestOaiSourceIntoSolr harvest=new HarvestOaiSourceIntoSolr(src, repository);
 					harvest.setCommitInterval(commitInterval);
 					if(!StringUtils.isEmpty(src.resumptionToken)) {
 						harvest.resumeWithToken(src.resumptionToken);

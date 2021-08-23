@@ -23,7 +23,7 @@ import rossio.oaipmh.OaipmhHarvest;
 import rossio.oaipmh.OaipmhHarvestWithHandler;
 import rossio.oaipmh.OaipmhHarvestWithHandler.Handler;
 
-public class HarvestOaiSourceIntoSolrWithHandler {
+public class HarvestOaiSourceIntoSolr {
 	RepositoryWithSolr harvestTo;
 	
 //	String baseUrl;
@@ -51,7 +51,7 @@ public class HarvestOaiSourceIntoSolrWithHandler {
 //		this.lastHarvestTimestamp = lastHarvestTimestamp;
 //	}
 	
-	public HarvestOaiSourceIntoSolrWithHandler(OaiSource src, RepositoryWithSolr repository) {
+	public HarvestOaiSourceIntoSolr(OaiSource src, RepositoryWithSolr repository) {
 		this.harvestTo = repository;
 		this.source=src;
 	}

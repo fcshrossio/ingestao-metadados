@@ -90,7 +90,7 @@ public class run_CheckProviderLinks {
 
 			for(LinksReport rep: reports) {
 				out.append("<h3>Registo "+rep.item.getURI()+"</h3>\n");
-				DatasetExporterInHtml.writeItem(out, sourceId, rep.item.getModel(), rep.item.getURI());
+				DatasetExporterInHtml.writeItem(out, sourceId, rep.item.getModel(), rep.item.getURI(), true);
 				if(rep.tests.isEmpty())
 					out.append("Sem links\n");
 				else {	
