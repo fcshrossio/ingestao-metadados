@@ -57,12 +57,15 @@ public class IndexingReport {
 	}
 
 	public String toLogString() {
-		String dateStartStr=new SimpleDateFormat("yyyy-MM-dd:HH:mm").format(indexingStart);
+//		String dateStartStr=new SimpleDateFormat("yyyy-MM-dd:HH:mm").format(indexingStart);
+		String dateStartStr="";
 		if(indexingTimeMs>0) {
-			dateStartStr+=" Duration "+ DurationFormatUtils.formatDuration(indexingTimeMs, "H:mm:ss", true);
+//			dateStartStr+=" Duration "+ DurationFormatUtils.formatDuration(indexingTimeMs, "H:mm:ss", true);
+			dateStartStr+="Duration "+ DurationFormatUtils.formatDuration(indexingTimeMs, "H:mm:ss", true);
 			dateStartStr+=" Rate "+ ((double)recordCount / ((double)indexingTimeMs/1000))+" recs./sec";
 		}
-		dateStartStr+="\n";
+		dateStartStr+=" ";
+//		dateStartStr+="\n";
 		
 		String result="";
 		if(!isSuccessful())
@@ -75,13 +78,23 @@ public class IndexingReport {
 					summary+=error.getKey() +" - "+error.getValue()+"\n";
 			}
 			if (getErrorRecords().isEmpty())
-				result="SUCCESS\n"+summary;
+				result="SUCCESS: "+summary;
 			else if (! getErrorRecords().isEmpty() && getRecordCount()==0) {
-				result="FAILURE\n"+summary;
+				result="FAILURE: "+summary;
 			} else 
-				result="PARTIAL SUCCESS\n"+summary;
+				result="PARTIAL SUCCESS: "+summary;
 		}
 		return result;
+	}
+	public String toLogStringIntermediate() {
+		String dateStartStr="";
+		long indTime=new Date().getTime()- indexingStart.getTime(); 
+		if(indTime>0) {
+//			dateStartStr+=" Duration "+ DurationFormatUtils.formatDuration(indexingTimeMs, "H:mm:ss", true);
+			dateStartStr+="Duration "+ DurationFormatUtils.formatDuration(indTime, "H:mm:ss", true);
+			dateStartStr+=" Rate "+ ((double)recordCount / ((double)indTime/1000))+" recs./sec";
+		}
+		return dateStartStr;
 	}
 	
 }

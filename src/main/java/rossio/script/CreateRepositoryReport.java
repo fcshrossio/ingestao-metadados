@@ -56,9 +56,9 @@ public class CreateRepositoryReport {
 			Model providerMd = RdfUtil.readRdfFromUri(s.dataProvider);
 			Resource dpRes = providerMd.createResource(s.dataProvider);
 			String dpLabel = dpRes.getProperty(Skos.prefLabel).getObject().asLiteral().getString();
-			out.append("\""+dpLabel+"\",\""+s.name+"\","+
+			out.append("\""+s.getSourceIdDeprecated()+"\",\""+dpLabel+"\",\""+s.name+"\","+
 //					out.append("\""+s.name+"\",\""+dpLabel+"\","+
-					sourcesSizes.get(s.getSourceIdDeprecated().replaceAll(".tndm.pt", ".teatro-dmaria.pt")) ).append("\n");
+					sourcesSizes.get(s.getSourceIdDeprecated()) ).append("\n");
 		}
 		
 		FileUtils.write(new File(outFilename), out.toString(), StandardCharsets.UTF_8);

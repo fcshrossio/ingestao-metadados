@@ -229,6 +229,8 @@ public class Indexer {
 						}
 						addItem(source, model, choUri);
 						report.incRecord();
+						if(report.getRecordCount() % 5000 == 0) 
+							log.log(source+" - "+report.toLogStringIntermediate());
 						if(commitInterval>0 && 	report.getRecordCount() % commitInterval == 0) {
 							commit();
 							repository.commit();
