@@ -94,6 +94,7 @@ public class IndexingReport {
 			dateStartStr+="Duration "+ DurationFormatUtils.formatDuration(indTime, "H:mm:ss", true);
 			dateStartStr+=" Rate "+ ((double)recordCount / ((double)indTime/1000))+" recs./sec";
 		}
+		dateStartStr+= "Record count: "+getRecordCount();
 		return dateStartStr;
 	}
 	

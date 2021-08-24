@@ -3,6 +3,7 @@ package rossio.ingest.solr;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.rdf.model.Literal;
@@ -39,6 +40,9 @@ public class Indexer {
 	SolrClient solr;
 	boolean runEnrichment=true;
 	int commitInterval=20000;
+	
+	long lastLog=0;
+	long logInterval=3600000;//1 hour
 
 	public Indexer(String solrUrl) {
 //		final String solrUrl = "http://localhost:8983/solr";
@@ -229,8 +233,11 @@ public class Indexer {
 						}
 						addItem(source, model, choUri);
 						report.incRecord();
-						if(report.getRecordCount() % 5000 == 0) 
+						
+						if(new Date().getTime()-lastLog>logInterval) {
+							lastLog=new Date().getTime();
 							log.log(source+" - "+report.toLogStringIntermediate());
+						}
 						if(commitInterval>0 && 	report.getRecordCount() % commitInterval == 0) {
 							commit();
 							repository.commit();
