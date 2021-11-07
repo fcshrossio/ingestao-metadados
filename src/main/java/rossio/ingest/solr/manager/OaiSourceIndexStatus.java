@@ -65,6 +65,10 @@ public class OaiSourceIndexStatus{
 		}
 		if (status!=null)
 			res.addProperty(indexingStatusProp, status.toString()); 
+		res.addProperty(indexingStatusProp, status.toString()); 
+		res.addProperty(oaiSource.oaiBaseUrlProp, m.createResource(oaiSource.baseUrl));
+		res.addProperty(oaiSource.oaiSetProp, oaiSource.set==null? "" : oaiSource.set);
+		res.addProperty(Rdfs.label, oaiSource==null || oaiSource.name==null ? "" : oaiSource.name);
 		return res;
 	}
 	
