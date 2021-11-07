@@ -76,7 +76,8 @@ public class run_DatasetExportInHtml {
 			"https://dicionario-biografico.caravelas.fcsh.unl.pt/dicionario/oai#",	
 			"https://databasemusic-ofm.fcsh.unl.pt/nomes/oai#",	
 			"https://arquivojosemariobranco.fcsh.unl.pt/albuns/oai#",	
-			
+
+//			"https://projetos.dhlab.fcsh.unl.pt/oai#memorias-de-servidao",	
 			
 //			"https://impactum-journals.uc.pt/mj/oai#mj",
 //			"https://www.fcsh.unl.pt/rcl/index.php/rcl/oai#rcl",
@@ -93,7 +94,8 @@ public class run_DatasetExportInHtml {
 	    	DatasetExporterInHtml exporter=new DatasetExporterInHtml(repository);
 	    	File outFile=new File(exportFolder, URLEncoder.encode(sourceId,StandardCharsets.UTF_8)+".html");
 //	    	exporter.exportDataset(outFile, sourceId, 100, true);
-	    	exporter.exportDataset(outFile, sourceId, -1, false, false);
+	    	exporter.exportDataset(outFile, sourceId, -1, true, false);
+//	    	exporter.exportDataset(outFile, sourceId, -1, false, false);
 		}
 	}
 

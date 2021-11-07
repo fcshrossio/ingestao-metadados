@@ -127,8 +127,8 @@ public class Indexer {
 		JSONObject json = new JSONObject();
 		json.put("ore_aggregation", agg);
 		json.put("edm_providedCho", record);
-		if (proxy!=null)
-			json.put("ore_proxy", proxy);
+		if (proxyJson!=null)
+			json.put("ore_proxy", proxyJson);
 		
 		doc.addField("rossio_record", json.toJSONString());
 //System.out.println(json.toJSONString());
@@ -211,6 +211,7 @@ public class Indexer {
 		IndexingReport report=new IndexingReport();
 		try {
 			removeAllFrom(source);
+			lastLog=new Date().getTime();
 			repository.getItemsInSourceVersionAtSource(source, new ItemHandler() {
 				@Override
 				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {
