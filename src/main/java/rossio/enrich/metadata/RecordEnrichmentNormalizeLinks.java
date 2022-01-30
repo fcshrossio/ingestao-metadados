@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.Statement;
 
 import rossio.data.models.DcTerms;
 import rossio.data.models.Edm;
@@ -20,9 +21,8 @@ public class RecordEnrichmentNormalizeLinks implements RecordEnrichment {
 	
 	@Override
 	public void enrich(Resource cho) {
-		LinksReport rep=new LinksReport();
-		rep.item=cho;
-		rep.tests = ChoLinksUtil.testAllLinks(cho, DcTerms.identifier);
+		Resource aggregation=RdfUtil.getResourceIfExists(cho.getURI()+"#aggregation", cho.getModel());
+		LinksReport rep=new LinksReport(cho);
 	
 		for( LinkTest test: rep.tests ) {
 			String mime=test.getResult().toLowerCase();
@@ -49,12 +49,12 @@ public class RecordEnrichmentNormalizeLinks implements RecordEnrichment {
 		
 		if (rep.isShownAt !=null || rep.thumbnail !=null || rep.isShownBy !=null) {
 			Model model = cho.getModel();
-			Resource aggregation=RdfUtil.getResourceIfExists(cho.getURI()+"#aggregation", cho.getModel());
-			
-			if(aggregation==null) {
-				aggregation=model.createResource(cho.getURI()+"#aggregation", Ore.Aggregation);
-				aggregation.addProperty(Edm.aggregatedCHO, cho);
-			}
+//			Resource aggregation=RdfUtil.getResourceIfExists(cho.getURI()+"#aggregation", cho.getModel());
+//			
+//			if(aggregation==null) {
+//				aggregation=model.createResource(cho.getURI()+"#aggregation", Ore.Aggregation);
+//				aggregation.addProperty(Edm.aggregatedCHO, cho);
+//			}
 			
 			if (rep.isShownAt !=null) 
 				aggregation.addProperty(Edm.isShownAt, model.createResource(rep.isShownAt));

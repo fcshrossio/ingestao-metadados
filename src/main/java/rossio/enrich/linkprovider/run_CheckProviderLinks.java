@@ -58,7 +58,7 @@ public class run_CheckProviderLinks {
     	RepositoryWithSolr repository=new RepositoryWithSolr("http://192.168.111.170:8983/solr/repositorio");
     	run_CheckProviderLinks enrichTast=new run_CheckProviderLinks("c:/users/nfrei/desktop/ROSSIO_Exports/links");
 		
-    	OaiSources oaiSources=new OaiSources(new File("src/data/oai_sources-test1.txt"));
+    	OaiSources oaiSources=new OaiSources(new File("src/data/oai_sources_debug.ttl"));
     	for(OaiSource source:oaiSources.getAllSources()) {
     		enrichTast.runOnCollection(repository, source.getSourceId());
     	}
@@ -78,7 +78,7 @@ public class run_CheckProviderLinks {
 					Model model = Jena.createModel();
 					reader.parse(model);
 
-					reports.add(runOnRecord(model.createResource(Rossio.NS_ITEM+uuid)));
+					reports.add(new LinksReport(model.createResource(Rossio.NS_ITEM+uuid)));
 
 					recCount++;
 					return !testing || recCount<20;
@@ -145,11 +145,5 @@ public class run_CheckProviderLinks {
 		}
 	}
 
-	public static LinksReport runOnRecord(Resource choRes) {
-		LinksReport rep=new LinksReport();
-		rep.item=choRes;
-		rep.tests=ChoLinksUtil.testAllLinks(choRes, DcTerms.identifier, DcTerms.relation);
-		return rep;
-	}
 
 }

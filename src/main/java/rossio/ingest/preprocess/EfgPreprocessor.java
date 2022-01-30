@@ -111,19 +111,7 @@ public class EfgPreprocessor implements MetadataPreprocessor {
 	
 	public void preprocessAv(String uuid, String sourceId, String dataProviderUri, Element metadata, Resource cho, MapOfLists<Property,RDFNode> elementsByProperty) {
 		Model m=cho.getModel();
-		for (Element xmlElement: XmlUtil.elements(metadata)) {
-			if(xmlElement.getLocalName().equalsIgnoreCase("AVManifestation")) {
-				processAVManifestation(cho, xmlElement, elementsByProperty);
-			}else if(xmlElement.getLocalName().equalsIgnoreCase("Item")) {
-				processItem(cho, xmlElement, elementsByProperty);
-			}else if(xmlElement.getLocalName().equalsIgnoreCase("AVCreation")) {
-				processAVCreation(cho, xmlElement, elementsByProperty);
-			}else if(xmlElement.getLocalName().equalsIgnoreCase("Agent")) {
-				processAgent(cho, xmlElement, elementsByProperty);
-			}else if(xmlElement.getLocalName().equalsIgnoreCase("Credits")) {				
-				processCredits(cho, xmlElement, elementsByProperty);
-			}
-		}
+		processAVCreation(cho, metadata, elementsByProperty);
 	}
 
 
@@ -233,29 +221,77 @@ public class EfgPreprocessor implements MetadataPreprocessor {
 	}
 	
 	private void processAVCreation(Resource subject, Element xmlElement, MapOfLists<Property,RDFNode> elementsByProperty) {
-		Element titleEl = XmlUtil.getElementByTagName(xmlElement, "Title");
-		if(titleEl!=null) {
-			String v=XmlUtil.getElementTextByTagName(titleEl,"efg:TitleText");
-			if(!StringUtils.isEmpty(v)) 
-				elementsByProperty.put(DcTerms.title, subject.getModel().createLiteral(v));										
+		for (Element xmlSubElement: XmlUtil.elements(xmlElement)) {
+			System.out.println(xmlSubElement.getLocalName());
+			
+			if(xmlSubElement.getLocalName().equalsIgnoreCase("AVManifestation")) {
+				processAVManifestation(subject, xmlSubElement, elementsByProperty);
+			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("Item")) {
+				processItem(subject, xmlSubElement, elementsByProperty);
+			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("AVCreation")) {
+				processAVCreation(subject, xmlSubElement, elementsByProperty);
+			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("Agent")) {
+				processAgent(subject, xmlSubElement, elementsByProperty);
+			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("Credits")) {				
+				processCredits(subject, xmlSubElement, elementsByProperty);
+			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("relCorporate")) {
+				processRelAgent(subject, xmlSubElement, elementsByProperty);
+			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("relPerson")) {
+				processRelAgent(subject, xmlSubElement, elementsByProperty);
+			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("relAVCreation")) {
+				processRelAVCreation(subject, xmlSubElement, elementsByProperty);
+			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("identifier")) {		
+				String v=XmlUtil.getElementText(xmlSubElement);
+				if(!StringUtils.isEmpty(v)) 
+					elementsByProperty.put(DcTerms.identifier, subject.getModel().createLiteral(v));				
+			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("sourceID")) {				
+				addLiteral(DcTerms.identifier, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);
+			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("language")) {				
+				addLiteral(DcTerms.language, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);
+			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("keywords")) {				
+				String type=xmlSubElement.getAttribute("type");
+				if(!StringUtils.isEmpty(type)) {
+					if(type.equals("Genre")) {
+						addLiteral(DcTerms.language, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);
+					}else if(type.equals("Category")) {
+						addLiteral(DcTerms.language, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);
+					}else if(type.equals("Subject")) {
+						addLiteral(DcTerms.subject, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);
+					}else if(type.equals("Person")) {
+						addLiteral(DcTerms.subject, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);						
+					}
+				}
+			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("identifyingTitle")) {				
+				addLiteral(DcTerms.title, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);
+			}else if(xmlElement.getLocalName().equalsIgnoreCase("relPerson")) {
+				processRelAgent(subject, xmlElement, elementsByProperty);
+			}else if(xmlElement.getLocalName().equalsIgnoreCase("relCorporate")) {				
+				processRelAgent(subject, xmlElement, elementsByProperty);
+			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("countryOfReference")) {
+				addLiteral(DcTerms.coverage, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);
+			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("productionYear")) {				
+				addLiteral(DcTerms.date, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);				
+			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("description")) {				
+				addLiteral(DcTerms.description, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);				
+			}
 		}
-		String v=XmlUtil.getElementTextByTagName(xmlElement,"efg:Genre");
-		if(!StringUtils.isEmpty(v)) 
-			elementsByProperty.put(DcTerms.type, subject.getModel().createLiteral(v));										
-		v=XmlUtil.getElementTextByTagName(xmlElement,"efg:CountryofReference");
-		if(!StringUtils.isEmpty(v)) 
-			elementsByProperty.put(DcTerms.coverage, subject.getModel().createLiteral(v));	
-		v=XmlUtil.getElementTextByTagName(xmlElement,"efg:ProductionYear");
-		if(!StringUtils.isEmpty(v)) 
-			elementsByProperty.put(DcTerms.date, subject.getModel().createLiteral(v));	
-		v=XmlUtil.getElementTextByTagName(xmlElement,"efg:Keywords");
-		if(!StringUtils.isEmpty(v)) 
-			elementsByProperty.put(DcTerms.subject, subject.getModel().createLiteral(v));	
-		v=XmlUtil.getElementTextByTagName(xmlElement,"efg:Description");
-		if(!StringUtils.isEmpty(v)) 
-			elementsByProperty.put(DcTerms.description, subject.getModel().createLiteral(v));	
 	}
 	
+	private void processRelAVCreation(Resource subject, Element xmlElement, MapOfLists<Property,RDFNode> elementsByProperty) {
+		for (Element xmlSubElement: XmlUtil.elements(xmlElement)) {
+			if(xmlSubElement.getLocalName().equalsIgnoreCase("identifier")) {
+//				addLiteral(DcTerms.relation, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);
+			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("title")) {
+				addLiteral(DcTerms.relation, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);
+			}
+		}
+	}
+	
+	private void addLiteral(Property prop, String elementText, Resource subject, MapOfLists<Property, RDFNode> elementsByProperty) {
+		if(!StringUtils.isEmpty(elementText)) 
+			elementsByProperty.put(prop, subject.getModel().createLiteral(elementText));
+	}
+
 	private void processAgent(Resource subject, Element xmlElement, MapOfLists<Property,RDFNode> elementsByProperty) {
 		for (Element subXmlElement: XmlUtil.elements(xmlElement)) {
 			if(subXmlElement.getLocalName().equalsIgnoreCase("Person") || subXmlElement.getLocalName().equalsIgnoreCase("CorporateBody")) {
@@ -271,10 +307,10 @@ public class EfgPreprocessor implements MetadataPreprocessor {
 		}
 	}
 	private void processRelAgent(Resource subject, Element xmlElement, MapOfLists<Property,RDFNode> elementsByProperty) {
-		String v=XmlUtil.getElementTextByTagName(xmlElement,"efg:Name");
+		String v=XmlUtil.getElementTextByTagName(xmlElement,"efg:name");
 		if(!StringUtils.isEmpty(v)) {
-			String role=XmlUtil.getElementTextByTagName(xmlElement,"efg:Type");
-			if(!StringUtils.isEmpty(role) && (role.equals("Autor")))
+			String role=XmlUtil.getElementTextByTagName(xmlElement,"efg:type");
+			if(!StringUtils.isEmpty(role) && (role.equals("Autor") || role.equals("Realizador") || role.equals("Realização")))
 				elementsByProperty.put(DcTerms.creator, subject.getModel().createLiteral(v));
 			else
 				elementsByProperty.put(DcTerms.contributor, subject.getModel().createLiteral(v));

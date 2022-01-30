@@ -4,13 +4,14 @@
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcat:  <http://www.w3.org/ns/dcat#> .
 
-:ef7ad88a-3892-4f45-ae2f-df61453c0d22
+:4b6d6341-e25a-4716-97d5-6392a4e43c8d
         a                            dcat:Dataset ;
-        rdfs:label                   "" ;
-        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_6c5278f6> ;
+        rdfs:label                   "Biblioteca Nacional Digital" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_cf7ed0ab> ;
         rossio:harvestPeriodicity    "NONE" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:lastHarvestTimestamp  "2022-01-11T07:35:57.042Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
-        rossio:metadataPreprocessor  "rossio.ingest.preprocess.EfgPreprocessor" ;
-        rossio:oaiBaseUrl            <http://localhost:8765/PortalEXT/pt-PT/0/PEX/Oaipmh/OAIService> ;
-        rossio:oaiMetadataPrefix     "efg" ;
-        rossio:oaiSet                "NonAvCreation" .
+        rossio:oaiBaseUrl            <http://oai.bn.pt/servlet/OAIHandler/> ;
+        rossio:oaiMetadataPrefix     "oai_dc" ;
+        rossio:oaiSet                "bnd" .
