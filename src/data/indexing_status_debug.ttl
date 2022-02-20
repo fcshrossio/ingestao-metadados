@@ -4,7 +4,16 @@
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcat:  <http://www.w3.org/ns/dcat#> .
 
-:9672a23a-94f9-4d39-bf85-affc71f9751c
-        a                          dcat:Dataset ;
-        rossio:indexingStatus      "SUCCESS" ;
-        rossio:lastIndexTimestamp  "2021-08-09T02:04:21.481Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+:18817b47-5b2e-48ad-a00a-f9fb9f2871a3
+        a                      dcat:Dataset ;
+        rdfs:label             "Faculdade de Ciências Sociais e Humanas (FCSH)" ;
+        rossio:indexingStatus  "FAILURE" ;
+        rossio:oaiBaseUrl      <http://run.unl.pt/oaiextended/request> ;
+        rossio:oaiSet          "com_10362_1967" .
+
+:4f7f9dad-10b9-4748-a2cc-e99982a6457d
+        a                      dcat:Dataset ;
+        rdfs:label             "Arquivo Distrital de Santarém" ;
+        rossio:indexingStatus  "FAILURE" ;
+        rossio:oaiBaseUrl      <https://digitarq.adstr.arquivos.pt/oai-pmh/> ;
+        rossio:oaiSet          "ADSTR" .

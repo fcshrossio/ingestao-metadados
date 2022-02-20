@@ -4,14 +4,26 @@
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcat:  <http://www.w3.org/ns/dcat#> .
 
-:4b6d6341-e25a-4716-97d5-6392a4e43c8d
+:18817b47-5b2e-48ad-a00a-f9fb9f2871a3
         a                            dcat:Dataset ;
-        rdfs:label                   "Biblioteca Nacional Digital" ;
-        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_cf7ed0ab> ;
+        rdfs:label                   "Faculdade de Ciências Sociais e Humanas (FCSH)" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_c37b6dc5> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2022-01-11T07:35:57.042Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
-        rossio:oaiBaseUrl            <http://oai.bn.pt/servlet/OAIHandler/> ;
+        rossio:oaiBaseUrl            <http://run.unl.pt/oaiextended/request> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
-        rossio:oaiSet                "bnd" .
+        rossio:oaiSet                "com_10362_1967" .
+		
+:4f7f9dad-10b9-4748-a2cc-e99982a6457d
+        a                            dcat:Dataset ;
+        rdfs:label                   "Arquivo Distrital de Santarém" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_20311d92> ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:oaiBaseUrl            <https://digitarq.adstr.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix     "oai_dc" ;
+        rossio:oaiSet                "ADSTR" .

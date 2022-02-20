@@ -68,7 +68,7 @@ public class RecordEnrichmentNormalizeLanguage implements RecordEnrichment {
 			List<String> normalizations = normalizer.normalize(label);
 			if (normalizations!=null && !normalizations.isEmpty()) {
 				String normalized=normalizations.get(0);
-				System.out.println("Normalized: "+label+" "+normalized);
+//				System.out.println("Normalized: "+label+" "+normalized);
 				if(proxy==null) {
 					proxy=model.createResource(scho.getURI()+"#proxy", Ore.Proxy);
 					proxy.addProperty(Ore.proxyFor, scho);

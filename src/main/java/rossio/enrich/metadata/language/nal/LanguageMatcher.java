@@ -54,7 +54,11 @@ public class LanguageMatcher {
      */
     protected void index(NalLanguage l) {
         String norm = getNormalizedLanguageId(l);
-
+//        if(norm==null) {
+//        	System.out.println("norm null for "+l );
+//        	return;
+//        }
+        
 // Set<String> labelsDedup=l.getAllLabelsAndCodes();
         Set<String> labelsDedup = l.getAllLabels();
         for (String label : labelsDedup) {
@@ -102,11 +106,11 @@ public class LanguageMatcher {
         case ISO_639_1:
             return l.getIso6391();
         case ISO_639_2b:
-            return l.getIso6391();
+            return l.getIso6392b();
         case ISO_639_2t:
-            return l.getIso6391();
+            return l.getIso6392t();
         case ISO_639_3:
-            return l.getIso6391();
+            return l.getIso6393();
         case LANGUAGES_NAL:
             return l.getIso6391();
         default:
