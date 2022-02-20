@@ -22,6 +22,7 @@ import rossio.oaipmh.OaiPmhRecord;
 import rossio.oaipmh.OaipmhHarvest;
 import rossio.oaipmh.OaipmhHarvestWithHandler;
 import rossio.oaipmh.OaipmhHarvestWithHandler.Handler;
+import rossio.util.RdfUtil;
 
 public class HarvestOaiSourceIntoSolr {
 	RepositoryWithSolr harvestTo;
@@ -153,7 +154,7 @@ public class HarvestOaiSourceIntoSolr {
 			Element metadata = r.getMetadata();
 			if(source.preprocessor!=null) {
 				Model mdRdf=source.preprocessor.preprocess(uuid, source.getSourceId(),source.dataProvider, metadata);				
-				harvestTo.addItem(uuid, source.getSourceId(), r.getIdentifier(), serializeToRdfRift(mdRdf));
+				harvestTo.addItem(uuid, source.getSourceId(), r.getIdentifier(), RdfUtil.serializeToRdfRift(mdRdf));
 			} else
 				harvestTo.addItem(uuid, source.getSourceId(), r.getIdentifier(), serializeToRossioRdfRift(uuid, metadata));
 		} else {
@@ -169,13 +170,7 @@ public class HarvestOaiSourceIntoSolr {
 	private byte[] serializeToRossioRdfRift(String uuid, Element metadata) {
 		Model m=RossioRecord.fromOaidcToRossio(uuid, source.getSourceId(), source.dataProvider, metadata);
 //		RdfUtil.printOutRdf(m);
-		return serializeToRdfRift(m);
-	}
-	private byte[] serializeToRdfRift(Model m) {
-		RDFWriter writer = RDFWriter.create().lang(Lang.RDFTHRIFT).source(m.getGraph()).build();
-		ByteArrayOutputStream outstream=new ByteArrayOutputStream();
-		writer.output(outstream);
-		return outstream.toByteArray();
+		return RdfUtil.serializeToRdfRift(m);
 	}
 
 	public void setCommitInterval(int commitInterval) {

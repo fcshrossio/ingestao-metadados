@@ -19,10 +19,11 @@ public class run_CollectionEnrichment {
     	RepositoryWithSolr repository=new RepositoryWithSolr("http://datarossio.dglab.gov.pt:8983/solr/repositorio");
 		EnrichmentTask enrichTast=new EnrichmentTask();
 		enrichTast.testing=true;
-		enrichTast.addEnrichment(new RecordEnrichmentGeo("http://skosmos.dglab.gov.pt:3030/skosmos/sparql"));
-		enrichTast.addEnrichment(new RecordEnrichmentAgents("http://skosmos.dglab.gov.pt:3030/skosmos/sparql"));
-		enrichTast.addEnrichment(new RecordEnrichmentTemporal("http://skosmos.dglab.gov.pt:3030/skosmos/sparql"));
-		enrichTast.addEnrichment(new RecordEnrichmentNormalizeDate());
+//		enrichTast.addEnrichment(new RecordEnrichmentGeo("http://skosmos.dglab.gov.pt:3030/skosmos/sparql"));
+//		enrichTast.addEnrichment(new RecordEnrichmentAgents("http://skosmos.dglab.gov.pt:3030/skosmos/sparql"));
+//		enrichTast.addEnrichment(new RecordEnrichmentTemporal("http://skosmos.dglab.gov.pt:3030/skosmos/sparql"));
+//		enrichTast.addEnrichment(new RecordEnrichmentNormalizeDate());
+		enrichTast.addEnrichment(new RecordEnrichmentNormalizeLanguage());
 		enrichTast.runOnCollection(repository, 
 				"http://biblioteca.teatro-dmaria.pt/OAI/#CARTAZES");
 	}

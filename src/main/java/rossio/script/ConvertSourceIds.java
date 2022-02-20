@@ -17,6 +17,7 @@ import rossio.data.models.Dcat;
 import rossio.data.models.Rdf;
 import rossio.data.models.Rossio;
 import rossio.ingest.solr.RepositoryWithSolr;
+import rossio.ingest.solr.RepositoryWithSolr.FetchOption;
 import rossio.ingest.solr.RepositoryWithSolr.ItemHandler;
 import rossio.ingest.solr.manager.OaiSource;
 import rossio.ingest.solr.manager.OaiSources;
@@ -42,10 +43,10 @@ public class ConvertSourceIds {
 		OaiSources oaiSources=new OaiSources(new File(filename));
 		for(OaiSource s: oaiSources.getAllSources()) {
 			System.out.println("convert "+s.getSourceIdDeprecated());
-			repositorySource.getItemsInSourceVersionAtSource(s.getSourceIdDeprecated(), new ItemHandler() {
+			repositorySource.getItemsInSource(s.getSourceIdDeprecated(), FetchOption.VERSION_AT_SOURCE, new ItemHandler() {
 				int cnt=0;
 				@Override
-				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {
+				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content, byte[] contentRossio) throws Exception {
 					cnt++;
 					repositoryTarget.addItem(uuid, s.getSourceId(), idAtSource, content);
 					if(cnt%200==0) {

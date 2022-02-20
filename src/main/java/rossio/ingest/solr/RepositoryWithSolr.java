@@ -37,8 +37,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RepositoryWithSolr {
+	public enum FetchOption {
+		VERSION_AT_SOURCE,
+		VERSION_AT_ROSSIO,
+		BOTH_VERSIONS
+	}
 	public interface ItemHandler {
-		public boolean handle(String uuid, String identifierAtSource, String lastHarvestTimestamp, byte[] content) throws Exception;
+		public boolean handle(String uuid, String identifierAtSource, String lastHarvestTimestamp, byte[] contentAtSource, byte[] contentAtRossio) throws Exception;
 	}
 	
 	SolrClient solr;
@@ -111,24 +116,17 @@ public class RepositoryWithSolr {
 	    return rsp.getResults().getNumFound();
 	}
 	
-	public void getItemsInSourceVersionAtSource(String source, ItemHandler handler) throws SolrServerException, IOException {
-		getItemsInSource(source, handler, true);
-	}
-
-	public void getItemsInSourceVersionRossio(String source, ItemHandler handler) throws SolrServerException, IOException {
-		getItemsInSource(source, handler, false);
-	}
 	
-	private void getItemsInSource(String source, ItemHandler handler, boolean versionAtSource) throws SolrServerException, IOException {
+	public void getItemsInSource(String source, FetchOption fetchOption, ItemHandler handler) throws SolrServerException, IOException {
 //		final SolrQuery solrQuery = new SolrQuery("rossio_source:"+ClientUtils.escapeQueryChars(source));
 		final SolrQuery solrQuery = new SolrQuery("*:*");
 		solrQuery.addSort("id", ORDER.asc); 
 		solrQuery.addField("id");
 		solrQuery.addField("rossio_idAtSource");
 		solrQuery.addField("rossio_last_update");
-		if(versionAtSource)
+		if(fetchOption == FetchOption.VERSION_AT_SOURCE || fetchOption == FetchOption.BOTH_VERSIONS)
 			solrQuery.addField("rossio_content");
-		else
+		if(fetchOption == FetchOption.VERSION_AT_ROSSIO || fetchOption == FetchOption.BOTH_VERSIONS)
 			solrQuery.addField("rossio_contentRossio");
 //		System.out.println(source);
 
@@ -147,12 +145,31 @@ public class RepositoryWithSolr {
 		    String nextCursorMark = rsp.getNextCursorMark();
 		    for (SolrDocument document : rsp.getResults()) {
 		    	try {
-		    		if(versionAtSource) {
-						if(!handler.handle(document.getFirstValue("id").toString(), document.getFirstValue("rossio_idAtSource").toString(), document.getFirstValue("rossio_last_update").toString(), (byte[])document.getFirstValue("rossio_content")))
+		    		switch (fetchOption) {
+		    		case VERSION_AT_ROSSIO:
+						if(!handler.handle(document.getFirstValue("id").toString(), 
+								document.getFirstValue("rossio_idAtSource").toString(), 
+								document.getFirstValue("rossio_last_update").toString(), 
+								null, 
+								(byte[])document.getFirstValue("rossio_contentRossio")))
 							break QUERY;
-		    		} else {
-		    			if(!handler.handle(document.getFirstValue("id").toString(), document.getFirstValue("rossio_idAtSource").toString(), document.getFirstValue("rossio_last_update").toString(), (byte[])document.getFirstValue("rossio_contentRossio")))
-		    				break QUERY;		    			
+						break;
+		    		case VERSION_AT_SOURCE:
+		    			if(!handler.handle(document.getFirstValue("id").toString(), 
+		    					document.getFirstValue("rossio_idAtSource").toString(), 
+		    					document.getFirstValue("rossio_last_update").toString(), 
+		    					(byte[])document.getFirstValue("rossio_content"), 
+		    					null))
+		    				break QUERY;
+		    			break;
+		    		case BOTH_VERSIONS:
+		    			if(!handler.handle(document.getFirstValue("id").toString(), 
+		    					document.getFirstValue("rossio_idAtSource").toString(), 
+		    					document.getFirstValue("rossio_last_update").toString(), 
+		    					(byte[])document.getFirstValue("rossio_content"), 
+		    					(byte[])document.getFirstValue("rossio_contentRossio")))
+		    				break QUERY;
+		    			break;
 		    		}
 				} catch (Exception e) {
 					System.err.println("Error handling record: "+document.getFirstValue("id"));
@@ -160,9 +177,8 @@ public class RepositoryWithSolr {
 					System.err.println("...continuing to next record");
 				}
 		    }
-		    if (cursorMark.equals(nextCursorMark)) {
+		    if (cursorMark.equals(nextCursorMark)) 
 		        done = true;
-		    }
 		    cursorMark = nextCursorMark;
 		}
 	}

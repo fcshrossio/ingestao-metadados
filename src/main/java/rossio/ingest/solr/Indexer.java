@@ -31,6 +31,7 @@ import rossio.data.models.DcTerms;
 import rossio.data.models.Edm;
 import rossio.data.models.Rossio;
 import rossio.enrich.metadata.EnrichmentTask;
+import rossio.ingest.solr.RepositoryWithSolr.FetchOption;
 import rossio.ingest.solr.RepositoryWithSolr.ItemHandler;
 import rossio.ingest.solr.manager.Logger;
 import rossio.util.RdfUtil;
@@ -94,10 +95,11 @@ public class Indexer {
 
 			//add normalized dates to a particular solr field for date ranges
 			for(Statement st:proxy.listProperties(DcTerms.date).toList()) {
-				if (st.getObject().isLiteral()) 
-					doc.addField("dcterms_date_range", st.getObject().asLiteral().getValue());
-				else if (st.getObject().isResource()) 
-					doc.addField("dcterms_date_vocab", st.getObject().asResource().getURI());
+				doc.addField("dcterms_date_range", RdfUtil.getUriOrLiteralValue(st.getObject()));
+			}
+			//add normalized languages to a particular solr field 
+			for(Statement st:proxy.listProperties(DcTerms.language).toList()) {
+				doc.addField("dcterms_language_vocab", RdfUtil.getUriOrLiteralValue(st.getObject()));
 			}
 			for(Statement st:proxy.listProperties(DcTerms.creator).toList()) {
 				if (st.getObject().isResource()) 
@@ -212,9 +214,9 @@ public class Indexer {
 		try {
 			removeAllFrom(source);
 			lastLog=new Date().getTime();
-			repository.getItemsInSourceVersionAtSource(source, new ItemHandler() {
+			repository.getItemsInSource(source, FetchOption.VERSION_AT_SOURCE, new ItemHandler() {
 				@Override
-				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {
+				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content, byte[] contentRossio) throws Exception {
 					try {
 						RDFParser reader = RDFParser.create().lang(Lang.RDFTHRIFT).source(new ByteArrayInputStream(content)).build();
 						Model model = Jena.createModel();

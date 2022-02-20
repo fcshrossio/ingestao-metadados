@@ -39,6 +39,7 @@ import rossio.data.models.Ore;
 import rossio.data.models.Rdf;
 import rossio.data.models.Rossio;
 import rossio.ingest.solr.RepositoryWithSolr;
+import rossio.ingest.solr.RepositoryWithSolr.FetchOption;
 import rossio.ingest.solr.RepositoryWithSolr.ItemHandler;
 import rossio.util.RdfUtil;
 import rossio.util.RdfUtil.Jena;
@@ -55,11 +56,18 @@ public class DatasetExporterInHtml {
 		BufferedWriter writer=new BufferedWriter(fileWriter);
 		writer.append("<html><body>");
 		
+		final FetchOption fetchOption;
+		if(versionAtSource)
+			fetchOption=FetchOption.VERSION_AT_SOURCE;
+		else
+			fetchOption=FetchOption.VERSION_AT_ROSSIO;
+		
     	//iterate all records and write rdf to bitStream 
 		ItemHandler handler=new ItemHandler() {
     		int recCount=0;
 			@Override
-			public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {
+			public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] contentSource, byte[] contentRossio) throws Exception {
+				byte[] content= fetchOption==FetchOption.VERSION_AT_SOURCE ? contentSource : contentRossio;
 				RDFParser reader = RDFParser.create().lang(Lang.RDFTHRIFT).source(new ByteArrayInputStream(content)).build();
 				Model model = Jena.createModel();
 				reader.parse(model);
@@ -68,10 +76,7 @@ public class DatasetExporterInHtml {
 				return sampleSize<=0 || recCount<sampleSize;
 			}
 		};
-		if(versionAtSource)
-			repository.getItemsInSourceVersionAtSource(sourceId, handler);
-		else
-			repository.getItemsInSourceVersionRossio(sourceId, handler);
+			repository.getItemsInSource(sourceId, fetchOption, handler);
 		writer.append("</body></html>");
     	writer.close();
 	}

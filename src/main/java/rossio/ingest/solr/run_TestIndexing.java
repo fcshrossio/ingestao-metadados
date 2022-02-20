@@ -10,6 +10,7 @@ import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFParser;
 
 import rossio.data.models.Rossio;
+import rossio.ingest.solr.RepositoryWithSolr.FetchOption;
 import rossio.ingest.solr.RepositoryWithSolr.ItemHandler;
 import rossio.util.RdfUtil;
 import rossio.util.RdfUtil.Jena;
@@ -23,9 +24,9 @@ public class run_TestIndexing {
 		Indexer indexer=new Indexer("http://dados.rossio.fcsh.unl.pt:8984/solr/testes-pesquisa/");
 		
 		String source = "CML-AML";
-		repository.getItemsInSourceVersionAtSource(source, new ItemHandler() {
+		repository.getItemsInSource(source, FetchOption.VERSION_AT_SOURCE, new ItemHandler() {
 			@Override
-			public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {
+			public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content, byte[] contentRossio) throws Exception {
 				RDFParser reader = RDFParser.create().lang(Lang.RDFTHRIFT).source(new ByteArrayInputStream(content)).build();
 				Model model = Jena.createModel();
 				reader.parse(model);

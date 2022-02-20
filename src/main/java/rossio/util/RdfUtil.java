@@ -39,6 +39,7 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFLanguages;
+import org.apache.jena.riot.RDFWriter;
 import org.apache.jena.riot.RiotException;
 
 import rossio.data.models.Rdf;
@@ -707,4 +708,10 @@ public class RdfUtil {
 		return null;
 	}
 	
+	public static byte[] serializeToRdfRift(Model m) {
+		RDFWriter writer = RDFWriter.create().lang(Lang.RDFTHRIFT).source(m.getGraph()).build();
+		ByteArrayOutputStream outstream=new ByteArrayOutputStream();
+		writer.output(outstream);
+		return outstream.toByteArray();
+	}
 }

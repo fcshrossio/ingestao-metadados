@@ -90,6 +90,17 @@ public class MapOfLists<K,O> implements Serializable{
 			}
 		}
 		
+	    public void putIfNotExists(K key, O value) {
+	        ArrayList<O> recs = hashtable.get(key);
+	        if (recs == null) {
+	            recs = new ArrayList<O>(listInitialCapacity == -1 ? 1 : listInitialCapacity);
+	            recs.add(value);
+	            hashtable.put(key, recs);
+	        } else if (!recs.contains(value)) {
+	            recs.add(value);
+	        }
+	    }
+		
 		public void remove(K key, O value){
 			ArrayList<O> recs=hashtable.get(key);
 			if(recs!=null) {

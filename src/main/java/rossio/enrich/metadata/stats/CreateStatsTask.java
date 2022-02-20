@@ -22,6 +22,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 
 import rossio.data.models.Rossio;
 import rossio.ingest.solr.RepositoryWithSolr;
+import rossio.ingest.solr.RepositoryWithSolr.FetchOption;
 import rossio.ingest.solr.RepositoryWithSolr.ItemHandler;
 import rossio.util.MapOfInts;
 import rossio.util.RdfUtil;
@@ -72,10 +73,10 @@ public class CreateStatsTask {
 	public PropertyStats runOnCollection(RepositoryWithSolr repository, String sourceId, Property propertyToStat) {
 		final PropertyStats propStats=new PropertyStats();
     	try {
-			repository.getItemsInSourceVersionAtSource(sourceId, new ItemHandler() {
+			repository.getItemsInSource(sourceId, FetchOption.VERSION_AT_SOURCE, new ItemHandler() {
 				int recCount=0;
 				@Override
-				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {
+				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content, byte[] contentRossio) throws Exception {
 					RDFParser reader = RDFParser.create().lang(Lang.RDFTHRIFT).source(new ByteArrayInputStream(content)).build();
 					Model model = Jena.createModel();
 					reader.parse(model);
@@ -131,10 +132,10 @@ public class CreateStatsTask {
 			result.put(p, new PropertyStats());
 
 		try {
-			repository.getItemsInSourceVersionAtSource(sourceId, new ItemHandler() {
+			repository.getItemsInSource(sourceId, FetchOption.VERSION_AT_SOURCE, new ItemHandler() {
 				int recCount=0;
 				@Override
-				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {
+				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content, byte[] contentRossio) throws Exception {
 					RDFParser reader = RDFParser.create().lang(Lang.RDFTHRIFT).source(new ByteArrayInputStream(content)).build();
 					Model model = Jena.createModel();
 					reader.parse(model);

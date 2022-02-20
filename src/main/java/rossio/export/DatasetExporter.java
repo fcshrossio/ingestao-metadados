@@ -33,6 +33,7 @@ import rossio.ingest.datasets.dspace.DcMetadata;
 import rossio.ingest.datasets.dspace.DcatToDctermsConverter;
 import rossio.ingest.datasets.dspace.SimpleArchive;
 import rossio.ingest.solr.RepositoryWithSolr;
+import rossio.ingest.solr.RepositoryWithSolr.FetchOption;
 import rossio.ingest.solr.RepositoryWithSolr.ItemHandler;
 import rossio.ingest.solr.manager.OaiSource;
 import rossio.ingest.solr.manager.OaiSources;
@@ -64,10 +65,10 @@ public class DatasetExporter {
 		final StreamRDF writer = StreamRDFWriter.getWriterStream(outStream, Lang.TURTLE) ;
 		
     	//iterate all records and write rdf to bitStream 
-    	repository.getItemsInSourceVersionRossio(sourceId, new ItemHandler() {
+    	repository.getItemsInSource(sourceId, FetchOption.VERSION_AT_ROSSIO, new ItemHandler() {
     		int recCount=0;
 			@Override
-			public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {
+			public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] contentSource, byte[] content) throws Exception {
 				RDFParser reader = RDFParser.create().lang(Lang.RDFTHRIFT).source(new ByteArrayInputStream(content)).build();
 				Model model = Jena.createModel();
 				reader.parse(model);

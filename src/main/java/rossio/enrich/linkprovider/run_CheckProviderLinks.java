@@ -30,6 +30,7 @@ import rossio.data.models.Rossio;
 import rossio.export.DatasetExporterInHtml;
 import rossio.http.HttpRequest;
 import rossio.ingest.solr.RepositoryWithSolr;
+import rossio.ingest.solr.RepositoryWithSolr.FetchOption;
 import rossio.ingest.solr.RepositoryWithSolr.ItemHandler;
 import rossio.ingest.solr.manager.OaiSource;
 import rossio.ingest.solr.manager.OaiSources;
@@ -70,10 +71,10 @@ public class run_CheckProviderLinks {
 		ArrayList<LinksReport> reports=new ArrayList<LinksReport>();
 		
 		try {
-			repository.getItemsInSourceVersionAtSource(sourceId, new ItemHandler() {
+			repository.getItemsInSource(sourceId, FetchOption.VERSION_AT_SOURCE, new ItemHandler() {
 				int recCount=0;
 				@Override
-				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {
+				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content, byte[] contentRossio) throws Exception {
 					RDFParser reader = RDFParser.create().lang(Lang.RDFTHRIFT).source(new ByteArrayInputStream(content)).build();
 					Model model = Jena.createModel();
 					reader.parse(model);

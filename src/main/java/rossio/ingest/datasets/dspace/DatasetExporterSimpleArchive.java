@@ -25,6 +25,7 @@ import rossio.data.models.Dcat;
 import rossio.data.models.Rdf;
 import rossio.data.models.Rossio;
 import rossio.ingest.solr.RepositoryWithSolr;
+import rossio.ingest.solr.RepositoryWithSolr.FetchOption;
 import rossio.ingest.solr.RepositoryWithSolr.ItemHandler;
 import rossio.util.RdfUtil;
 import rossio.util.RdfUtil.Jena;
@@ -70,9 +71,9 @@ public class DatasetExporterSimpleArchive {
 			final StreamRDF writer = StreamRDFWriter.getWriterStream(outStream, Lang.TURTLE) ;
 			
 	    	//iterate all records and write rdf to bitStream 
-	    	repository.getItemsInSourceVersionAtSource(repositorySourceId, new ItemHandler() {
+	    	repository.getItemsInSource(repositorySourceId, FetchOption.VERSION_AT_SOURCE, new ItemHandler() {
 				@Override
-				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content) throws Exception {
+				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content, byte[] contentRossio) throws Exception {
 					RDFParser reader = RDFParser.create().lang(Lang.RDFTHRIFT).source(new ByteArrayInputStream(content)).build();
 					Model model = Jena.createModel();
 					reader.parse(model);
