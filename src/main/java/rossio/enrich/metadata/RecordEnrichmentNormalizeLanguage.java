@@ -68,13 +68,14 @@ public class RecordEnrichmentNormalizeLanguage implements RecordEnrichment {
 			List<String> normalizations = normalizer.normalize(label);
 			if (normalizations!=null && !normalizations.isEmpty()) {
 				String normalized=normalizations.get(0);
-//				System.out.println("Normalized: "+label+" "+normalized);
+				String normalUri="http://lexvo.org/id/iso639-3/"+normalized;
+//				System.out.println("Normalized: "+label+" "+normalUri);
 				if(proxy==null) {
 					proxy=model.createResource(scho.getURI()+"#proxy", Ore.Proxy);
 					proxy.addProperty(Ore.proxyFor, scho);
 					proxy.addProperty(Ore.proxyIn, model.createResource(scho.getURI()+"#aggregation", Ore.Aggregation));
 				}
-				proxy.addProperty(st.getPredicate(), model.createResource("http://lexvo.org/id/iso639-3/"+normalized));
+				proxy.addProperty(st.getPredicate(), model.createResource(normalUri));
 			}
 		}
 		

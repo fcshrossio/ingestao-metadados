@@ -54,10 +54,10 @@ public class LanguageMatcher {
      */
     protected void index(NalLanguage l) {
         String norm = getNormalizedLanguageId(l);
-//        if(norm==null) {
+        if(norm==null) {
 //        	System.out.println("norm null for "+l );
-//        	return;
-//        }
+        	return;
+        }
         
 // Set<String> labelsDedup=l.getAllLabelsAndCodes();
         Set<String> labelsDedup = l.getAllLabels();
