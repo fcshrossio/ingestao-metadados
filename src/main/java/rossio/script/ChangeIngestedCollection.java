@@ -31,17 +31,24 @@ import rossio.util.XmlUtil;
 public class ChangeIngestedCollection {
 
 	public static void main(String[] args) throws Exception {
-		String filename="src/data/oai_sources-test-short.ttl";
-		String solrRepoUrl="http://datarossio.dglab.gov.pt:8983/solr/testes-repositorio";
+		String filename="src/data/oai_sources_debug.ttl";
+		String solrRepoUrl="http://192.168.111.170:8983/solr/repositorio";
+		String solrRepoUrlOut="http://datarossio.dglab.gov.pt:8983/solr/testes-repositorio";
 		final boolean testing;
 		if (args!=null && args.length>=2) {
 			filename=args[0];
 			solrRepoUrl=args[1];
+			solrRepoUrlOut=args[2];
 			testing=false;
 		} else
 			testing = true;
 
     	RepositoryWithSolr repository=new RepositoryWithSolr(solrRepoUrl);
+    	RepositoryWithSolr repositoryOut;
+    	if(solrRepoUrlOut==null)
+    		repositoryOut=repository;
+    	else
+    		repositoryOut=new RepositoryWithSolr(solrRepoUrl);
     	
 		OaiSources oaiSources=new OaiSources(new File(filename));
 		for(OaiSource s: oaiSources.getAllSources()) {
@@ -57,16 +64,17 @@ public class ChangeIngestedCollection {
 
 						DglabPreprocessor.moveSubjectToDescription(model.createResource(Rossio.NS_ITEM+uuid));
 						
-						repository.updateItem(uuid, s.getSourceId(), identifierAtSource, contentAtSource, 
+						repositoryOut.updateItem(uuid, s.getSourceId(), identifierAtSource, contentAtSource, 
 								RdfUtil.serializeToRdfRift(model));
 						
 						recCnt++;
-						if(recCnt % 20000==0)
-							repository.commit();
-						return testing ? recCnt<100 : true;
+//						if(recCnt % 20000==0)
+						if(recCnt % 20==0)
+							repositoryOut.commit();
+						return testing ? recCnt<1000 : true;
 					}
 				});
-				repository.commit();
+				repositoryOut.commit();
 			}
 		}
 	}

@@ -87,12 +87,12 @@ public class RepositoryWithSolr {
 		doc.addField("rossio_last_update", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(new Date()));	
 		doc.addField("rossio_content", content);
 		doc.addField("rossio_contentRossio", contentRossio);
-		solr.add(doc);
+		UpdateResponse add = solr.add(doc);
 	}
 	
 	
 	public void commit() throws SolrServerException, IOException {
-		solr.commit();
+		UpdateResponse commit = solr.commit();
 	}
 
 	public void removeAllFrom(String source) throws SolrServerException, IOException {
@@ -145,11 +145,12 @@ public class RepositoryWithSolr {
 		    String nextCursorMark = rsp.getNextCursorMark();
 		    for (SolrDocument document : rsp.getResults()) {
 		    	try {
-		    		switch (fetchOption) {
+		    		Object lastUpdate = document.getFirstValue("rossio_last_update");
+					switch (fetchOption) {
 		    		case VERSION_AT_ROSSIO:
 						if(!handler.handle(document.getFirstValue("id").toString(), 
 								document.getFirstValue("rossio_idAtSource").toString(), 
-								document.getFirstValue("rossio_last_update").toString(), 
+								lastUpdate==null ? null : lastUpdate.toString(), 
 								null, 
 								(byte[])document.getFirstValue("rossio_contentRossio")))
 							break QUERY;
@@ -157,7 +158,7 @@ public class RepositoryWithSolr {
 		    		case VERSION_AT_SOURCE:
 		    			if(!handler.handle(document.getFirstValue("id").toString(), 
 		    					document.getFirstValue("rossio_idAtSource").toString(), 
-		    					document.getFirstValue("rossio_last_update").toString(), 
+		    					lastUpdate==null ? null : lastUpdate.toString(), 
 		    					(byte[])document.getFirstValue("rossio_content"), 
 		    					null))
 		    				break QUERY;
@@ -165,7 +166,7 @@ public class RepositoryWithSolr {
 		    		case BOTH_VERSIONS:
 		    			if(!handler.handle(document.getFirstValue("id").toString(), 
 		    					document.getFirstValue("rossio_idAtSource").toString(), 
-		    					document.getFirstValue("rossio_last_update").toString(), 
+		    					lastUpdate==null ? null : lastUpdate.toString(), 
 		    					(byte[])document.getFirstValue("rossio_content"), 
 		    					(byte[])document.getFirstValue("rossio_contentRossio")))
 		    				break QUERY;
