@@ -22,7 +22,7 @@ public class RecordEnrichmentNormalizeLinks implements RecordEnrichment {
 	@Override
 	public void enrich(Resource cho) {
 		Resource aggregation=RdfUtil.getResourceIfExists(cho.getURI()+"#aggregation", cho.getModel());
-		LinksReport rep=new LinksReport(cho);
+		LinksReport rep=LinksReport.createReportForCho(cho);
 	
 		for( LinkTest test: rep.tests ) {
 			String mime=test.getResult().toLowerCase();

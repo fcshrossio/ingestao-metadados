@@ -28,7 +28,7 @@ import rossio.util.RdfUtil;
 import rossio.util.RdfUtil.Jena;
 import rossio.util.XmlUtil;
 
-public class ChangeIngestedCollection {
+public class ChangeIngestedDatasetsDglab {
 
 	public static void main(String[] args) throws Exception {
 		String filename="src/data/oai_sources_debug.ttl";

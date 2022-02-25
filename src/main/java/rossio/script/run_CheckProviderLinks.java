@@ -1,4 +1,4 @@
-package rossio.enrich.linkprovider;
+package rossio.script;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -27,6 +27,8 @@ import org.apache.solr.client.solrj.SolrServerException;
 
 import rossio.data.models.DcTerms;
 import rossio.data.models.Rossio;
+import rossio.enrich.linkprovider.LinkTest;
+import rossio.enrich.linkprovider.LinksReport;
 import rossio.export.DatasetExporterInHtml;
 import rossio.http.HttpRequest;
 import rossio.ingest.solr.RepositoryWithSolr;
@@ -79,7 +81,7 @@ public class run_CheckProviderLinks {
 					Model model = Jena.createModel();
 					reader.parse(model);
 
-					reports.add(new LinksReport(model.createResource(Rossio.NS_ITEM+uuid)));
+					reports.add(LinksReport.createReportForCho(model.createResource(Rossio.NS_ITEM+uuid)));
 
 					recCount++;
 					return !testing || recCount<20;
@@ -102,8 +104,8 @@ public class run_CheckProviderLinks {
 							first=false;
 						else
 							out.append("<tr><td>&nbsp;</td></tr>\n");
-						out.append("<tr><td><a href=\""+t.url+"\">"+t.getUrlForPrint()+ "</a></td></tr>\n");
-						out.append("<tr><td>"+t.result+"</td></tr>\n");
+						out.append("<tr><td><a href=\""+t.getUrl()+"\">"+t.getUrlForPrint()+ "</a></td></tr>\n");
+						out.append("<tr><td>"+t.getResult()+"</td></tr>\n");
 					}
 					out.append("</table>\n<hr />");
 				}
