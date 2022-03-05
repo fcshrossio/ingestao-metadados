@@ -121,6 +121,10 @@ public class Indexer {
 				if (st.getObject().isResource()) 
 					doc.addField("dcterms_coverage_vocab", st.getObject().asResource().getURI());
 			}
+			for(Statement st:proxy.listProperties(DcTerms.type).toList()) {
+				if (st.getObject().isResource()) 
+					doc.addField("dcterms_type_vocab", st.getObject().asResource().getURI());
+			}
 		}
 		
 		JSONObject record = new JSONObject();

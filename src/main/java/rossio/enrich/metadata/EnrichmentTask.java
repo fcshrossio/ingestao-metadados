@@ -70,6 +70,7 @@ public class EnrichmentTask {
 		enrichTask.addEnrichment(new RecordEnrichmentAgents(vocabsSparqlEndpointUrl));
 		enrichTask.addEnrichment(new RecordEnrichmentTemporal(vocabsSparqlEndpointUrl));
 		enrichTask.addEnrichment(new RecordEnrichmentNormalizeDate());
+		enrichTask.addEnrichment(new RecordEnrichmentNormalizeType(vocabsSparqlEndpointUrl));
 		enrichTask.addEnrichment(new RecordEnrichmentNormalizeLanguage());
 		enrichTask.addEnrichment(new RecordEnrichmentNormalizeLinks());
 		return enrichTask;
