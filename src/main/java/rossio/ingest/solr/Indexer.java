@@ -95,7 +95,7 @@ public class Indexer {
 
 			//add normalized dates to a particular solr field for date ranges
 			for(Statement st:proxy.listProperties(DcTerms.date).toList()) {
-				doc.addField("dcterms_date_range", RdfUtil.getUriOrLiteralValue(st.getObject()));
+				doc.addField("date_range", RdfUtil.getUriOrLiteralValue(st.getObject()));
 			}
 			//add normalized languages to a particular solr field 
 			for(Statement st:proxy.listProperties(DcTerms.language).toList()) {
