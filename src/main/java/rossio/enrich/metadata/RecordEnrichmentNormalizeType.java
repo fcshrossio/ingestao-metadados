@@ -76,7 +76,6 @@ public class RecordEnrichmentNormalizeType implements RecordEnrichment {
 		Resource proxy=RdfUtil.getResourceIfExists(scho.getURI()+"#proxy", scho.getModel());
 		
 		for(Statement st: typeProps) {
-			System.out.println(st.getObject());
 			if(!st.getObject().isLiteral() && !st.getObject().isURIResource())
 				continue;
 			String typeVal=RdfUtil.getUriOrLiteralValue(st.getObject());
