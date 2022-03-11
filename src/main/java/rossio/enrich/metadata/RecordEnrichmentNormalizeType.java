@@ -76,14 +76,18 @@ public class RecordEnrichmentNormalizeType implements RecordEnrichment {
 		Resource proxy=RdfUtil.getResourceIfExists(scho.getURI()+"#proxy", scho.getModel());
 		
 		for(Statement st: typeProps) {
+			System.out.println(st.getObject());
 			if(!st.getObject().isLiteral() && !st.getObject().isURIResource())
 				continue;
-			String rossioUri=RdfUtil.getUriOrLiteralValue(st.getObject());
-			if (mappingToRossioUri.containsKey(rossioUri)) {
-//				System.out.println("Enrich "+label+" "+langLabelToUri.get(lang, label));
+			String typeVal=RdfUtil.getUriOrLiteralValue(st.getObject());
+//			System.out.println(rossioUri);
+			String rossioUri=mappingToRossioUri.get(typeVal);
+			if(rossioUri==null)
+				rossioUri=mappingToRossioUri.get("http://purl.org/info:eu-repo/#semantics/"+typeVal);
+			if ( rossioUri!=null) {
+//				System.out.println("Enrich "+typeVal+" "+rossioUri);
 				if(proxy==null) {
 					proxy=model.createResource(scho.getURI()+"#proxy", Ore.Proxy);
-
 					proxy.addProperty(Ore.proxyFor, scho);
 					proxy.addProperty(Ore.proxyIn, model.createResource(scho.getURI()+"#aggregation", Ore.Aggregation));
 				}

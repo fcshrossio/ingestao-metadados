@@ -7,13 +7,12 @@
 :18817b47-5b2e-48ad-a00a-f9fb9f2871a3
         a                      dcat:Dataset ;
         rdfs:label             "Faculdade de Ciências Sociais e Humanas (FCSH)" ;
-        rossio:indexingStatus  "FAILURE" ;
         rossio:oaiBaseUrl      <http://run.unl.pt/oaiextended/request> ;
         rossio:oaiSet          "com_10362_1967" .
 
 :4f7f9dad-10b9-4748-a2cc-e99982a6457d
         a                      dcat:Dataset ;
         rdfs:label             "Arquivo Distrital de Santarém" ;
-        rossio:indexingStatus  "FAILURE" ;
+        rossio:indexingStatus  "PAUSED" ;
         rossio:oaiBaseUrl      <https://digitarq.adstr.arquivos.pt/oai-pmh/> ;
         rossio:oaiSet          "ADSTR" .
