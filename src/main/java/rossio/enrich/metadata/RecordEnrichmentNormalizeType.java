@@ -22,6 +22,7 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 
@@ -76,27 +77,39 @@ public class RecordEnrichmentNormalizeType implements RecordEnrichment {
 		Resource proxy=RdfUtil.getResourceIfExists(scho.getURI()+"#proxy", scho.getModel());
 		
 		for(Statement st: typeProps) {
-			if(!st.getObject().isLiteral() && !st.getObject().isURIResource())
-				continue;
-			String typeVal=RdfUtil.getUriOrLiteralValue(st.getObject());
-//			System.out.println(rossioUri);
-			String rossioUri=mappingToRossioUri.get(typeVal);
-			if(rossioUri==null)
-				rossioUri=mappingToRossioUri.get("http://purl.org/info:eu-repo/#semantics/"+typeVal);
-			if ( rossioUri!=null) {
-//				System.out.println("Enrich "+typeVal+" "+rossioUri);
-				if(proxy==null) {
-					proxy=model.createResource(scho.getURI()+"#proxy", Ore.Proxy);
-					proxy.addProperty(Ore.proxyFor, scho);
-					proxy.addProperty(Ore.proxyIn, model.createResource(scho.getURI()+"#aggregation", Ore.Aggregation));
+			if(st.getObject().isLiteral() || st.getObject().isURIResource()) {
+				proxy=enrichValue(scho, proxy, st.getPredicate(), st.getObject());
+			} else if(RdfUtil.isSeq(st.getObject().asResource())) {
+				for(RDFNode node: RdfUtil.getAsSeq(st.getObject().asResource()).iterator().toList()) {
+					if (node.isLiteral())
+						proxy=enrichValue(scho, proxy, st.getPredicate(), node.asLiteral());
 				}
-				proxy.addProperty(st.getPredicate(), model.createResource(rossioUri));
 			}
 		}
-		
 //		if (proxy!=null )
 //			RdfUtil.printOutRdf(proxy.getModel());		
 	}
+
+
+	protected Resource enrichValue(Resource scho, Resource proxy, Property predicate, RDFNode value) {
+		Model model = scho.getModel();
+		String typeVal=RdfUtil.getUriOrLiteralValue(value);
+//		System.out.println(rossioUri);
+		String rossioUri=mappingToRossioUri.get(typeVal);
+		if(rossioUri==null)
+			rossioUri=mappingToRossioUri.get("http://purl.org/info:eu-repo/#semantics/"+typeVal);
+		if ( rossioUri!=null) {
+//			System.out.println("Enrich "+typeVal+" "+rossioUri);
+			if(proxy==null) {
+				proxy=model.createResource(scho.getURI()+"#proxy", Ore.Proxy);
+				proxy.addProperty(Ore.proxyFor, scho);
+				proxy.addProperty(Ore.proxyIn, model.createResource(scho.getURI()+"#aggregation", Ore.Aggregation));
+			}
+			proxy.addProperty(predicate, model.createResource(rossioUri));
+		}
+		return proxy;
+	}
+	
 	
 	public static void main(String[] args) throws Exception {
 		RecordEnrichmentNormalizeType enrich=new RecordEnrichmentNormalizeType("http://192.168.111.170:3030/skosmos/sparql");

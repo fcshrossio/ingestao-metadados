@@ -21,8 +21,11 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.RDFList;
+import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
+import org.apache.jena.util.iterator.ExtendedIterator;
 
 import rossio.data.models.DcTerms;
 import rossio.data.models.Ore;
@@ -205,13 +208,23 @@ public class RecordEnrichmentNormalizeDate implements RecordEnrichment {
 		Resource proxy=RdfUtil.getResourceIfExists(scho.getURI()+"#proxy", scho.getModel());
 
 		for(Statement st: dateProps) {
-			if(!st.getObject().isLiteral())
-				continue;
-			Literal lableLiteral = st.getObject().asLiteral();
-			String label = lableLiteral.getString().trim();
-			String normalized=null;
-			
-			for(DatePattern dtPat: new DatePattern[] {
+			if(st.getObject().isLiteral()) {
+				proxy=enrichValue(scho, proxy, st.getPredicate(), st.getObject().asLiteral());
+			} else if(RdfUtil.isSeq(st.getObject().asResource())) {
+				for(RDFNode node: RdfUtil.getAsSeq(st.getObject().asResource()).iterator().toList()) {
+					if (node.isLiteral())
+						proxy=enrichValue(scho, proxy, st.getPredicate(), node.asLiteral());
+				}
+			}
+		}
+//		if (proxy!=null )
+//			RdfUtil.printOutRdf(proxy.getModel());		
+	}
+	protected Resource enrichValue(Resource scho, Resource proxy, Property predicate, Literal lableLiteral) {
+		Model model = scho.getModel();
+		String label = lableLiteral.getString().trim();
+		String normalized=null;
+		for(DatePattern dtPat: new DatePattern[] {
 				new DatePatternDdMmYyyy(label), 
 				new DatePatternYyyyMm(label), 
 				new DatePatternYyyyMmDd(label), 
@@ -224,22 +237,21 @@ public class RecordEnrichmentNormalizeDate implements RecordEnrichment {
 				}
 				if(normalized!=null) break;
 			}
-			
-			if (normalized!=null) {
-//				System.out.println("Normalized: "+label+" "+normalized);
-				if(proxy==null) {
-					proxy=model.createResource(scho.getURI()+"#proxy", Ore.Proxy);
-					proxy.addProperty(Ore.proxyFor, scho);
-					proxy.addProperty(Ore.proxyIn, model.createResource(scho.getURI()+"#aggregation", Ore.Aggregation));
-				}
-				proxy.addProperty(st.getPredicate(), model.createLiteral(normalized));
-			}
-		}
-		
-//		if (proxy!=null )
-//			RdfUtil.printOutRdf(proxy.getModel());		
-	}
 
+		if (normalized!=null) {
+//			System.out.println("Normalized: "+label+" "+normalized);
+			if(proxy==null) {
+				proxy=model.createResource(scho.getURI()+"#proxy", Ore.Proxy);
+				proxy.addProperty(Ore.proxyFor, scho);
+				proxy.addProperty(Ore.proxyIn, model.createResource(scho.getURI()+"#aggregation", Ore.Aggregation));
+			}
+			proxy.addProperty(predicate, model.createLiteral(normalized));
+		}
+		return proxy;
+	}
+	
+	
+	
 	private static String formatDateForSolr(TemporalAccessor time, ChronoField precision) {
 		String formated = DateTimeFormatter.ISO_INSTANT.format(time);
 		switch (precision) {

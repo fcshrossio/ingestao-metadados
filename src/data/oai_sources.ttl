@@ -4,6 +4,14 @@
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcat:  <http://www.w3.org/ns/dcat#> .
 
+
+
+
+
+
+
+
+
 :294919ae-db08-4644-970a-fc18a0aad99d
         a                           dcat:Dataset ;
         rdfs:label                  "" ;

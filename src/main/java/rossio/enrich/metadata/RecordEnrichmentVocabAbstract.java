@@ -9,8 +9,11 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.RDFList;
+import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
+import org.apache.jena.util.iterator.ExtendedIterator;
 
 import rossio.data.models.DcTerms;
 import rossio.data.models.Ore;
@@ -64,39 +67,44 @@ public abstract class RecordEnrichmentVocabAbstract implements RecordEnrichment 
 		for(Property prop: getPropertiesToEnrich()) {
 			geoProps.addAll(scho.listProperties(prop).toList());			
 		}
-		Model model = scho.getModel();
 		Resource proxy=RdfUtil.getResourceIfExists(scho.getURI()+"#proxy", scho.getModel());
-		
+
 		for(Statement st: geoProps) {
-			if(!st.getObject().isLiteral())
-				continue;
-			Literal lableLiteral = st.getObject().asLiteral();
-			String label = labelToMatchingForm(lableLiteral.getString());
-			String lang = lableLiteral.getLanguage();
-			if(StringUtils.isEmpty(lang))
-				lang="pt";
-			//for now we just work with pt
-			if(!lang.equals("pt"))
-				continue;
-			
-			if (langLabelToUri.containsKey(lang, label)) {
-//				System.out.println("Enrich "+label+" "+langLabelToUri.get(lang, label));
-				if(proxy==null) {
-					proxy=model.createResource(scho.getURI()+"#proxy", Ore.Proxy);
-
-					proxy.addProperty(Ore.proxyFor, scho);
-					proxy.addProperty(Ore.proxyIn, model.createResource(scho.getURI()+"#aggregation", Ore.Aggregation));
+			if(st.getObject().isLiteral()) {
+				proxy=enrichValue(scho, proxy, st.getPredicate(), st.getObject().asLiteral());
+			} else if(RdfUtil.isSeq(st.getObject().asResource())) {
+				for(RDFNode node: RdfUtil.getAsSeq(st.getObject().asResource()).iterator().toList()) {
+					if (node.isLiteral())
+						proxy=enrichValue(scho, proxy, st.getPredicate(), node.asLiteral());
 				}
-				
-				proxy.addProperty(st.getPredicate(), model.createResource(langLabelToUri.get(lang, label)));
 			}
-
 		}
-		
 //		if (proxy!=null )
 //			RdfUtil.printOutRdf(proxy.getModel());		
 	}
 	
+	protected Resource enrichValue(Resource scho, Resource proxy, Property predicate, Literal lableLiteral) {
+		Model model = scho.getModel();
+		String label = labelToMatchingForm(lableLiteral.getString());
+		String lang = lableLiteral.getLanguage();
+		if(StringUtils.isEmpty(lang))
+			lang="pt";
+		//for now we just work with pt
+		if(lang.equals("pt")) {
+			if (langLabelToUri.containsKey(lang, label)) {
+	//			System.out.println("Enrich "+label+" "+langLabelToUri.get(lang, label));
+				if(proxy==null) {
+					proxy=model.createResource(scho.getURI()+"#proxy", Ore.Proxy);
+	
+					proxy.addProperty(Ore.proxyFor, scho);
+					proxy.addProperty(Ore.proxyIn, model.createResource(scho.getURI()+"#aggregation", Ore.Aggregation));
+				}
+				
+				proxy.addProperty(predicate, model.createResource(langLabelToUri.get(lang, label)));
+			}
+		}
+		return proxy;
+	}
 	
 	private String labelToMatchingForm(String label) {
 		return label.toLowerCase();

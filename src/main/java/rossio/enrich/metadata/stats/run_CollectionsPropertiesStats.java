@@ -44,9 +44,9 @@ public class run_CollectionsPropertiesStats {
 
     		for (Property p: stats.keySet()) {
 //    			String filename=URLEncoder.encode(source.getSourceId(), StandardCharsets.UTF_8);
-    			String filename=URLEncoder.encode(source.name, StandardCharsets.UTF_8);
+    			String filename=URLEncoder.encode(source.name, StandardCharsets.UTF_8.toString());
     			if(StringUtils.isEmpty(filename))
-    				filename=URLEncoder.encode(source.getSourceId(), StandardCharsets.UTF_8);
+    				filename=URLEncoder.encode(source.getSourceId(), StandardCharsets.UTF_8.toString());
     			
     			FileWriterWithEncoding writer=new FileWriterWithEncoding(new File("C:\\Users\\nfrei\\Desktop\\ROSSIO_exports\\"+p.getLocalName()+"\\"+filename+".html"), StandardCharsets.UTF_8);
     			stats.get(p).toStringHtml(writer, ""+(StringUtils.isEmpty(source.name) ? source.getSourceId() : source.name) +"<br />Propriedade:"+p.getURI());
