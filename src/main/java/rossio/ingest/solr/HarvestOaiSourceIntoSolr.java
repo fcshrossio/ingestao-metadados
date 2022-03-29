@@ -99,23 +99,20 @@ public class HarvestOaiSourceIntoSolr {
 						report.addWarn("Lost results in token \""+lostResumptionToken+"\"");
 					}
 					
+					int recordCount=0;
 					@Override
 					public boolean handle(OaiPmhRecord record) {
 						try {
-							int beforeCount = report.getRecordCount();
+							recordCount++;
 							handleRecord(record);
-							if(maxRecords != null && maxRecords > 0 && beforeCount>=maxRecords)
+							if(maxRecords != null && maxRecords > 0 && report.getRecordCount()>=maxRecords)
 								return false;
-							
-							
-
-							if(report.getRecordCount()>990 && report.getRecordCount()<1100) {
-								log.log("DEBUG: "+(commitInterval>0 && beforeCount!=report.getRecordCount() && 
-										report.getRecordCount() % commitInterval == 0));
-							}
-							if(commitInterval>0 && beforeCount!=report.getRecordCount() && 
-									report.getRecordCount() % commitInterval == 0) {
-								log.log("DEBUG_ commiting"); 
+//							if(report.getRecordCount()>990 && report.getRecordCount()<1100) {
+//								log.log("DEBUG: "+(commitInterval>0 && beforeCount!=report.getRecordCount() && 
+//										report.getRecordCount() % commitInterval == 0));
+//							}
+							if(commitInterval>0 && recordCount % commitInterval == 0) {
+//								log.log("DEBUG_ commiting"); 
 								harvestTo.commit();
 								report.setResumptionTokenOfLastCommit(harvest.getLastResumptionToken());
 						    	src.resumptionToken=harvest.getLastResumptionToken();
