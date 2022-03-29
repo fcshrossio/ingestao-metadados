@@ -106,8 +106,16 @@ public class HarvestOaiSourceIntoSolr {
 							handleRecord(record);
 							if(maxRecords != null && maxRecords > 0 && beforeCount>=maxRecords)
 								return false;
+							
+							
+
+							if(report.getRecordCount()>990 && report.getRecordCount()<1100) {
+								log.log("DEBUG: "+(commitInterval>0 && beforeCount!=report.getRecordCount() && 
+										report.getRecordCount() % commitInterval == 0));
+							}
 							if(commitInterval>0 && beforeCount!=report.getRecordCount() && 
 									report.getRecordCount() % commitInterval == 0) {
+								log.log("DEBUG_ commiting"); 
 								harvestTo.commit();
 								report.setResumptionTokenOfLastCommit(harvest.getLastResumptionToken());
 						    	src.resumptionToken=harvest.getLastResumptionToken();
