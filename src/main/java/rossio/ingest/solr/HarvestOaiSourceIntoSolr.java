@@ -16,6 +16,7 @@ import org.w3c.dom.Element;
 
 import rossio.ingest.solr.manager.Logger;
 import rossio.ingest.solr.manager.OaiSource;
+import rossio.ingest.solr.manager.OaiSources;
 import rossio.oaipmh.HarvestException;
 import rossio.oaipmh.HarvestReport;
 import rossio.oaipmh.OaiPmhRecord;
@@ -57,10 +58,10 @@ public class HarvestOaiSourceIntoSolr {
 		this.source=src;
 	}
 
-	public HarvestReport run(Logger log) throws HarvestException {
-		return run(null, log);
+	public HarvestReport run(Logger log, OaiSources sources, OaiSource src) throws HarvestException {
+		return run(null, log, sources, src);
 	}
-	public HarvestReport run(Integer maxRecords, Logger log) {
+	public HarvestReport run(Integer maxRecords, Logger log, OaiSources sources, OaiSource src) {
 		int maximumRetries=3;
         int retry=0;
         report=null;
@@ -109,6 +110,8 @@ public class HarvestOaiSourceIntoSolr {
 									report.getRecordCount() % commitInterval == 0) {
 								harvestTo.commit();
 								report.setResumptionTokenOfLastCommit(harvest.getLastResumptionToken());
+						    	src.resumptionToken=harvest.getLastResumptionToken();
+						    	sources.save();
 								resumptionToken=harvest.getLastResumptionToken();
 							}
 						} catch (Exception e) {

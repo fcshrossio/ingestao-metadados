@@ -44,7 +44,7 @@ public class run_DatasetExportInHtml {
 	
 	
 	public static void main(String[] args) throws Exception {
-		File exportFolder=new File("c:/users/nfrei/desktop/ROSSIO_Exports/html");
+		File exportFolder=new File("c:/users/nfrei/desktop/ROSSIO_Exports");
 			
 //http://vocabs.rossio.fcsh.unl.pt/agentes/c_f99bcabf|https://medievalista.iem.fcsh.unl.pt/index.php/medievalista/oai|medievalista|oai_dc|SUCCESS|SUCCESS|
 //http://vocabs.rossio.fcsh.unl.pt/agentes/c_5fdab3ef|https://www.fcsh.unl.pt/rcl/index.php/rcl/oai|rcl|oai_dc|SUCCESS|SUCCESS|
@@ -69,13 +69,13 @@ public class run_DatasetExportInHtml {
 //			"https://projetos.dhlab.fcsh.unl.pt/oai#ulmeiro50anos",	
 //			"https://projetos.dhlab.fcsh.unl.pt/oai#GTComenta",	
 //			"https://projetos.dhlab.fcsh.unl.pt/oai#ulmeiro50anos_en",	
-//			"https://projetos.dhlab.fcsh.unl.pt/oai#wsdroadmap",	
-			"https://vvpducalmus.fcsh.unl.pt/fontes/oai#",	
-			"https://arouca.fcsh.unl.pt/fontes/oai#",	
-			"https://arquivojosemariobranco.fcsh.unl.pt/cancoes/oai#",	
-			"https://dicionario-biografico.caravelas.fcsh.unl.pt/dicionario/oai#",	
-			"https://databasemusic-ofm.fcsh.unl.pt/nomes/oai#",	
-			"https://arquivojosemariobranco.fcsh.unl.pt/albuns/oai#",	
+			"https://projetos.dhlab.fcsh.unl.pt/oai#wsdroadmap",	
+//			"https://vvpducalmus.fcsh.unl.pt/fontes/oai#",	
+//			"https://arouca.fcsh.unl.pt/fontes/oai#",	
+//			"https://arquivojosemariobranco.fcsh.unl.pt/cancoes/oai#",	
+//			"https://dicionario-biografico.caravelas.fcsh.unl.pt/dicionario/oai#",	
+//			"https://databasemusic-ofm.fcsh.unl.pt/nomes/oai#",	
+//			"https://arquivojosemariobranco.fcsh.unl.pt/albuns/oai#",	
 
 //			"https://projetos.dhlab.fcsh.unl.pt/oai#memorias-de-servidao",	
 			

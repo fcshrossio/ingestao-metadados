@@ -59,7 +59,7 @@ public class ManagerOfHarvest implements Task{
 			    		repository.removeAllFrom(src.getSourceId());
 		
 					Date startOfharvest=new Date();
-					HarvestReport report = harvest.run(log);
+					HarvestReport report = harvest.run(log, oaiSources, src);
 					String result=report.toLogString();
 		
 					if(report.isSuccessful())
