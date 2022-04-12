@@ -129,5 +129,11 @@ public class HttpUtil {
 			meta.add(new AbstractMap.SimpleEntry<String, String>(h.getName(), h.getValue()));
 		return meta;
 	}
+	public static HttpRequest makeRequestLowTimeout(String url) throws AccessException, InterruptedException {
+		UrlRequest ldReq=new UrlRequest(url);
+		ldReq.setConnectionTimeout(3000);
+		ldReq.setSocketTimeout(5000);
+		return makeRequest(ldReq);
+	}
 
 }

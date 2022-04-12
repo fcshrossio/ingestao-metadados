@@ -23,7 +23,7 @@ public class ChoLinksUtil {
 //		System.out.println(url);
 		try {
 //			HttpRequest headReq = HttpUtil.makeHeadRequest(value);		
-			HttpRequest headReq = HttpUtil.makeRequest(url);	
+			HttpRequest headReq = HttpUtil.makeRequestLowTimeout(url);	
 			if(headReq.getResponse().getStatus()==200) {
 				String mime=headReq.getResponse().getContentType();
 				if(mime!=null) {
