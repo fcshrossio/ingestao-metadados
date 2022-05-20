@@ -4,24 +4,17 @@
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcat:  <http://www.w3.org/ns/dcat#> .
 
-
-
-
-
-
-
-
-
 :294919ae-db08-4644-970a-fc18a0aad99d
-        a                           dcat:Dataset ;
-        rdfs:label                  "" ;
-        rossio:dataProvider         <http://vocabs.rossio.fcsh.unl.pt/agentes/c_9c848577> ;
-        rossio:harvestPeriodicity   "NONE" ;
-        rossio:harvestingStatus     "PAUSED" ;
-        rossio:lastResumptionToken  "" ;
-        rossio:oaiBaseUrl           <https://ahd.mne.gov.pt/nyron/Archive/OAI-PMH/oai/oai.aspx> ;
-        rossio:oaiMetadataPrefix    "oai_dc" ;
-        rossio:oaiSet               "rossio" .
+        a                            dcat:Dataset ;
+        rdfs:label                   "" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_9c848577> ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:lastHarvestTimestamp  "2022-03-02T09:30:57.725Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:oaiBaseUrl            <http://webservice.monumentos.pt/ws/api/oai> ;
+        rossio:oaiMetadataPrefix     "oai_dc" ;
+        rossio:oaiSet                "" .
 
 :214978fa-b3f1-4011-a701-134de8ef7f17
         a                            dcat:Dataset ;
@@ -34,6 +27,18 @@
         rossio:oaiBaseUrl            <http://biblioteca.tndm.pt/OAI/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "TEXTOS_CENICOS" .
+
+:80a57af5-039e-4949-bf19-52baea8e279d
+        a                            dcat:Dataset ;
+        rdfs:label                   "Biblioteca de Arqueologia - Arquivo Leisner" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_bb4c022d> ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:lastHarvestTimestamp  "2022-03-15T02:32:10.062Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:oaiBaseUrl            <http://bibliosoft.patrimoniocultural.pt/OAI/oai.aspx> ;
+        rossio:oaiMetadataPrefix     "oai_dc" ;
+        rossio:oaiSet                "BA-LEISNER" .
 
 :54fbdbd3-f559-48a9-b5c6-cee1cb885699
         a                            dcat:Dataset ;
@@ -59,6 +64,18 @@
         rossio:oaiBaseUrl            <https://arquivojosemariobranco.fcsh.unl.pt/cancoes/oai> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "" .
+
+:f15baa04-18c8-4bf5-96a8-d0ee6a75bdc7
+        a                            dcat:Dataset ;
+        rdfs:label                   "Biblioteca de Arqueologia - GERAL" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_bb4c022d> ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:lastHarvestTimestamp  "2022-03-15T05:55:18.757Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:oaiBaseUrl            <http://bibliosoft.patrimoniocultural.pt/OAI/oai.aspx> ;
+        rossio:oaiMetadataPrefix     "oai_dc" ;
+        rossio:oaiSet                "BA-GERAL" .
 
 :02997638-60f0-4d67-aabf-8ed5c574f308
         a                            dcat:Dataset ;
@@ -90,8 +107,9 @@
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_20311d92> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2022-02-24T23:35:49.772Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.DglabPreprocessor" ;
         rossio:oaiBaseUrl            <https://digitarq.adstr.arquivos.pt/oai-pmh/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "ADSTR" .
@@ -102,8 +120,9 @@
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_438671c9> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2022-03-19T06:09:31.627Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.DglabPreprocessor" ;
         rossio:oaiBaseUrl            <https://digitarq.adbgc.arquivos.pt/oai-pmh/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "ADBGC" .
@@ -114,8 +133,9 @@
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_76e2d079> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2022-03-19T13:15:26.364Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.DglabPreprocessor" ;
         rossio:oaiBaseUrl            <https://digitarq.adptg.arquivos.pt/oai-pmh/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "ADPTG" .
@@ -126,8 +146,9 @@
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_64c458fe> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2022-03-19T14:24:21.871Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.DglabPreprocessor" ;
         rossio:oaiBaseUrl            <https://digitarq.adavr.arquivos.pt/oai-pmh/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "ADAVR" .
@@ -163,8 +184,9 @@
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_5672cf6f> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2022-03-19T22:57:14.516Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.DglabPreprocessor" ;
         rossio:oaiBaseUrl            <https://digitarq.advis.arquivos.pt/oai-pmh/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "ADVIS" .
@@ -188,8 +210,9 @@
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_4229e047> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2022-04-04T04:32:15.819Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.DglabPreprocessor" ;
         rossio:oaiBaseUrl            <https://digitarq.arquivos.pt/oai-pmh/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "TT" .
@@ -200,8 +223,9 @@
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_50a5323c> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2022-03-19T09:00:58.186Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.DglabPreprocessor" ;
         rossio:oaiBaseUrl            <https://digitarq.adctb.arquivos.pt/oai-pmh/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "ADCTB" .
@@ -231,6 +255,18 @@
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "" .
 
+:a3357707-3d25-48f1-90f5-30770b25f0c0
+        a                            dcat:Dataset ;
+        rdfs:label                   "Biblioteca do Forte de Sacavém - SIPA" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_bb4c022d> ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:lastHarvestTimestamp  "2022-03-15T03:17:35.929Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:oaiBaseUrl            <http://bibliosoft.patrimoniocultural.pt/OAI/oai.aspx> ;
+        rossio:oaiMetadataPrefix     "oai_dc" ;
+        rossio:oaiSet                "BFS-BSIPA" .
+
 :1c6128e6-90ef-4e5c-b5f0-84be32b3a384
         a                            dcat:Dataset ;
         rdfs:label                   "Fotografias de cena" ;
@@ -242,6 +278,18 @@
         rossio:oaiBaseUrl            <http://biblioteca.tndm.pt/OAI/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "FOTOGRAFIAS" .
+
+:e9629c9c-630d-425f-ad6b-58a51b33eb5e
+        a                            dcat:Dataset ;
+        rdfs:label                   "Biblioteca Conservação e Museus" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_bb4c022d> ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:lastHarvestTimestamp  "2022-03-14T22:35:32.507Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:oaiBaseUrl            <http://bibliosoft.patrimoniocultural.pt/OAI/oai.aspx> ;
+        rossio:oaiMetadataPrefix     "oai_dc" ;
+        rossio:oaiSet                "BCM-GERAL" .
 
 :18817b47-5b2e-48ad-a00a-f9fb9f2871a3
         a                            dcat:Dataset ;
@@ -274,11 +322,25 @@
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_d69788b6> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2022-03-18T23:54:51.988Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.DglabPreprocessor" ;
         rossio:oaiBaseUrl            <https://digitarq.adbja.arquivos.pt/oai-pmh/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "ADBJA" .
+
+:971a3440-0d25-453c-a4ec-caa9042beed5
+        a                            dcat:Dataset ;
+        rdfs:label                   "Cinemateca - Conteudos audio-visuais" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_c52d3737> ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:lastHarvestTimestamp  "2022-01-20T07:02:10.333Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.EfgPreprocessor" ;
+        rossio:oaiBaseUrl            <http://213.63.138.124/PortalEXT/pt-PT/0/PEX/Oaipmh/OAIService> ;
+        rossio:oaiMetadataPrefix     "efg" ;
+        rossio:oaiSet                "Rossio_Av" .
 
 :7cfc65d4-0a5b-4a93-b7fd-ab63d82e8436
         a                            dcat:Dataset ;
@@ -346,8 +408,9 @@
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_53e2aa91> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2022-03-19T01:57:38.579Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.DglabPreprocessor" ;
         rossio:oaiBaseUrl            <http://pesquisa.adporto.arquivos.pt/oai-pmh/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "ADPRT" .
@@ -360,6 +423,7 @@
         rossio:harvestingStatus      "SUCCESS" ;
         rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.DglabPreprocessor" ;
         rossio:oaiBaseUrl            <https://digitarq.cpf.arquivos.pt/oai-pmh/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "CPF" .
@@ -382,8 +446,9 @@
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_6fde27ba> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2022-03-18T21:59:36.863Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.DglabPreprocessor" ;
         rossio:oaiBaseUrl            <https://digitarq.ahu.arquivos.pt/oai-pmh/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "AHU" .
@@ -406,11 +471,24 @@
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_6da5082f> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2022-03-19T18:30:25.840Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.DglabPreprocessor" ;
         rossio:oaiBaseUrl            <https://digitarq.adstb.arquivos.pt/oai-pmh/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "ADSTB" .
+
+:4b6d6341-e25a-4716-97d5-6392a4e43c8d
+        a                            dcat:Dataset ;
+        rdfs:label                   "Biblioteca Nacional Digital" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_cf7ed0ab> ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:lastHarvestTimestamp  "2022-01-11T07:35:57.042Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:oaiBaseUrl            <http://oai.bn.pt/servlet/OAIHandler/> ;
+        rossio:oaiMetadataPrefix     "oai_dc" ;
+        rossio:oaiSet                "bnd" .
 
 :b3c79e8f-77f4-4def-a9ed-76523754cba0
         a                            dcat:Dataset ;
@@ -436,17 +514,54 @@
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "aham" .
 
+:7a5d49ef-be93-4757-a2e2-042d7d870eab
+        a                            dcat:Dataset ;
+        rdfs:label                   "" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_9c848577> ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:lastHarvestTimestamp  "2022-04-07T03:42:48.535Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:oaiBaseUrl            <https://ahd.mne.gov.pt/nyron/Archive/OAI-PMH/oai/oai.aspx> ;
+        rossio:oaiMetadataPrefix     "oai_dc" ;
+        rossio:oaiSet                "rossio" .
+
 :f3016f4a-966c-43b4-b956-feccc44aea58
         a                            dcat:Dataset ;
         rdfs:label                   "Arquivo Distrital de Vila Real" ;
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_95ebe093> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2022-03-19T09:37:27.161Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.DglabPreprocessor" ;
         rossio:oaiBaseUrl            <https://digitarq.advrl.arquivos.pt/oai-pmh/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "ADVRL" .
+
+:111d5705-9c85-4532-a9ec-1bbface9dad4
+        a                            dcat:Dataset ;
+        rdfs:label                   "Biblioteca de Arqueologia - CNANS" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_bb4c022d> ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:lastHarvestTimestamp  "2022-03-14T23:50:39.245Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:oaiBaseUrl            <http://bibliosoft.patrimoniocultural.pt/OAI/oai.aspx> ;
+        rossio:oaiMetadataPrefix     "oai_dc" ;
+        rossio:oaiSet                "BA-CNANS" .
+
+:cdc1d73d-7ff1-42bd-b376-f93b765d72a2
+        a                            dcat:Dataset ;
+        rdfs:label                   "Biblioteca de Património - GERAL" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_bb4c022d> ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:lastHarvestTimestamp  "2022-03-15T00:05:50.896Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:oaiBaseUrl            <http://bibliosoft.patrimoniocultural.pt/OAI/oai.aspx> ;
+        rossio:oaiMetadataPrefix     "oai_dc" ;
+        rossio:oaiSet                "BP-GERAL" .
 
 :32b8d746-d19a-4592-aecc-cf7283babc7b
         a                            dcat:Dataset ;
@@ -454,8 +569,9 @@
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_129780c4> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2022-03-18T20:56:41.453Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.DglabPreprocessor" ;
         rossio:oaiBaseUrl            <https://digitarq.adfar.arquivos.pt/oai-pmh/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "ADFAR" .
@@ -478,8 +594,9 @@
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_7054d2d4> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2022-03-19T07:03:23.213Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.DglabPreprocessor" ;
         rossio:oaiBaseUrl            <https://digitarq.adlra.arquivos.pt/oai-pmh/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "ADLRA" .
@@ -502,8 +619,9 @@
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_f95496ad> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2022-03-19T01:09:59.657Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.DglabPreprocessor" ;
         rossio:oaiBaseUrl            <https://digitarq.advct.arquivos.pt/oai-pmh/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "ADVCT" .
@@ -551,8 +669,9 @@
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_819ef5cf> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2022-03-19T20:41:44.062Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.DglabPreprocessor" ;
         rossio:oaiBaseUrl            <https://digitarq.adevr.arquivos.pt/oai-pmh/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "ADEVR" .
@@ -563,8 +682,9 @@
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_5062b87f> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2022-03-20T00:44:03.235Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.DglabPreprocessor" ;
         rossio:oaiBaseUrl            <https://digitarq.adgrd.arquivos.pt/oai-pmh/> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
         rossio:oaiSet                "ADGRD" .
