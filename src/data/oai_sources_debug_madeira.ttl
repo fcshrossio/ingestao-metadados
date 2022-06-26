@@ -1,0 +1,17 @@
+@prefix :      <http://data.rossio.fcsh.unl.pt/conjunto-de-dados/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rossio: <http://data.rossio.fcsh.unl.pt/ingestao/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+
+:f8096137-a136-4020-8b9c-957c27f22829
+        a                            dcat:Dataset ;
+        rdfs:label                   "teste Madeira" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/inexistente> ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:lastResumptionToken   "" ;
+        rossio:oaiBaseUrl            <https://arquivo-abm.madeira.gov.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix     "oai_dc" ;
+        rossio:oaiSet                "DO" .
+
+

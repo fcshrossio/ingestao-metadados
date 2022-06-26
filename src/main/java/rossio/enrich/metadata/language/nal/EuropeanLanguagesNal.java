@@ -53,11 +53,11 @@ public class EuropeanLanguagesNal {
         Iterable<Element> records = XmlUtil.elements(langNalDom.getDocumentElement(), "record");
         for (Element recordEl : records) {
             NalLanguage l = new NalLanguage(recordEl.getAttribute("id"));
-            l.setIso6391(XmlUtil.getElementTextByTagName(recordEl, "iso-639-1"));
-            l.setIso6392b(XmlUtil.getElementTextByTagName(recordEl, "iso-639-2b"));
-            l.setIso6392t(XmlUtil.getElementTextByTagName(recordEl, "iso-639-2t"));
-            l.setIso6393(XmlUtil.getElementTextByTagName(recordEl, "iso-639-3"));
-            Element nameEl = XmlUtil.getElementByTagName(recordEl, "name");
+            l.setIso6391(XmlUtil.getElementTextByTagNameIgnoreCase(recordEl, "iso-639-1"));
+            l.setIso6392b(XmlUtil.getElementTextByTagNameIgnoreCase(recordEl, "iso-639-2b"));
+            l.setIso6392t(XmlUtil.getElementTextByTagNameIgnoreCase(recordEl, "iso-639-2t"));
+            l.setIso6393(XmlUtil.getElementTextByTagNameIgnoreCase(recordEl, "iso-639-3"));
+            Element nameEl = XmlUtil.getElementByTagNameIgnoreCase(recordEl, "name");
             for (Element nameSubEl : XmlUtil.elements(nameEl)) {
                 if (nameSubEl.getNodeName().equals("original.name")) {
                     for (Element nameVersionEl : XmlUtil.elements(nameSubEl, "lg.version")) {
@@ -76,7 +76,7 @@ public class EuropeanLanguagesNal {
 
                 }
             }
-            Element labelEl = XmlUtil.getElementByTagName(recordEl, "label");
+            Element labelEl = XmlUtil.getElementByTagNameIgnoreCase(recordEl, "label");
             for (Element nameVersionEl : XmlUtil.elements(labelEl, "lg.version")) {
                 Label origLabel = new Label(nameVersionEl.getTextContent(),
                         nameVersionEl.getAttribute("lg"), nameVersionEl.getAttribute("script"));

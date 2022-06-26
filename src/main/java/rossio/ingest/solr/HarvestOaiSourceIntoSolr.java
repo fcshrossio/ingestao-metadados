@@ -120,6 +120,7 @@ public class HarvestOaiSourceIntoSolr {
 								resumptionToken=harvest.getLastResumptionToken();
 							}
 						} catch (Exception e) {
+							e.printStackTrace();
 							errorOnRecord(record, e);
 						}
 						return true;
@@ -160,6 +161,11 @@ public class HarvestOaiSourceIntoSolr {
 			else
 				report.incRecordUpdated();
 			Element metadata = r.getMetadata();
+			
+			if(metadata==null) {
+				System.out.println("Empty metadata: "+r.getIdentifier());
+				return;
+			}			
 			if(source.preprocessor!=null) {
 				Model mdRdf=source.preprocessor.preprocess(uuid, source.getSourceId(),source.dataProvider, metadata);				
 				harvestTo.addItem(uuid, source.getSourceId(), r.getIdentifier(), RdfUtil.serializeToRdfRift(mdRdf));

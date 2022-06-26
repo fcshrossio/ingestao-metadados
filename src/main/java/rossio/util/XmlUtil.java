@@ -40,6 +40,8 @@ import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.SAXException;
 
+import net.sf.saxon.expr.InstanceOfExpression;
+
 
 
 /**
@@ -202,15 +204,19 @@ public class XmlUtil {
      *            the name of the child elements
      * @return the first child Element with a given name
      */
-    public static Element getElementByTagName(Element n, String elementName) {
-        NodeList subNodes = n.getElementsByTagName(elementName);
+    public static Element getElementByTagNameIgnoreCase(Element n, String elementName) {
+        NodeList subNodes = n.getChildNodes();
         int sz = subNodes.getLength();
-        if (sz > 0) return (Element)subNodes.item(0);
+        for (int idx = 0; idx < sz; idx++) {
+            Node node = subNodes.item(idx);
+            if(node instanceof Element && ((Element)node).getTagName().equalsIgnoreCase(elementName))
+            	return(Element)node;
+        }
         return null;
     }
 
-    public static String getElementTextByTagName(Element n, String elementName) {
-        Element subEl = getElementByTagName(n, elementName);
+    public static String getElementTextByTagNameIgnoreCase(Element n, String elementName) {
+        Element subEl = getElementByTagNameIgnoreCase(n, elementName);
         if (subEl!=null) return getElementText(subEl);
         return null;
     }

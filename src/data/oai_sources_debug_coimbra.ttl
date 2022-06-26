@@ -1,0 +1,17 @@
+@prefix :      <http://data.rossio.fcsh.unl.pt/conjunto-de-dados/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rossio: <http://data.rossio.fcsh.unl.pt/ingestao/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+
+:f8096137-a136-4020-8b9c-957c27f22829
+        a                            dcat:Dataset ;
+        rdfs:label                   "teste Coimbra" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/inexistente> ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:lastHarvestTimestamp  "2022-05-26T22:41:01.370Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:oaiBaseUrl            <https://ucpages.uc.pt/api/8af1b8e830f137832d412eb2a7e9a99092abad9eb7/oai> ;
+        rossio:oaiMetadataPrefix     "oai_dc" ;
+        rossio:oaiSet                "collection:20-years-of-the-birth-of-a-nation" .

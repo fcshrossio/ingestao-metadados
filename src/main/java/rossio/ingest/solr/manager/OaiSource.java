@@ -194,8 +194,8 @@ public class OaiSource{
             NodeList nodeList = ls.getNodeList("/oai20:OAI-PMH/oai20:ListSets/oai20:set");
             for(int i=0; i<nodeList.getLength(); i++) {
             	Node item = nodeList.item(i);
-            	if(set.equals(XmlUtil.getText(XmlUtil.getElementByTagName((Element)item, "setSpec")))) {
-        			name=XmlUtil.getText(XmlUtil.getElementByTagName((Element)item, "setName"));
+            	if(set.equals(XmlUtil.getText(XmlUtil.getElementByTagNameIgnoreCase((Element)item, "setSpec")))) {
+        			name=XmlUtil.getText(XmlUtil.getElementByTagNameIgnoreCase((Element)item, "setName"));
 					break;
             	}
             }
