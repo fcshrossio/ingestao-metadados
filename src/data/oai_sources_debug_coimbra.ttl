@@ -10,7 +10,7 @@
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/inexistente> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2022-05-26T22:41:01.370Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastHarvestTimestamp  "2022-07-19T01:09:58.509Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
         rossio:oaiBaseUrl            <https://ucpages.uc.pt/api/8af1b8e830f137832d412eb2a7e9a99092abad9eb7/oai> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;

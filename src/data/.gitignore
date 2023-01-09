@@ -6,3 +6,7 @@
 /indexing-manager.log.txt
 /oai_sources_debug.ttl
 /oai_sources_debug.ttl.lock
+/oai_sources_debug_cesem.ttl
+/oai_sources_debug_cesem.ttl.lock
+/oai_sources_debug_cinemateca.ttl.lock
+/oai_sources_debug_coimbra.ttl

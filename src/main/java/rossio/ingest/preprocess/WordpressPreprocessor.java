@@ -39,7 +39,7 @@ public class WordpressPreprocessor implements MetadataPreprocessor {
 		Resource cho = model.createResource(providedChoUri);
 		
 		for(Statement st:cho.listProperties().toList()) {
-			if(st.getPredicate().equals(DcTerms.identifier)) {
+			if(st.getPredicate().equals(DcTerms.identifier) || st.getPredicate().equals(DcTerms.relation)) {
 				if (st.getObject().isLiteral()) {
 					Matcher matcher = imgPattern.matcher(st.getObject().asLiteral().getString());
 					if(matcher.find()) 

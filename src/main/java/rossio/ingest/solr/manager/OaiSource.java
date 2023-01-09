@@ -104,7 +104,11 @@ public class OaiSource{
 			if(StringUtils.isEmpty(set))
 				set=null;
 		}
-		resumptionToken=dsRes.getProperty(lastResumptionTokenProp).getObject().asLiteral().getString();
+		Statement lastTokenSt = dsRes.getProperty(lastResumptionTokenProp);
+		if(lastTokenSt!=null)
+			resumptionToken=lastTokenSt.getObject().asLiteral().getString();
+		else
+			resumptionToken="";
 		
 		Statement preprocessorSt = dsRes.getProperty(metadataPreprocessorProp);
 		if(preprocessorSt!=null) {
