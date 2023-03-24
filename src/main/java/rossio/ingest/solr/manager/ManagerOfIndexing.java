@@ -56,7 +56,7 @@ public class ManagerOfIndexing  implements Task {
 		
 		    		String result=null;
 			    	try {
-			    		IndexingReport report=indexer.indexSourceFromRepository(src.getSourceId(), repository, vocabsSparqlEndpoint, log);
+						IndexingReport report=indexer.indexSourceFromRepository(src.getSourceId(), repository, vocabsSparqlEndpoint, log);
 						result=report.toLogString();
 					} catch (Exception e) {
 						result="FAILURE\nstackTrace:\n"+ExceptionUtils.getStackTrace(e);

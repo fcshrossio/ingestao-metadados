@@ -112,8 +112,11 @@ public class OaiSourcesIndexStatus{
 			m=RdfUtil.readRdf(sourcesFile, Lang.TURTLE);
 		else
 			m=Jena.createModel();
-		for(Resource dsRes: m.listResourcesWithProperty(Rdf.type, Dcat.Dataset).toList()) 
-			sources.add(new OaiSourceIndexStatus(dsRes, oaiSources.findSource(dsRes.getURI())));
+		for(Resource dsRes: m.listResourcesWithProperty(Rdf.type, Dcat.Dataset).toList()) {
+			OaiSource oaiSource = oaiSources.findSource(dsRes.getURI());
+			if(oaiSource!=null)
+				sources.add(new OaiSourceIndexStatus(dsRes, oaiSource));
+		}
 		
 		for(OaiSource src: oaiSources.sources) {
 			if(!RdfUtil.exists(src.uri , m)) {
