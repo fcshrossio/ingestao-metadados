@@ -35,16 +35,16 @@ import rossio.ingest.datasets.dspace.SimpleArchive;
 import rossio.ingest.solr.RepositoryWithSolr;
 import rossio.ingest.solr.RepositoryWithSolr.FetchOption;
 import rossio.ingest.solr.RepositoryWithSolr.ItemHandler;
-import rossio.ingest.solr.manager.OaiSource;
-import rossio.ingest.solr.manager.OaiSources;
+import rossio.ingest.solr.manager.MetadataSource;
+import rossio.ingest.solr.manager.MetadataSources;
 import rossio.util.RdfUtil;
 import rossio.util.RdfUtil.Jena;
 
 public class DatasetExporter {
 	RepositoryWithSolr repository;
-	 OaiSources oaiSources;
+	 MetadataSources oaiSources;
 
-	public DatasetExporter(RepositoryWithSolr repository, OaiSources oaiSources) {
+	public DatasetExporter(RepositoryWithSolr repository, MetadataSources oaiSources) {
 		this.repository = repository;
 		this.oaiSources = oaiSources;
 	}
@@ -52,7 +52,7 @@ public class DatasetExporter {
 	@SuppressWarnings("serial")
 	public void exportAllDatasets(File homeFolder, int sampleSize) throws IOException, SolrServerException {
 		
-		for(OaiSource oaiSource: oaiSources.getAllSources()) {
+		for(MetadataSource oaiSource: oaiSources.getAllSources()) {
 			exportDataset(homeFolder, oaiSource.getSourceId(), sampleSize);
 		}
 	}

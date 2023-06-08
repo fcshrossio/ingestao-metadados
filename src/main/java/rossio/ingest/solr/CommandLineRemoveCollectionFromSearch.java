@@ -32,8 +32,8 @@ import org.xerial.snappy.OSInfo;
 import com.ctc.wstx.util.StringUtil;
 
 import rossio.ingest.solr.manager.Logger;
-import rossio.ingest.solr.manager.OaiSource;
-import rossio.ingest.solr.manager.OaiSources;
+import rossio.ingest.solr.manager.MetadataSource;
+import rossio.ingest.solr.manager.MetadataSources;
 import rossio.oaipmh.HarvestException;
 import rossio.oaipmh.HarvestReport;
 import rossio.util.AccessException;
@@ -69,8 +69,8 @@ public class CommandLineRemoveCollectionFromSearch {
 		    if(argsOk) {
 		    	Indexer indexer=new Indexer(line.getOptionValue("solr_url_search"));
 		    	File sourcesFile = new File(line.getOptionValue("sources_file"));
-				OaiSources oaiSources=new OaiSources(sourcesFile);
-		    	OaiSource src = oaiSources.findSource(line.getOptionValue("source_id"));
+				MetadataSources oaiSources=new MetadataSources(sourcesFile);
+		    	MetadataSource src = oaiSources.findSource(line.getOptionValue("source_id"));
 		    	if(src==null)
 		    		indexer.removeAllFrom(line.getOptionValue("source_id"));
 		    	else

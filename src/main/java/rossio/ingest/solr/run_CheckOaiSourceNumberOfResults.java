@@ -7,8 +7,8 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 
 import rossio.ingest.solr.manager.Logger;
-import rossio.ingest.solr.manager.OaiSource;
-import rossio.ingest.solr.manager.OaiSources;
+import rossio.ingest.solr.manager.MetadataSource;
+import rossio.ingest.solr.manager.MetadataSources;
 import rossio.oaipmh.HarvestReport;
 import rossio.oaipmh.OaiPmhRecord;
 import rossio.oaipmh.OaipmhHarvest;
@@ -19,9 +19,9 @@ public class run_CheckOaiSourceNumberOfResults {
 		
 		StringBuffer results=new StringBuffer();
 		
-		OaiSources oaiSources = new OaiSources(new File("src/data/oai_sources.txt"));
+		MetadataSources oaiSources = new MetadataSources(new File("src/data/oai_sources.txt"));
 
-		for (OaiSource src : oaiSources.getAllSources()) {
+		for (MetadataSource src : oaiSources.getAllSources()) {
 			System.out.print(src.getSourceId() + " ");
 
 			OaipmhHarvest harvest;

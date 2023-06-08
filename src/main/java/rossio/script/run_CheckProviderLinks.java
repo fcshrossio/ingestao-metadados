@@ -34,8 +34,8 @@ import rossio.http.HttpRequest;
 import rossio.ingest.solr.RepositoryWithSolr;
 import rossio.ingest.solr.RepositoryWithSolr.FetchOption;
 import rossio.ingest.solr.RepositoryWithSolr.ItemHandler;
-import rossio.ingest.solr.manager.OaiSource;
-import rossio.ingest.solr.manager.OaiSources;
+import rossio.ingest.solr.manager.MetadataSource;
+import rossio.ingest.solr.manager.MetadataSources;
 import rossio.util.AccessException;
 import rossio.util.Global;
 import rossio.util.HttpUtil;
@@ -61,8 +61,8 @@ public class run_CheckProviderLinks {
     	RepositoryWithSolr repository=new RepositoryWithSolr("http://192.168.111.170:8983/solr/repositorio");
     	run_CheckProviderLinks enrichTast=new run_CheckProviderLinks("c:/users/nfrei/desktop/ROSSIO_Exports/links");
 		
-    	OaiSources oaiSources=new OaiSources(new File("src/data/oai_sources_debug.ttl"));
-    	for(OaiSource source:oaiSources.getAllSources()) {
+    	MetadataSources oaiSources=new MetadataSources(new File("src/data/oai_sources_debug.ttl"));
+    	for(MetadataSource source:oaiSources.getAllSources()) {
     		enrichTast.runOnCollection(repository, source.getSourceId());
     	}
     	

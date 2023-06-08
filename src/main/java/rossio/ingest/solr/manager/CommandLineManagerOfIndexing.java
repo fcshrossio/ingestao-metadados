@@ -97,7 +97,7 @@ public class CommandLineManagerOfIndexing {
 					indexingStatusLockFile.deleteOnExit();
 		    	}
 		    	
-				OaiSources oaiSources=new OaiSources(sourcesFile);
+				MetadataSources oaiSources=new MetadataSources(sourcesFile);
 				OaiSourcesIndexStatus indexStatus=new OaiSourcesIndexStatus(indexingStatusFile, oaiSources);
 
 				Global.init_componentHttpRequestService();

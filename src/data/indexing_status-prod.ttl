@@ -1,0 +1,516 @@
+@prefix :      <http://data.rossio.fcsh.unl.pt/conjunto-de-dados/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rossio: <http://data.rossio.fcsh.unl.pt/ingestao/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+
+:0873555d-4c0a-4266-b95a-55dd04eb99cc
+        a                            dcat:Dataset ;
+        rdfs:label                   "Arquivo Histórico Militar" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_747a04f4> ;
+        rossio:oaiBaseUrl            <https://ahm-exercito.defesa.gov.pt/OAI-PMH/oai/> ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2023-13-02T09:30:57.725Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiSet                "" .
+
+
+:b958b878-6eb2-431b-bfff-547840db3b4c
+        a                            dcat:Dataset ;
+        rdfs:label                   "Arquivo online da Câmara Municipal de Sintra" ;
+        rossio:oaiBaseUrl            <https://arquivoonline.cm-sintra.pt/OAI-PMH/oai/> ;
+        rossio:oaiSet               "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2023-13-02T09:30:57.725Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+
+
+:e13c4d3a-e08c-41f3-b55d-75b93b782301
+        a                            dcat:Dataset ;
+        rdfs:label                   "Arquivo Digital da Biblioteca do Exército" ;
+        rossio:oaiBaseUrl            <http://arquivodigital.defesa.pt/OAI-PMH/OAI/oai.aspx> ;
+        rossio:oaiSet                "rnod" .
+
+:294919ae-db08-4644-970a-fc18a0aad99d
+        a                          dcat:Dataset ;
+        rdfs:label                 "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-02T09:30:57.725Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://webservice.monumentos.pt/ws/api/oai> ;
+        rossio:oaiSet              "" .
+
+:214978fa-b3f1-4011-a701-134de8ef7f17
+        a                          dcat:Dataset ;
+        rdfs:label                 "Textos cénicos do TNDMII" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-07-23T03:00:06.095Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://biblioteca.tndm.pt/OAI/> ;
+        rossio:oaiSet              "TEXTOS_CENICOS" .
+
+:80a57af5-039e-4949-bf19-52baea8e279d
+        a                          dcat:Dataset ;
+        rdfs:label                 "Biblioteca de Arqueologia - Arquivo Leisner" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-15T02:32:10.062Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://bibliosoft.patrimoniocultural.pt/OAI/oai.aspx> ;
+        rossio:oaiSet              "BA-LEISNER" .
+
+:54fbdbd3-f559-48a9-b5c6-cee1cb885699
+        a                          dcat:Dataset ;
+        rdfs:label                 "Media & Jornalismo" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://impactum-journals.uc.pt/mj/oai> ;
+        rossio:oaiSet              "mj" .
+
+:26a6389e-5fa5-482a-8590-aaa4ee7bb2c1
+        a                          dcat:Dataset ;
+        rdfs:label                 "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-10-19T07:19:13.998Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://arquivojosemariobranco.fcsh.unl.pt/cancoes/oai> ;
+        rossio:oaiSet              "" .
+
+:f15baa04-18c8-4bf5-96a8-d0ee6a75bdc7
+        a                          dcat:Dataset ;
+        rdfs:label                 "Biblioteca de Arqueologia - GERAL" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-15T05:55:18.757Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://bibliosoft.patrimoniocultural.pt/OAI/oai.aspx> ;
+        rossio:oaiSet              "BA-GERAL" .
+
+:02997638-60f0-4d67-aabf-8ed5c574f308
+        a                          dcat:Dataset ;
+        rdfs:label                 "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://arquivomunicipal3.cm-lisboa.pt/X-arqOAI/oai2.aspx> ;
+        rossio:oaiSet              "" .
+
+:8677e7e6-d8a6-4968-a576-b52df14c096d
+        a                          dcat:Dataset ;
+        rdfs:label                 "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://projetos.dhlab.fcsh.unl.pt/oai> ;
+        rossio:oaiSet              "wsdroadmap" .
+
+:4f7f9dad-10b9-4748-a2cc-e99982a6457d
+        a                          dcat:Dataset ;
+        rdfs:label                 "Arquivo Distrital de Santarém" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-02-24T23:35:49.772Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://digitarq.adstr.arquivos.pt/oai-pmh/> ;
+        rossio:oaiSet              "ADSTR" .
+
+:ceadfa7e-9e90-4996-ae1b-bb674ec31056
+        a                          dcat:Dataset ;
+        rdfs:label                 "Arquivo Distrital de Bragança" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-19T06:09:31.627Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://digitarq.adbgc.arquivos.pt/oai-pmh/> ;
+        rossio:oaiSet              "ADBGC" .
+
+:902b9c0b-d411-4430-85f5-1f3c524b1370
+        a                          dcat:Dataset ;
+        rdfs:label                 "Arquivo Distrital de Portalegre" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-19T13:15:26.364Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://digitarq.adptg.arquivos.pt/oai-pmh/> ;
+        rossio:oaiSet              "ADPTG" .
+
+:7e7986e1-0f88-40eb-bfe8-066e0add4450
+        a                  dcat:Dataset ;
+        rdfs:label         "Biblioteca do Forte de Sacavém - SIPA" ;
+        rossio:oaiBaseUrl  <http://webservice.monumentos.pt/ws/api/oai> ;
+        rossio:oaiSet      "" .
+
+:188d1761-bc68-4e50-94fe-92a6d34c7b37
+        a                          dcat:Dataset ;
+        rdfs:label                 "Arquivo Distrital de Aveiro" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-19T14:24:21.871Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://digitarq.adavr.arquivos.pt/oai-pmh/> ;
+        rossio:oaiSet              "ADAVR" .
+
+:0af78521-881e-4a8f-ac1c-3c5f2d055e96
+        a                          dcat:Dataset ;
+        rdfs:label                 "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-10-16T04:50:45.237Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://arquivo-abm.madeira.gov.pt/oai-pmh/> ;
+        rossio:oaiSet              "" .
+
+:54b7b78b-5976-4d56-87d7-0354a27253a8
+        a                          dcat:Dataset ;
+        rdfs:label                 "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-10-19T07:18:38.965Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://projetos.dhlab.fcsh.unl.pt/oai> ;
+        rossio:oaiSet              "memorias-de-servidao" .
+
+:466660a5-97d2-4ac0-afee-05cc3477f6d7
+        a                          dcat:Dataset ;
+        rdfs:label                 "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-10-19T07:18:40.775Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://databasemusic-ofm.fcsh.unl.pt/nomes/oai> ;
+        rossio:oaiSet              "" .
+
+:2134f13c-02c8-4ae1-b8f1-64492c09003d
+        a                          dcat:Dataset ;
+        rdfs:label                 "Arquivo Distrital de Viseu" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-19T22:57:14.516Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://digitarq.advis.arquivos.pt/oai-pmh/> ;
+        rossio:oaiSet              "ADVIS" .
+
+:7819f013-0007-44c0-864a-0b92e60dffe3
+        a                          dcat:Dataset ;
+        rdfs:label                 "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-10-19T07:18:26.240Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://arquivojosemariobranco.fcsh.unl.pt/albuns/oai> ;
+        rossio:oaiSet              "" .
+
+:009bdfe7-e376-48e3-8b88-dbdfef5fe2b1
+        a                          dcat:Dataset ;
+        rdfs:label                 "Arquivo Nacional da Torre do Tombo" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-04-04T04:32:15.819Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://digitarq.arquivos.pt/oai-pmh/> ;
+        rossio:oaiSet              "TT" .
+
+:4ac21bb6-807e-4fe8-aaeb-58909aa2fa4d
+        a                          dcat:Dataset ;
+        rdfs:label                 "Arquivo Distrital de Castelo Branco" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-19T09:00:58.186Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://digitarq.adctb.arquivos.pt/oai-pmh/> ;
+        rossio:oaiSet              "ADCTB" .
+
+:b071eadf-a340-42fe-92f6-4a30c15aa6ed
+        a                          dcat:Dataset ;
+        rdfs:label                 "Journal of Communication and Languages" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://www.fcsh.unl.pt/rcl/index.php/rcl/oai> ;
+        rossio:oaiSet              "rcl" .
+
+:85d4cf50-ac4b-4bba-9ab9-d3b361c73bc5
+        a                          dcat:Dataset ;
+        rdfs:label                 "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-10-19T07:18:44.994Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://vvpducalmus.fcsh.unl.pt/fontes/oai> ;
+        rossio:oaiSet              "" .
+
+:a3357707-3d25-48f1-90f5-30770b25f0c0
+        a                          dcat:Dataset ;
+        rdfs:label                 "Biblioteca do Forte de Sacavém - SIPA" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-15T03:17:35.929Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://bibliosoft.patrimoniocultural.pt/OAI/oai.aspx> ;
+        rossio:oaiSet              "BFS-BSIPA" .
+
+:1c6128e6-90ef-4e5c-b5f0-84be32b3a384
+        a                          dcat:Dataset ;
+        rdfs:label                 "Fotografias de cena" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-07-23T18:01:05.314Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://biblioteca.tndm.pt/OAI/> ;
+        rossio:oaiSet              "FOTOGRAFIAS" .
+
+:e9629c9c-630d-425f-ad6b-58a51b33eb5e
+        a                          dcat:Dataset ;
+        rdfs:label                 "Biblioteca Conservação e Museus" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-14T22:35:32.507Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://bibliosoft.patrimoniocultural.pt/OAI/oai.aspx> ;
+        rossio:oaiSet              "BCM-GERAL" .
+
+:18817b47-5b2e-48ad-a00a-f9fb9f2871a3
+        a                          dcat:Dataset ;
+        rdfs:label                 "Faculdade de Ciências Sociais e Humanas (FCSH)" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://run.unl.pt/oaiextended/request> ;
+        rossio:oaiSet              "com_10362_1967" .
+
+:9672a23a-94f9-4d39-bf85-affc71f9751c
+        a                          dcat:Dataset ;
+        rdfs:label                 "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-10-19T07:19:05.233Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://arouca.fcsh.unl.pt/fontes/oai> ;
+        rossio:oaiSet              "" .
+
+:8ad0457c-9a2d-43c9-bc59-2602ab00e25d
+        a                          dcat:Dataset ;
+        rdfs:label                 "Arquivo Distrital de Beja" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-18T23:54:51.988Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://digitarq.adbja.arquivos.pt/oai-pmh/> ;
+        rossio:oaiSet              "ADBJA" .
+
+:971a3440-0d25-453c-a4ec-caa9042beed5
+        a                          dcat:Dataset ;
+        rdfs:label                 "Cinemateca - Conteudos audio-visuais" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-06-26T04:50:36.393Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://213.63.138.124/PortalEXT/pt-PT/0/PEX/Oaipmh/OAIService> ;
+        rossio:oaiSet              "Rossio_Av" .
+
+:7cfc65d4-0a5b-4a93-b7fd-ab63d82e8436
+        a                          dcat:Dataset ;
+        rdfs:label                 "Memória COVID" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://projetos.dhlab.fcsh.unl.pt/oai> ;
+        rossio:oaiSet              "memoriacovid" .
+
+:57e9f43c-8ef4-46ee-8aa9-584249426fe7
+        a                          dcat:Dataset ;
+        rdfs:label                 "Coleção de programas do TNDMII" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-07-23T03:03:00.598Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://biblioteca.tndm.pt/OAI/> ;
+        rossio:oaiSet              "PROGRAMAS" .
+
+:58f1fb7b-f735-40dc-bf04-7512ffe8cd43
+        a                          dcat:Dataset ;
+        rdfs:label                 "Práticas da História. Journal on Theory, Historiography and Uses of the Past" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://revistas.rcaap.pt/index.php/pdh/oai> ;
+        rossio:oaiSet              "pdh" .
+
+:36e8134e-e5f0-4ced-96e8-289bed45cae6
+        a                          dcat:Dataset ;
+        rdfs:label                 "G&T Comenta" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://projetos.dhlab.fcsh.unl.pt/oai> ;
+        rossio:oaiSet              "GTComenta" .
+
+:5b5a555b-7090-4126-90f5-6aa9eefb69a5
+        a                          dcat:Dataset ;
+        rdfs:label                 "Folhetos de teatro de cordel" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-07-23T17:52:50.208Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://biblioteca.tndm.pt/OAI/> ;
+        rossio:oaiSet              "FOLHETOS" .
+
+:e834693d-5c17-4339-b2d4-d053509a2e8b
+        a                          dcat:Dataset ;
+        rdfs:label                 "Arquivo Distrital do Porto" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-19T01:57:38.579Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://pesquisa.adporto.arquivos.pt/oai-pmh/> ;
+        rossio:oaiSet              "ADPRT" .
+
+:818f8c71-63ff-4855-ae3e-d91ef79d67a3
+        a                          dcat:Dataset ;
+        rdfs:label                 "Centro Português de Fotografia" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://digitarq.cpf.arquivos.pt/oai-pmh/> ;
+        rossio:oaiSet              "CPF" .
+
+:7b8dd847-3c0c-42c6-92bc-8b78a5a51a1b
+        a                          dcat:Dataset ;
+        rdfs:label                 "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-09-26T05:12:54.165Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://baimages.gulbenkian.pt/oai-pmh/oai/oai.aspx> ;
+        rossio:oaiSet              "IMD" .
+
+:bc6336fd-a7cd-4200-b0d4-1ae29cfc7cbf
+        a                          dcat:Dataset ;
+        rdfs:label                 "Arquivo Histórico Ultramarino" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-18T21:59:36.863Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://digitarq.ahu.arquivos.pt/oai-pmh/> ;
+        rossio:oaiSet              "AHU" .
+
+:4c21a368-0176-482b-a7f2-65dab14af82c
+        a                          dcat:Dataset ;
+        rdfs:label                 "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://oai.openedition.org/> ;
+        rossio:oaiSet              "journals:sociologico" .
+
+:6372a7a0-cadb-4712-a57c-d956d359558b
+        a                          dcat:Dataset ;
+        rdfs:label                 "Arquivo Distrital de Setúbal" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-19T18:30:25.840Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://digitarq.adstb.arquivos.pt/oai-pmh/> ;
+        rossio:oaiSet              "ADSTB" .
+
+:4b6d6341-e25a-4716-97d5-6392a4e43c8d
+        a                          dcat:Dataset ;
+        rdfs:label                 "Biblioteca Nacional Digital" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-01-11T07:35:57.042Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://oai.bn.pt/servlet/OAIHandler/> ;
+        rossio:oaiSet              "bnd" .
+
+:b3c79e8f-77f4-4def-a9ed-76523754cba0
+        a                          dcat:Dataset ;
+        rdfs:label                 "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://ojs.letras.up.pt/index.php/tm/oai> ;
+        rossio:oaiSet              "tm" .
+
+:282c2587-f47b-4b9e-95c3-e581034f1b38
+        a                          dcat:Dataset ;
+        rdfs:label                 "Anais de História de Além-Mar" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://revistas.rcaap.pt/aham/oai> ;
+        rossio:oaiSet              "aham" .
+
+:7a5d49ef-be93-4757-a2e2-042d7d870eab
+        a                          dcat:Dataset ;
+        rdfs:label                 "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-04-07T03:42:48.535Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://ahd.mne.gov.pt/nyron/Archive/OAI-PMH/oai/oai.aspx> ;
+        rossio:oaiSet              "rossio" .
+
+:f3016f4a-966c-43b4-b956-feccc44aea58
+        a                          dcat:Dataset ;
+        rdfs:label                 "Arquivo Distrital de Vila Real" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-19T09:37:27.161Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://digitarq.advrl.arquivos.pt/oai-pmh/> ;
+        rossio:oaiSet              "ADVRL" .
+
+:111d5705-9c85-4532-a9ec-1bbface9dad4
+        a                          dcat:Dataset ;
+        rdfs:label                 "Biblioteca de Arqueologia - CNANS" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-14T23:50:39.245Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://bibliosoft.patrimoniocultural.pt/OAI/oai.aspx> ;
+        rossio:oaiSet              "BA-CNANS" .
+
+:cdc1d73d-7ff1-42bd-b376-f93b765d72a2
+        a                          dcat:Dataset ;
+        rdfs:label                 "Biblioteca de Património - GERAL" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-15T00:05:50.896Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://bibliosoft.patrimoniocultural.pt/OAI/oai.aspx> ;
+        rossio:oaiSet              "BP-GERAL" .
+
+:32b8d746-d19a-4592-aecc-cf7283babc7b
+        a                          dcat:Dataset ;
+        rdfs:label                 "Arquivo Distrital de Faro" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-18T20:56:41.453Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://digitarq.adfar.arquivos.pt/oai-pmh/> ;
+        rossio:oaiSet              "ADFAR" .
+
+:15bbef35-f0c8-44ab-909f-fa1c9ea5d8c0
+        a                          dcat:Dataset ;
+        rdfs:label                 "EJM - Espólio José Marques" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-07-23T03:30:38.261Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://biblioteca.tndm.pt/OAI/> ;
+        rossio:oaiSet              "EJM" .
+
+:40912d02-10c1-4185-be84-cec2e269eecb
+        a                          dcat:Dataset ;
+        rdfs:label                 "Arquivo Distrital de Leiria" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-19T07:03:23.213Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://digitarq.adlra.arquivos.pt/oai-pmh/> ;
+        rossio:oaiSet              "ADLRA" .
+
+:b6ccf29f-245b-432c-826f-043a7b94efb2
+        a                          dcat:Dataset ;
+        rdfs:label                 "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://oai.openedition.org/> ;
+        rossio:oaiSet              "journals:cultura" .
+
+:a4c761af-40a2-4f58-988f-590dea563e65
+        a                          dcat:Dataset ;
+        rdfs:label                 "Arquivo Distrital de Viana do Castelo" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-19T01:09:59.657Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://digitarq.advct.arquivos.pt/oai-pmh/> ;
+        rossio:oaiSet              "ADVCT" .
+
+:c35f0a66-0294-40f1-aa7f-4155aa320d4d
+        a                          dcat:Dataset ;
+        rdfs:label                 "Medievalista" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://medievalista.iem.fcsh.unl.pt/index.php/medievalista/oai> ;
+        rossio:oaiSet              "medievalista" .
+
+:be45db1e-3bb5-4a6d-983e-5391a9a9d464
+        a                          dcat:Dataset ;
+        rdfs:label                 "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-11-01T03:39:58.299Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://ucpages.uc.pt/api/8af1b8e830f137832d412eb2a7e9a99092abad9eb7/oai> ;
+        rossio:oaiSet              "" .
+
+:d3070b91-a82e-4b84-a392-7bde96a73f4d
+        a                          dcat:Dataset ;
+        rdfs:label                 "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-10-19T07:18:32.250Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://dicionario-biografico.caravelas.fcsh.unl.pt/dicionario/oai> ;
+        rossio:oaiSet              "" .
+
+:d1c713fa-77af-423f-87e8-eddbabb49f1f
+        a                          dcat:Dataset ;
+        rdfs:label                 "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2021-06-18T17:24:12.718Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://oai.openedition.org/> ;
+        rossio:oaiSet              "journals:etnografica" .
+
+:41fa29e7-760c-4fff-b16b-7a7513c75859
+        a                          dcat:Dataset ;
+        rdfs:label                 "" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2023-01-09T04:01:17.977Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://pemdatabase.eu/sources/oai> ;
+        rossio:oaiSet              "" .
+
+:f8096137-a136-4020-8b9c-957c27f22829
+        a                          dcat:Dataset ;
+        rdfs:label                 "Arquivo Distrital de Evora" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-19T20:41:44.062Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://digitarq.adevr.arquivos.pt/oai-pmh/> ;
+        rossio:oaiSet              "ADEVR" .
+
+:6cc61dde-36be-484f-a1d1-bf3256e25963
+        a                          dcat:Dataset ;
+        rdfs:label                 "Arquivo Distrital da Guarda" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-03-20T00:44:03.235Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <https://digitarq.adgrd.arquivos.pt/oai-pmh/> ;
+        rossio:oaiSet              "ADGRD" .
+
+:fe362db5-f62c-4c1c-8f6f-651ad1788842
+        a                          dcat:Dataset ;
+        rdfs:label                 "Coleção de partituras do TNDMII" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-07-23T02:55:31.026Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://biblioteca.tndm.pt/OAI/> ;
+        rossio:oaiSet              "PARTITURAS" .
+
+:c80b5acc-4bc9-433b-a792-49c8e46ff8c6
+        a                          dcat:Dataset ;
+        rdfs:label                 "Coleção de cartazes do TNDMII" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-07-23T18:07:50.736Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://biblioteca.tndm.pt/OAI/> ;
+        rossio:oaiSet              "CARTAZES" .

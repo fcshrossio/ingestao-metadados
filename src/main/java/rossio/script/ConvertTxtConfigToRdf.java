@@ -16,8 +16,8 @@ import org.w3c.dom.NodeList;
 import rossio.data.models.Dcat;
 import rossio.data.models.Rdf;
 import rossio.data.models.Rossio;
-import rossio.ingest.solr.manager.OaiSource;
-import rossio.ingest.solr.manager.OaiSources;
+import rossio.ingest.solr.manager.MetadataSource;
+import rossio.ingest.solr.manager.MetadataSources;
 import rossio.util.RdfUtil;
 import rossio.util.RdfUtil.Jena;
 import rossio.util.XmlUtil;
@@ -32,11 +32,11 @@ public class ConvertTxtConfigToRdf {
 //		String filename="oai_sources-test-long.txt";
 //		String outFilename="oai_sources-test-long.ttl";
 		
-		OaiSources oaiSources=OaiSources.readFromTxt(new File(filename));
+		MetadataSources oaiSources=MetadataSources.readFromTxt(new File(filename));
 		
 		oaiSources.setSourcesFile(new File(outFilename));
 		
-		for(OaiSource s: oaiSources.getAllSources()) {
+		for(MetadataSource s: oaiSources.getAllSources()) {
 			if(s.set!=null && StringUtils.isEmpty(s.name)) {
 				try {
 					s.updateName();

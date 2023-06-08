@@ -35,8 +35,8 @@ import rossio.ingest.datasets.dspace.DcatToDctermsConverter;
 import rossio.ingest.datasets.dspace.SimpleArchive;
 import rossio.ingest.solr.RepositoryWithSolr;
 import rossio.ingest.solr.RepositoryWithSolr.ItemHandler;
-import rossio.ingest.solr.manager.OaiSource;
-import rossio.ingest.solr.manager.OaiSources;
+import rossio.ingest.solr.manager.MetadataSource;
+import rossio.ingest.solr.manager.MetadataSources;
 import rossio.util.RdfUtil;
 import rossio.util.RdfUtil.Jena;
 
@@ -101,8 +101,8 @@ public class run_DatasetExportInHtml {
 
 	private static List<String> getAllSourceIds() throws IOException {
 		List<String> list=new ArrayList<String>();
-    	OaiSources oaiSources=new OaiSources(new File("src/data/oai_sources.txt"));
-    	for(OaiSource source:oaiSources.getAllSources()) {
+    	MetadataSources oaiSources=new MetadataSources(new File("src/data/oai_sources.txt"));
+    	for(MetadataSource source:oaiSources.getAllSources()) {
     		list.add(source.getSourceId());
     	}
     	return list;

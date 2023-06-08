@@ -6,14 +6,16 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
+import rossio.ingest.solr.HarvestFileSourceIntoSolr;
 import rossio.ingest.solr.HarvestOaiSourceIntoSolr;
 import rossio.ingest.solr.RepositoryWithSolr;
+import rossio.ingest.solr.manager.MetadataSource.IngestMethod;
 import rossio.ingest.solr.manager.TaskThread.Task;
 import rossio.oaipmh.HarvestReport;
 
 public class ManagerOfHarvest implements Task{
 	RepositoryWithSolr repository;
-	OaiSources oaiSources;
+	MetadataSources oaiSources;
 	Logger log;
 	int commitInterval;
 	String title=this.getClass().getCanonicalName();
@@ -22,7 +24,7 @@ public class ManagerOfHarvest implements Task{
 	Date lastRun=null;
 	boolean stopWhenPossible=false;
 	
-	public ManagerOfHarvest(RepositoryWithSolr repository, OaiSources oaiSources, Logger log, int commitInterval) {
+	public ManagerOfHarvest(RepositoryWithSolr repository, MetadataSources oaiSources, Logger log, int commitInterval) {
 		super();
 		this.repository = repository;
 		this.oaiSources = oaiSources;
@@ -39,28 +41,40 @@ public class ManagerOfHarvest implements Task{
 				}
 			} else {
 				lastRun=new Date();
-		    	List<OaiSource> sourcesToHarvest = oaiSources.getSourcesToHarvest();
+		    	List<MetadataSource> sourcesToHarvest = oaiSources.getSourcesToHarvest();
 		    	if(sourcesToHarvest.isEmpty())
 		    		log.log("No sources need harvesting");
-				for(OaiSource src: sourcesToHarvest) {
+				for(MetadataSource src: sourcesToHarvest) {
 					if(stopWhenPossible) 
 						break TOP;
 					currentSource=src.getSourceId();
 		    		log.log("Start harvesting: "+src.getSourceId());
 		    		
-		//			HarvestOaiSourceIntoSolr harvest=new HarvestOaiSourceIntoSolr(src.getSourceId(), src.dataProvider, src.baseUrl, src.set, src.metadataPrefix, repository);
-//					HarvestOaiSourceIntoSolrWithHandler harvest=new HarvestOaiSourceIntoSolrWithHandler(src.getSourceId(), src.dataProvider, src.baseUrl, src.set, src.metadataPrefix, src.lastHarvestTimestamp, repository);
-					HarvestOaiSourceIntoSolr harvest=new HarvestOaiSourceIntoSolr(src, repository);
-					harvest.setCommitInterval(commitInterval);
-					if(!StringUtils.isEmpty(src.resumptionToken)) {
-						harvest.resumeWithToken(src.resumptionToken);
-						log.log("...resuming with token: "+src.resumptionToken);				
-					}else if (src.status!=null && src.status==TaskStatus.CLEAR)
-			    		repository.removeAllFrom(src.getSourceId());
-		
-					Date startOfharvest=new Date();
-					HarvestReport report = harvest.run(log, oaiSources, src);
-					String result=report.toLogString();
+		    		HarvestReport report = null;
+		    		Date startOfharvest=null;
+		    		if(src.ingestMethod==IngestMethod.OAIPMH) {
+			//			HarvestOaiSourceIntoSolr harvest=new HarvestOaiSourceIntoSolr(src.getSourceId(), src.dataProvider, src.baseUrl, src.set, src.metadataPrefix, repository);
+	//					HarvestOaiSourceIntoSolrWithHandler harvest=new HarvestOaiSourceIntoSolrWithHandler(src.getSourceId(), src.dataProvider, src.baseUrl, src.set, src.metadataPrefix, src.lastHarvestTimestamp, repository);
+			    		HarvestOaiSourceIntoSolr harvest=new HarvestOaiSourceIntoSolr(src, repository);
+						harvest.setCommitInterval(commitInterval);
+						if(!StringUtils.isEmpty(src.resumptionToken)) {
+							harvest.resumeWithToken(src.resumptionToken);
+							log.log("...resuming with token: "+src.resumptionToken);				
+						}else if (src.status!=null && src.status==TaskStatus.CLEAR)
+				    		repository.removeAllFrom(src.getSourceId());
+			
+						startOfharvest=new Date();
+						report = harvest.run(log, oaiSources, src);
+		    		} else if(src.ingestMethod==IngestMethod.File) {
+		    			HarvestFileSourceIntoSolr harvest=new HarvestFileSourceIntoSolr(src, repository);
+		    			harvest.setCommitInterval(commitInterval);
+		    			repository.removeAllFrom(src.getSourceId());		    			
+		    			startOfharvest=new Date();
+		    			report = harvest.run(log, oaiSources, src);
+		    		}
+
+		    		
+		    		String result=report.toLogString();
 		
 					if(report.isSuccessful())
 						src.lastHarvestTimestamp=DateUtils.addHours(startOfharvest, -12);

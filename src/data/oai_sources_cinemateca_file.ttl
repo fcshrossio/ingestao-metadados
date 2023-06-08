@@ -1,0 +1,17 @@
+@prefix :      <http://data.rossio.fcsh.unl.pt/conjunto-de-dados/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rossio: <http://data.rossio.fcsh.unl.pt/ingestao/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+
+:971a3440-0d25-453c-a4ec-caa9042beed5
+        a                            dcat:Dataset ;
+        rdfs:label                   "Cinemateca - Conteudos audio-visuais" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_c52d3737> ;
+        rossio:fileToIngest          "C:\\Users\\nfrei\\git\\ingestao-metadados\\src\\data\\test\\Cinemateca.xml" ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:ingestMethod          "File" ;
+        rossio:lastHarvestTimestamp  "2023-06-07T07:02:28.397Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.EfgPreprocessor" ;
+        rossio:oaiSet                "" .

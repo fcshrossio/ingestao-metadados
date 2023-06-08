@@ -24,8 +24,8 @@ import rossio.data.models.Rossio;
 import rossio.data.models.Skos;
 import rossio.ingest.solr.RepositoryWithSolr;
 import rossio.ingest.solr.RepositoryWithSolr.ItemHandler;
-import rossio.ingest.solr.manager.OaiSource;
-import rossio.ingest.solr.manager.OaiSources;
+import rossio.ingest.solr.manager.MetadataSource;
+import rossio.ingest.solr.manager.MetadataSources;
 import rossio.util.Global;
 import rossio.util.RdfUtil;
 import rossio.util.RdfUtil.Jena;
@@ -51,8 +51,8 @@ public class CreateRepositoryReport {
 
     	StringBuilder out=new StringBuilder();
     	
-		OaiSources oaiSources=new OaiSources(new File(filename));
-		for(OaiSource s: oaiSources.getAllSources()) {
+		MetadataSources oaiSources=new MetadataSources(new File(filename));
+		for(MetadataSource s: oaiSources.getAllSources()) {
 			Model providerMd = RdfUtil.readRdfFromUri(s.dataProvider);
 			Resource dpRes = providerMd.createResource(s.dataProvider);
 			String dpLabel = dpRes.getProperty(Skos.prefLabel).getObject().asLiteral().getString();

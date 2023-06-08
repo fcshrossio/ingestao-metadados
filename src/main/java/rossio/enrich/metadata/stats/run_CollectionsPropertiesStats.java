@@ -17,8 +17,8 @@ import org.apache.jena.rdf.model.Property;
 import rossio.data.models.DcTerms;
 import rossio.enrich.metadata.stats.CreateStatsTask.PropertyStats;
 import rossio.ingest.solr.RepositoryWithSolr;
-import rossio.ingest.solr.manager.OaiSource;
-import rossio.ingest.solr.manager.OaiSources;
+import rossio.ingest.solr.manager.MetadataSource;
+import rossio.ingest.solr.manager.MetadataSources;
 
 public class run_CollectionsPropertiesStats {
 
@@ -35,8 +35,8 @@ public class run_CollectionsPropertiesStats {
 		
 		
 //		OaiSources oaiSources=new OaiSources(new File("src/data/oai_sources-test1.txt"));
-		OaiSources oaiSources=new OaiSources(new File("src/data/oai_sources-test-long.ttl"));
-    	for(OaiSource source:oaiSources.getAllSources()) {
+		MetadataSources oaiSources=new MetadataSources(new File("src/data/oai_sources-test-long.ttl"));
+    	for(MetadataSource source:oaiSources.getAllSources()) {
     		Map<Property, PropertyStats> stats = enrichTast.runOnCollectionMultiProp(repository, 
     				source.getSourceId(), DcTerms.subject, DcTerms.contributor, DcTerms.creator);
     		

@@ -90,7 +90,7 @@ public class CommandLineManagerOfHarvest {
 					sourcesLockFile.deleteOnExit();
 		    	}
 		    	
-				OaiSources oaiSources=new OaiSources(sourcesFile);
+				MetadataSources oaiSources=new MetadataSources(sourcesFile);
 
 				Global.init_componentHttpRequestService();
 				

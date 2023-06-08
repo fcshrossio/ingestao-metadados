@@ -24,7 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 import rossio.ingest.solr.Indexer;
 import rossio.ingest.solr.RepositoryWithSolr;
 import rossio.ingest.solr.manager.Logger;
-import rossio.ingest.solr.manager.OaiSources;
+import rossio.ingest.solr.manager.MetadataSources;
 import rossio.ingest.solr.manager.StopFile.StopFileListener;
 import rossio.util.Global;
 import rossio.util.HttpUtil;
@@ -75,7 +75,7 @@ public class CommandLineDatasetExporter {
 		    	if(!StringUtils.isEmpty(line.getOptionValue("source_id")))
 		    		sourceId=line.getOptionValue("source_id");
 		    	
-				OaiSources oaiSources=new OaiSources(sourcesFile);
+				MetadataSources oaiSources=new MetadataSources(sourcesFile);
 				DatasetExporter exporter=new DatasetExporter(repository, oaiSources);
 				
 				if(sourceId==null)

@@ -26,8 +26,8 @@ import rossio.ingest.preprocess.DglabPreprocessor;
 import rossio.ingest.solr.RepositoryWithSolr;
 import rossio.ingest.solr.RepositoryWithSolr.FetchOption;
 import rossio.ingest.solr.RepositoryWithSolr.ItemHandler;
-import rossio.ingest.solr.manager.OaiSource;
-import rossio.ingest.solr.manager.OaiSources;
+import rossio.ingest.solr.manager.MetadataSource;
+import rossio.ingest.solr.manager.MetadataSources;
 import rossio.util.RdfUtil;
 import rossio.util.RdfUtil.Jena;
 import rossio.util.XmlUtil;
@@ -67,8 +67,8 @@ public class ChangeIngestedDatasetsDglab {
     	else
     		repositoryOut=new RepositoryWithSolr(solrRepoUrl);
     	
-		OaiSources oaiSources=new OaiSources(new File(filename));
-		for(OaiSource s: oaiSources.getAllSources()) {
+		MetadataSources oaiSources=new MetadataSources(new File(filename));
+		for(MetadataSource s: oaiSources.getAllSources()) {
 			if (dataproviderUris.contains(s.dataProvider)) {
 				System.out.println("Processing "+s.getSourceId());
 				repository.getItemsInSource(s.getSourceId(), FetchOption.BOTH_VERSIONS, new ItemHandler() {

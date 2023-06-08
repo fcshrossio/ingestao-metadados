@@ -15,8 +15,8 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.w3c.dom.Element;
 
 import rossio.ingest.solr.manager.Logger;
-import rossio.ingest.solr.manager.OaiSource;
-import rossio.ingest.solr.manager.OaiSources;
+import rossio.ingest.solr.manager.MetadataSource;
+import rossio.ingest.solr.manager.MetadataSources;
 import rossio.oaipmh.HarvestException;
 import rossio.oaipmh.HarvestReport;
 import rossio.oaipmh.OaiPmhRecord;
@@ -32,7 +32,7 @@ public class HarvestOaiSourceIntoSolr {
 //	String set;
 //	String metadataPrefix;
 //	Date lastHarvestTimestamp;
-	OaiSource source;
+	MetadataSource source;
 	String resumptionToken;
 	
 //	String sourceId;
@@ -53,15 +53,15 @@ public class HarvestOaiSourceIntoSolr {
 //		this.lastHarvestTimestamp = lastHarvestTimestamp;
 //	}
 	
-	public HarvestOaiSourceIntoSolr(OaiSource src, RepositoryWithSolr repository) {
+	public HarvestOaiSourceIntoSolr(MetadataSource src, RepositoryWithSolr repository) {
 		this.harvestTo = repository;
 		this.source=src;
 	}
 
-	public HarvestReport run(Logger log, OaiSources sources, OaiSource src) throws HarvestException {
+	public HarvestReport run(Logger log, MetadataSources sources, MetadataSource src) throws HarvestException {
 		return run(null, log, sources, src);
 	}
-	public HarvestReport run(Integer maxRecords, Logger log, OaiSources sources, OaiSource src) {
+	public HarvestReport run(Integer maxRecords, Logger log, MetadataSources sources, MetadataSource src) {
 		int maximumRetries=3;
         int retry=0;
         report=null;

@@ -19,8 +19,8 @@ import rossio.data.models.Rossio;
 import rossio.ingest.solr.RepositoryWithSolr;
 import rossio.ingest.solr.RepositoryWithSolr.FetchOption;
 import rossio.ingest.solr.RepositoryWithSolr.ItemHandler;
-import rossio.ingest.solr.manager.OaiSource;
-import rossio.ingest.solr.manager.OaiSources;
+import rossio.ingest.solr.manager.MetadataSource;
+import rossio.ingest.solr.manager.MetadataSources;
 import rossio.util.RdfUtil;
 import rossio.util.RdfUtil.Jena;
 import rossio.util.XmlUtil;
@@ -40,8 +40,8 @@ public class ConvertSourceIds {
     	RepositoryWithSolr repositorySource=new RepositoryWithSolr(solrRepoUrlSource);
     	RepositoryWithSolr repositoryTarget=new RepositoryWithSolr(solrRepoUrlTarget);
     	
-		OaiSources oaiSources=new OaiSources(new File(filename));
-		for(OaiSource s: oaiSources.getAllSources()) {
+		MetadataSources oaiSources=new MetadataSources(new File(filename));
+		for(MetadataSource s: oaiSources.getAllSources()) {
 			System.out.println("convert "+s.getSourceIdDeprecated());
 			repositorySource.getItemsInSource(s.getSourceIdDeprecated(), FetchOption.VERSION_AT_SOURCE, new ItemHandler() {
 				int cnt=0;

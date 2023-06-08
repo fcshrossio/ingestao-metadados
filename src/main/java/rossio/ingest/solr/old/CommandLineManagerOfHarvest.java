@@ -33,8 +33,8 @@ import com.ctc.wstx.util.StringUtil;
 
 import rossio.ingest.solr.RepositoryWithSolr;
 import rossio.ingest.solr.manager.Logger;
-import rossio.ingest.solr.manager.OaiSource;
-import rossio.ingest.solr.manager.OaiSources;
+import rossio.ingest.solr.manager.MetadataSource;
+import rossio.ingest.solr.manager.MetadataSources;
 import rossio.oaipmh.HarvestException;
 import rossio.oaipmh.HarvestReport;
 import rossio.util.AccessException;

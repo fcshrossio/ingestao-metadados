@@ -28,14 +28,14 @@ import rossio.util.RdfUtil;
 import rossio.util.RdfUtil.Jena;
 
 
-public class OaiSources{
+public class MetadataSources{
 	File sourcesFile;
-	List<OaiSource> sources;
+	List<MetadataSource> sources;
 
-	protected OaiSources() {
+	protected MetadataSources() {
 	}
 	
-	public OaiSources(File sourcesFile) throws IOException {
+	public MetadataSources(File sourcesFile) throws IOException {
 		super();
 		this.sourcesFile = sourcesFile;
 
@@ -43,7 +43,7 @@ public class OaiSources{
 	}
 	
 	public void refresh() throws IOException {
-		sources=new ArrayList<OaiSource>();
+		sources=new ArrayList<MetadataSource>();
 		Model m;
 		try {
 			m = RdfUtil.readRdf(sourcesFile, Lang.TURTLE);
@@ -54,18 +54,18 @@ public class OaiSources{
 			m = RdfUtil.readRdf(sourcesFile, Lang.TURTLE);
 		}
 		for(Resource dsRes: m.listResourcesWithProperty(Rdf.type, Dcat.Dataset).toList()) {
-			sources.add(new OaiSource(dsRes));
+			sources.add(new MetadataSource(dsRes));
 		}		
 	}
 	
-	public static OaiSources readFromTxt(File sourcesFileTxt) throws IOException {
-		OaiSources srcs=new OaiSources();
+	public static MetadataSources readFromTxt(File sourcesFileTxt) throws IOException {
+		MetadataSources srcs=new MetadataSources();
 		
 		List<String> sourcesUnparsed = FileUtils.readLines(sourcesFileTxt, StandardCharsets.UTF_8);
-		srcs.sources=new ArrayList<OaiSource>(sourcesUnparsed.size());
+		srcs.sources=new ArrayList<MetadataSource>(sourcesUnparsed.size());
 		for(String unparsed:sourcesUnparsed) {
 			if(!StringUtils.isEmpty(unparsed) && ! unparsed.startsWith("#")) {
-				OaiSource src = new OaiSource(unparsed);
+				MetadataSource src = new MetadataSource(unparsed);
 				if(src.status==TaskStatus.SUCCESS)
 					src.lastHarvestTimestamp=new Date();
 				srcs.sources.add(src);
@@ -74,15 +74,15 @@ public class OaiSources{
 		return srcs;
 	}
 	
-	public synchronized List<OaiSource> getAllSources() {
+	public synchronized List<MetadataSource> getAllSources() {
 		return sources;
 	}
 	
 
-	public synchronized List<OaiSource> getSourcesToHarvest() throws IOException {
-		List<OaiSource> srcs=new ArrayList<OaiSource>(getAllSources());
-		for(Iterator<OaiSource> it=srcs.iterator(); it.hasNext() ; ) {
-			OaiSource s=it.next();
+	public synchronized List<MetadataSource> getSourcesToHarvest() throws IOException {
+		List<MetadataSource> srcs=new ArrayList<MetadataSource>(getAllSources());
+		for(Iterator<MetadataSource> it=srcs.iterator(); it.hasNext() ; ) {
+			MetadataSource s=it.next();
 			if (s.status!=null) {
 				if(s.status== TaskStatus.PAUSED || !s.todoHarvest() ) 
 					it.remove();				
@@ -116,10 +116,10 @@ public class OaiSources{
 //				);
 	}
 	
-	public synchronized List<OaiSource> getSourcesFailToHarvest() throws IOException {
-		List<OaiSource> srcs=new ArrayList<OaiSource>(getAllSources());
-		for(Iterator<OaiSource> it=srcs.iterator(); it.hasNext() ; ) {
-			OaiSource s=it.next();
+	public synchronized List<MetadataSource> getSourcesFailToHarvest() throws IOException {
+		List<MetadataSource> srcs=new ArrayList<MetadataSource>(getAllSources());
+		for(Iterator<MetadataSource> it=srcs.iterator(); it.hasNext() ; ) {
+			MetadataSource s=it.next();
 			if (s.status==null || s.status!=TaskStatus.FAILURE)
 				it.remove();
 		}
@@ -143,7 +143,7 @@ public class OaiSources{
 //		writer.close();
 		
 		Model m=Jena.createModel();
-		for(OaiSource source:getAllSources()) {
+		for(MetadataSource source:getAllSources()) {
 			if(source.uri==null)
 				source.uri=Rossio.NS_CONJUNTO_DE_DADOS + UUID.randomUUID().toString();
 			Resource r=source.toRdf(m);
@@ -162,8 +162,8 @@ public class OaiSources{
 		this.sourcesFile = sourcesFile;
 	}
 
-	public OaiSource findSource(String uri) {
-		for(OaiSource source:getAllSources()) {
+	public MetadataSource findSource(String uri) {
+		for(MetadataSource source:getAllSources()) {
 			if(source.uri.equals(uri))
 				return source;
 		}

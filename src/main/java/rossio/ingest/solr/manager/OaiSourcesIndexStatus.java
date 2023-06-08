@@ -30,12 +30,12 @@ import rossio.util.RdfUtil.Jena;
 public class OaiSourcesIndexStatus{
 	File sourcesFile;
 	List<OaiSourceIndexStatus> sources;
-	OaiSources oaiSources;
+	MetadataSources oaiSources;
 
 	protected OaiSourcesIndexStatus() {
 	}
 	
-	public OaiSourcesIndexStatus(File sourcesFile, OaiSources oaiSources) throws IOException {
+	public OaiSourcesIndexStatus(File sourcesFile, MetadataSources oaiSources) throws IOException {
 		super();
 		this.sourcesFile = sourcesFile;
 		this.oaiSources = oaiSources;
@@ -113,12 +113,12 @@ public class OaiSourcesIndexStatus{
 		else
 			m=Jena.createModel();
 		for(Resource dsRes: m.listResourcesWithProperty(Rdf.type, Dcat.Dataset).toList()) {
-			OaiSource oaiSource = oaiSources.findSource(dsRes.getURI());
+			MetadataSource oaiSource = oaiSources.findSource(dsRes.getURI());
 			if(oaiSource!=null)
 				sources.add(new OaiSourceIndexStatus(dsRes, oaiSource));
 		}
 		
-		for(OaiSource src: oaiSources.sources) {
+		for(MetadataSource src: oaiSources.sources) {
 			if(!RdfUtil.exists(src.uri , m)) {
 				Resource dsRes=m.createResource(src.uri, Dcat.Dataset);
 				sources.add(new OaiSourceIndexStatus(dsRes, src));

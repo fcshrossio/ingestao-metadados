@@ -29,15 +29,15 @@ import rossio.util.RdfUtil.Jena;
 
 public class OaiSourceIndexStatus{
 	
-	public static final Property lastIndexTimestampProp=Jena.createProperty(OaiSource.NS_INGESTAO+"lastIndexTimestamp");
-	public static final Property indexingStatusProp=Jena.createProperty(OaiSource.NS_INGESTAO+"indexingStatus");
+	public static final Property lastIndexTimestampProp=Jena.createProperty(MetadataSource.NS_INGESTAO+"lastIndexTimestamp");
+	public static final Property indexingStatusProp=Jena.createProperty(MetadataSource.NS_INGESTAO+"indexingStatus");
 	
-	OaiSource oaiSource; 
+	MetadataSource oaiSource; 
 	
 	public Date lastIndexTimestamp;
 	public TaskStatus status=null;
 	
-	public OaiSourceIndexStatus(Resource dsRes, OaiSource oaiSource) {
+	public OaiSourceIndexStatus(Resource dsRes, MetadataSource oaiSource) {
 		this.oaiSource = oaiSource;
 		
 		Statement lastIndexSt = dsRes.getProperty(lastIndexTimestampProp);

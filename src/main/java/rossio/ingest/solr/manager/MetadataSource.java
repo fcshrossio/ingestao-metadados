@@ -1,5 +1,6 @@
 package rossio.ingest.solr.manager;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
@@ -31,9 +32,13 @@ import rossio.oaipmh.OaiWrappedException;
 import rossio.util.XmlUtil;
 import rossio.util.RdfUtil.Jena;
 
-public class OaiSource{
+public class MetadataSource{
 	public enum Periodicity {
 		NONE, WEEKLY, MONTHLY
+	}
+	
+	public enum IngestMethod {
+		OAIPMH, File
 	}
 	
 	public static final String NS_INGESTAO=Rossio.NS+"ingestao/";
@@ -44,6 +49,8 @@ public class OaiSource{
 	public static final Property harvestingStatusProp=Jena.createProperty(NS_INGESTAO+"harvestingStatus");
 	public static final Property lastResumptionTokenProp=Jena.createProperty(NS_INGESTAO+"lastResumptionToken");
 	public static final Property metadataPreprocessorProp=Jena.createProperty(NS_INGESTAO+"metadataPreprocessor");
+	public static final Property ingestMethodProp=Jena.createProperty(NS_INGESTAO+"ingestMethod");
+	public static final Property fileToIngestProp=Jena.createProperty(NS_INGESTAO+"fileToIngest");
 
 	public static final Property lastHarvestTimestampProp=Jena.createProperty(NS_INGESTAO+"lastHarvestTimestamp");
 	public static final Property harvestPeriodicityProp=Jena.createProperty(NS_INGESTAO+"harvestPeriodicity");
@@ -59,6 +66,8 @@ public class OaiSource{
 	public TaskStatus status=null;
 	public String resumptionToken="";
 	public String name="";
+	public IngestMethod ingestMethod=IngestMethod.OAIPMH;
+	public File fileToIngest=null;
 	
 	public MetadataPreprocessor preprocessor=null;
 	
@@ -66,7 +75,7 @@ public class OaiSource{
 	public Periodicity harvestPeriodicity;
 //	public DayOfWeek harvestDayOfWeek;
 
-	public OaiSource(String unparsed) {
+	public MetadataSource(String unparsed) {
 		String[] split = unparsed.split("\\|");
 		dataProvider=split[0];
 		baseUrl=split[1];
@@ -86,7 +95,7 @@ public class OaiSource{
 			resumptionToken=null;
 		harvestPeriodicity=Periodicity.NONE;
 	}
-	public OaiSource(Resource dsRes) {
+	public MetadataSource(Resource dsRes) {
 		uri=dsRes.getURI();
 		Matcher newUriMatcher=newUriPattern.matcher(uri);
 		if(newUriMatcher.find()) {
@@ -94,8 +103,12 @@ public class OaiSource{
 		}
 		
 		dataProvider=dsRes.getProperty(dataProviderProp).getObject().asResource().getURI();
-		baseUrl=dsRes.getProperty(oaiBaseUrlProp).getObject().asResource().getURI();
-		metadataPrefix=dsRes.getProperty(oaiMetadataPrefixProp).getObject().asLiteral().getString();
+		Statement baseUrlSt = dsRes.getProperty(oaiBaseUrlProp);
+		if(baseUrlSt!=null)
+			baseUrl=baseUrlSt.getObject().asResource().getURI();
+		Statement oaiMetadataPrefixSt = dsRes.getProperty(oaiMetadataPrefixProp);
+		if(oaiMetadataPrefixSt!=null)
+			metadataPrefix=oaiMetadataPrefixSt.getObject().asLiteral().getString();
 		Statement setProperty = dsRes.getProperty(oaiSetProp);
 		if(setProperty==null)
 			set=null;
@@ -119,7 +132,17 @@ public class OaiSource{
 				throw new RuntimeException(e.getMessage(), e);
 			}
 		}
+
+		Statement ingestMethodSt = dsRes.getProperty(ingestMethodProp);
+		if(ingestMethodSt!=null) 
+			ingestMethod=IngestMethod.valueOf(ingestMethodSt.getObject().asLiteral().getString());
 				
+		Statement fileToIngestSt = dsRes.getProperty(fileToIngestProp);
+		if(fileToIngestSt!=null) {
+			String filePath = fileToIngestSt.getObject().asLiteral().getString();
+			if(!StringUtils.isEmpty(filePath))
+				fileToIngest=new File(filePath);
+		}		
 		Statement statusSt=dsRes.getProperty(harvestingStatusProp);
 		if( statusSt!=null && !(StringUtils.isEmpty(statusSt.getObject().asLiteral().getString())))
 			status=TaskStatus.valueOf(statusSt.getObject().asLiteral().getString());
@@ -143,8 +166,10 @@ public class OaiSource{
 	
 
 	public String getSourceId() {
-		return getSourceIdDeprecated();
-//		return uri;
+		if(baseUrl!=null)
+			return getSourceIdDeprecated();
+//		return fileToIngest.getParentFile().getName()+"/"+fileToIngest.getName();
+		return uri;
 	}
 	public String getSourceIdDeprecated() {
 		return baseUrl+"#"+(set==null ? "" : set);
@@ -170,8 +195,10 @@ public class OaiSource{
 		Resource res = m.createResource(uri);
 		res.addProperty(Rdf.type, Dcat.Dataset);
 		res.addProperty(dataProviderProp, m.createResource(dataProvider));
-		res.addProperty(oaiBaseUrlProp, m.createResource(baseUrl));
-		res.addProperty(oaiMetadataPrefixProp, metadataPrefix);
+		if(baseUrl!=null)
+			res.addProperty(oaiBaseUrlProp, m.createResource(baseUrl));
+		if(metadataPrefix!=null)
+			res.addProperty(oaiMetadataPrefixProp, metadataPrefix);
 		res.addProperty(oaiSetProp, set==null? "" : set);
 		res.addProperty(lastResumptionTokenProp, resumptionToken==null? "" : resumptionToken);
 //		res.addProperty(indexingStatusProp, statusIndexing);
@@ -179,6 +206,10 @@ public class OaiSource{
 			res.addProperty(metadataPreprocessorProp, preprocessor.getClass().getCanonicalName()); 
 		if (status!=null)
 			res.addProperty(harvestingStatusProp, status.toString()); 
+		if (ingestMethod!=null)
+			res.addProperty(ingestMethodProp, ingestMethod.name()); 
+		if (fileToIngest!=null)
+			res.addProperty(fileToIngestProp, fileToIngest.getAbsolutePath()); 
 		res.addProperty(Rdfs.label, name==null? "" : name);
 		
 //		res.addProperty(harvestDayOfWeekProp, harvestDayOfWeek.toString());
