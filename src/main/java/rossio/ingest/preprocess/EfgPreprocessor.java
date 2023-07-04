@@ -47,7 +47,7 @@ public class EfgPreprocessor implements MetadataPreprocessor {
 			}
 		}
 		
-		RdfUtil.printOutRdf(m);
+//		RdfUtil.printOutRdf(m);
 		
 		return m;
 	}
