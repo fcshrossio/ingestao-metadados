@@ -13,24 +13,24 @@ import rossio.util.XmlUtil;
 public class MappingsContext {
 
 	protected static void processItem(Resource subject, Element xmlElement, MapOfLists<Property,RDFNode> elementsByProperty) {
-		String v=XmlUtil.getElementTextByTagNameIgnoreCase(xmlElement,"efg:Type");
+		String v=XmlUtil.getElementTextByTagNameIgnoreCase(xmlElement,"Type");
 		if(!StringUtils.isEmpty(v)) 
 			elementsByProperty.put(DcTerms.type, subject.getModel().createLiteral(v));										
-		v=XmlUtil.getElementTextByTagNameIgnoreCase(xmlElement,"efg:URI");
+		v=XmlUtil.getElementTextByTagNameIgnoreCase(xmlElement,"URI");
 		if(!StringUtils.isEmpty(v)) 
 			elementsByProperty.put(DcTerms.identifier, subject.getModel().createLiteral(v));										
-		v=XmlUtil.getElementTextByTagNameIgnoreCase(xmlElement,"efg:isShownBy");
+		v=XmlUtil.getElementTextByTagNameIgnoreCase(xmlElement,"isShownBy");
 		if(!StringUtils.isEmpty(v)) 
 			elementsByProperty.put(DcTerms.identifier, subject.getModel().createLiteral(v));										
 		
-		for (Element subXmlElement: XmlUtil.elements(xmlElement)) {
-			if(subXmlElement.getLocalName().equalsIgnoreCase("URI") || subXmlElement.getLocalName().equalsIgnoreCase("isShownBy")
-					|| subXmlElement.getLocalName().equalsIgnoreCase("isShownAt")) {
-				v=XmlUtil.getElementText(subXmlElement);
-				if(!StringUtils.isEmpty(v)) 
-					elementsByProperty.put(DcTerms.identifier, subject.getModel().createLiteral(v));
-			}
-		}
+//		for (Element subXmlElement: XmlUtil.elements(xmlElement)) {
+//			if(subXmlElement.getLocalName().equalsIgnoreCase("URI") || subXmlElement.getLocalName().equalsIgnoreCase("isShownBy")
+//					|| subXmlElement.getLocalName().equalsIgnoreCase("isShownAt")) {
+//				v=XmlUtil.getElementText(subXmlElement);
+//				if(!StringUtils.isEmpty(v)) 
+//					elementsByProperty.put(DcTerms.identifier, subject.getModel().createLiteral(v));
+//			}
+//		}
 	}
 
 	protected static void processRelAgent(Resource subject, Element xmlElement, MapOfLists<Property,RDFNode> elementsByProperty) {
@@ -47,9 +47,9 @@ public class MappingsContext {
 	protected static void processCredits(Resource subject, Element xmlElement, MapOfLists<Property,RDFNode> elementsByProperty) {
 		for (Element subXmlElement: XmlUtil.elements(xmlElement)) {
 			if(subXmlElement.getLocalName().equalsIgnoreCase("Person") || subXmlElement.getLocalName().equalsIgnoreCase("CorporateBody")) {
-				String v=XmlUtil.getElementTextByTagNameIgnoreCase(xmlElement,"efg:Name");
+				String v=XmlUtil.getElementTextByTagNameIgnoreCase(xmlElement,"Name");
 				if(!StringUtils.isEmpty(v)) {
-					String role=XmlUtil.getElementTextByTagNameIgnoreCase(xmlElement,"efg:TypeOfActivity");
+					String role=XmlUtil.getElementTextByTagNameIgnoreCase(xmlElement,"TypeOfActivity");
 					if(!StringUtils.isEmpty(role) && role.equals("Distribuidor"))
 						elementsByProperty.put(DcTerms.publisher, subject.getModel().createLiteral(v));
 					else

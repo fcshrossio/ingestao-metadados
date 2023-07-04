@@ -38,7 +38,7 @@ public class MetadataSource{
 	}
 	
 	public enum IngestMethod {
-		OAIPMH, File
+		OAIPMH, File, Csv
 	}
 	
 	public static final String NS_INGESTAO=Rossio.NS+"ingestao/";
@@ -163,10 +163,9 @@ public class MetadataSource{
 			}
 		}
 	}
-	
 
 	public String getSourceId() {
-		if(baseUrl!=null)
+		if(!StringUtils.isEmpty(baseUrl))
 			return getSourceIdDeprecated();
 //		return fileToIngest.getParentFile().getName()+"/"+fileToIngest.getName();
 		return uri;

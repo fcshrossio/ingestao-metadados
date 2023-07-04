@@ -8,6 +8,7 @@ public class TestHarvestManager {
 	public static void main(String[] args) throws Exception {
 //		String confFile="src/data/oai_sources_debug_cesem.ttl";
 		String confFile="src/data/oai_sources_cinemateca_file.ttl";
+//		String confFile="src/data/oai_sources_modernismo_file_csv.ttl";
 //		String confFile="src/data/oai_sources_debug_coimbra.ttl";
 //		String confFile="src/data/oai_sources_debug_cinemateca.ttl";
 		

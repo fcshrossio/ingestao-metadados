@@ -17,7 +17,9 @@ import rossio.util.MapOfLists;
 import rossio.util.RdfUtil;
 import rossio.util.XmlUtil;
 
-public class MappingsAv extends Mappings {
+public class MappingsAvOai extends Mappings {
+
+
 	
 	protected static void preprocessAv(String uuid, String sourceId, String dataProviderUri, Element metadata, Resource cho, MapOfLists<Property,RDFNode> elementsByProperty) {
 		Model m=cho.getModel();
@@ -27,23 +29,22 @@ public class MappingsAv extends Mappings {
 //	public static void preprocessNonAv(EfgPreprocessor preprocessor, String uuid, String sourceId, String dataProviderUri, Element metadata, Resource cho, MapOfLists<Property,RDFNode> elementsByProperty) {
 	protected static void processAVManifestation(Resource subject, Element xmlElement, MapOfLists<Property,RDFNode> elementsByProperty) {
 		for (Element subXmlElement: XmlUtil.elements(xmlElement)) {
-//			if(subXmlElement.getLocalName().equalsIgnoreCase("RecordSource")) {
-//				String v=XmlUtil.getElementTextByTagNameIgnoreCase(subXmlElement, "efg:SourceID");
-//				if(!StringUtils.isEmpty(v))
-//					elementsByProperty.put(DcTerms.identifier, subject.getModel().createLiteral(v));
-//			}else 
-			if(subXmlElement.getLocalName().equalsIgnoreCase("Language")) {
+			if(subXmlElement.getLocalName().equalsIgnoreCase("RecordSource")) {
+				String v=XmlUtil.getElementTextByTagNameIgnoreCase(subXmlElement, "efg:SourceID");
+				if(!StringUtils.isEmpty(v))
+					elementsByProperty.put(DcTerms.identifier, subject.getModel().createLiteral(v));
+			}else if(subXmlElement.getLocalName().equalsIgnoreCase("Language")) {
 				String v=XmlUtil.getElementText(subXmlElement);
 				if(!StringUtils.isEmpty(v))
 					elementsByProperty.put(DcTerms.language, subject.getModel().createLiteral(v));
-//			}else if(subXmlElement.getLocalName().equalsIgnoreCase("Dimension")) {
-//				String v=XmlUtil.getElementText(subXmlElement);
-//				if(!StringUtils.isEmpty(v)) {
-//					String unit=XmlUtil.getElementTextByTagNameIgnoreCase(subXmlElement,"efg:Unit");
-//					if(unit!=null) 
-//						v=v+" "+unit;
-//					elementsByProperty.put(DcTerms.format, subject.getModel().createLiteral(v));
-//				}
+			}else if(subXmlElement.getLocalName().equalsIgnoreCase("Dimension")) {
+				String v=XmlUtil.getElementText(subXmlElement);
+				if(!StringUtils.isEmpty(v)) {
+					String unit=XmlUtil.getElementTextByTagNameIgnoreCase(subXmlElement,"efg:Unit");
+					if(unit!=null) 
+						v=v+" "+unit;
+					elementsByProperty.put(DcTerms.format, subject.getModel().createLiteral(v));
+				}
 			}else if(subXmlElement.getLocalName().equalsIgnoreCase("Duration")) {
 				String v=XmlUtil.getElementText(subXmlElement);
 				if(!StringUtils.isEmpty(v)) {
@@ -82,11 +83,6 @@ public class MappingsAv extends Mappings {
 					elementsByProperty.put(DcTerms.relation, subject.getModel().createLiteral(v));										
 			}else if(subXmlElement.getLocalName().equalsIgnoreCase("item")) {
 				MappingsContext.processItem(subject, subXmlElement, elementsByProperty);				
-			}else if(subXmlElement.getLocalName().equalsIgnoreCase("identifier")) {		
-				String v=XmlUtil.getElementText(subXmlElement);
-				if(!StringUtils.isEmpty(v)) 
-					elementsByProperty.put(DcTerms.identifier, subject.getModel().createLiteral(v));				
-
 			}
 		}
 	}
@@ -116,12 +112,14 @@ public class MappingsAv extends Mappings {
 				MappingsContext.processRelAgent(subject, xmlSubElement, elementsByProperty);
 			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("relAVCreation")) {
 				processRelAVCreation(subject, xmlSubElement, elementsByProperty);
+			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("identifier")) {		
+				String v=XmlUtil.getElementText(xmlSubElement);
+				if(!StringUtils.isEmpty(v)) 
+					elementsByProperty.put(DcTerms.identifier, subject.getModel().createLiteral(v));				
 			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("sourceID")) {				
 				addLiteral(DcTerms.identifier, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);
 			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("language")) {				
 				addLiteral(DcTerms.language, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);
-			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("genre")) {				
-				addLiteral(DcTerms.type, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);
 			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("keywords")) {				
 				String type=xmlSubElement.getAttribute("type");
 				if(!StringUtils.isEmpty(type)) {
@@ -132,10 +130,8 @@ public class MappingsAv extends Mappings {
 					}else if(type.equals("Person")) {
 						addLiteral(DcTerms.subject, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);						
 					}
-				} else {
-					addLiteral(DcTerms.subject, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);				
 				}
-			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("Title")) {				
+			}else if(xmlSubElement.getLocalName().equalsIgnoreCase("identifyingTitle")) {				
 				addLiteral(DcTerms.title, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);
 			}else if(xmlElement.getLocalName().equalsIgnoreCase("relPerson")) {
 				MappingsContext.processRelAgent(subject, xmlElement, elementsByProperty);

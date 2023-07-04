@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.csv.CSVRecord;
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
@@ -55,4 +57,8 @@ public class DglabPreprocessor implements MetadataPreprocessor {
 		}
 	}
 
+	@Override
+	public Model preprocess(String uuid, String sourceId, String dataProviderUri, CSVRecord metadata) {
+		throw new NotImplementedException();
+	}
 }

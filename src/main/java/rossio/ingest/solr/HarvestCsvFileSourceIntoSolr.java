@@ -2,13 +2,20 @@ package rossio.ingest.solr;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
 import javax.xml.stream.XMLStreamReader;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.jena.rdf.model.Model;
@@ -31,7 +38,7 @@ import rossio.util.RdfUtil;
 import rossio.util.XmlStaxParseUtil;
 import rossio.util.XmlUtil;
 
-public class HarvestFileSourceIntoSolr {
+public class HarvestCsvFileSourceIntoSolr {
 	RepositoryWithSolr harvestTo;
 
 //	String baseUrl;
@@ -59,7 +66,7 @@ public class HarvestFileSourceIntoSolr {
 //		this.lastHarvestTimestamp = lastHarvestTimestamp;
 //	}
 
-	public HarvestFileSourceIntoSolr(MetadataSource src, RepositoryWithSolr repository) {
+	public HarvestCsvFileSourceIntoSolr(MetadataSource src, RepositoryWithSolr repository) {
 		this.harvestTo = repository;
 		this.source = src;
 	}
@@ -81,33 +88,28 @@ public class HarvestFileSourceIntoSolr {
 //			e2.printStackTrace();
 //		}
 
+		
+		
 		try {
-			XmlStaxParseUtil.parse(src.fileToIngest, new rossio.util.XmlStaxParseUtil.Handler() {
-				public boolean isRecordElement(XMLStreamReader reader) {
-					return reader.getLocalName().equals("Av");
-				}
+			FileInputStream fis=new FileInputStream(src.fileToIngest);
+			InputStreamReader fileReader=new InputStreamReader(fis, StandardCharsets.UTF_8);
+			CSVParser csvParser=new CSVParser(fileReader, CSVFormat.DEFAULT);
 
-				public boolean handleRecord(Document rec) {
-					try {
-						report.incRecord();
-						String uuid = UUID.randomUUID().toString();
-						Element metadata = rec.getDocumentElement();
-						if (source.preprocessor != null) {
-							Model mdRdf = source.preprocessor.preprocess(uuid, source.getSourceId(),
-									source.dataProvider, metadata);
-//							RdfUtil.printOutRdf(mdRdf);
-							harvestTo.addItem(uuid, source.getSourceId(), uuid, RdfUtil.serializeToRdfRift(mdRdf));
-						} else
-							harvestTo.addItem(uuid, source.getSourceId(), uuid,
-									serializeToRossioRdfRift(uuid, metadata));
-					} catch (SolrServerException e) {
-						errorOnRecord("by file", e);
-					} catch (IOException e) {
-						errorOnRecord("by file", e);
-					}
-					return true;
+			for(CSVRecord rec: csvParser) {
+				try {
+					report.incRecord();
+					String uuid = UUID.randomUUID().toString();
+					Model mdRdf = source.preprocessor.preprocess(uuid, source.getSourceId(),
+							source.dataProvider, rec);
+					harvestTo.addItem(uuid, source.getSourceId(), uuid, RdfUtil.serializeToRdfRift(mdRdf));
+				} catch (SolrServerException e) {
+					errorOnRecord("by file", e);
+					break;
+				} catch (IOException e) {
+					errorOnRecord("by file", e);
+					break;
 				}
-			});
+			}
 			harvestTo.end();
 		} catch (Exception e) {
 			log.log("WARN: Harvest failed. Cause: " + ExceptionUtils.getStackTrace(e));

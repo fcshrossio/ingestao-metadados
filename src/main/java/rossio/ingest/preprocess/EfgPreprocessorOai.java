@@ -19,7 +19,7 @@ import rossio.util.MapOfLists;
 import rossio.util.RdfUtil;
 import rossio.util.XmlUtil;
 
-public class EfgPreprocessor implements MetadataPreprocessor {
+public class EfgPreprocessorOai implements MetadataPreprocessor {
 
 	@Override
 	public Model preprocess(String uuid, String sourceId, String dataProviderUri, Element metadata) {

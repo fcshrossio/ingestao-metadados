@@ -1,0 +1,15 @@
+@prefix :      <http://data.rossio.fcsh.unl.pt/conjunto-de-dados/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rossio: <http://data.rossio.fcsh.unl.pt/ingestao/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+
+:teste-modernismo  a                 dcat:Dataset ;
+        rdfs:label                   "Modernismo" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_c52d3737> ;
+        rossio:fileToIngest          "C:\\Users\\nfrei\\git\\ingestao-metadados\\src\\data\\datasets\\modernismo.csv" ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:ingestMethod          "Csv" ;
+        rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.ModernismoPreprocessor" ;
+        rossio:oaiSet                "" .

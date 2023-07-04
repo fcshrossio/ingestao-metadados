@@ -3,6 +3,7 @@ package rossio.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import javax.xml.namespace.QName;
@@ -27,11 +28,11 @@ public class XmlStaxParseUtil {
 	private XmlStaxParseUtil() {
 	}
 
-	public static void parse(File xmlFile, Handler handler) {
+	public static void parse(File xmlFile, Handler handler) throws IOException {
 		new XmlStaxParseUtil().parseFile(xmlFile, handler);
 	}
 
-	private void parseFile(File xmlFile, Handler handler) {
+	private void parseFile(File xmlFile, Handler handler) throws IOException {
 		try {
 			XMLInputFactory factory = XMLInputFactory.newInstance();
 			XMLStreamReader reader = factory.createXMLStreamReader(new FileInputStream(xmlFile), "UTF8");
@@ -40,12 +41,12 @@ public class XmlStaxParseUtil {
 				if (event == XMLStreamConstants.START_ELEMENT && handler.isRecordElement(reader))
 					handler.handleRecord(buildDom(reader));
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
 		} catch (FactoryConfigurationError e) {
-			e.printStackTrace();
+			throw new RuntimeException(e.getMessage(), e);
 		} catch (XMLStreamException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e.getMessage(), e);
 		}
 	}
 

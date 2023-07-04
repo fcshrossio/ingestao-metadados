@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
+import rossio.ingest.solr.HarvestCsvFileSourceIntoSolr;
 import rossio.ingest.solr.HarvestFileSourceIntoSolr;
 import rossio.ingest.solr.HarvestOaiSourceIntoSolr;
 import rossio.ingest.solr.RepositoryWithSolr;
@@ -42,13 +43,16 @@ public class ManagerOfHarvest implements Task{
 			} else {
 				lastRun=new Date();
 		    	List<MetadataSource> sourcesToHarvest = oaiSources.getSourcesToHarvest();
-		    	if(sourcesToHarvest.isEmpty())
+		    	if(sourcesToHarvest.isEmpty()) {
 		    		log.log("No sources need harvesting");
+		    		System.out.println("No sources need harvesting");
+		    	}
 				for(MetadataSource src: sourcesToHarvest) {
 					if(stopWhenPossible) 
 						break TOP;
 					currentSource=src.getSourceId();
 		    		log.log("Start harvesting: "+src.getSourceId());
+			    	System.out.println("Harvest started: "+src.getSourceId());
 		    		
 		    		HarvestReport report = null;
 		    		Date startOfharvest=null;
@@ -71,6 +75,12 @@ public class ManagerOfHarvest implements Task{
 		    			repository.removeAllFrom(src.getSourceId());		    			
 		    			startOfharvest=new Date();
 		    			report = harvest.run(log, oaiSources, src);
+		    		} else if(src.ingestMethod==IngestMethod.Csv) {
+		    			HarvestCsvFileSourceIntoSolr harvest=new HarvestCsvFileSourceIntoSolr(src, repository);
+		    			harvest.setCommitInterval(commitInterval);
+		    			repository.removeAllFrom(src.getSourceId());		    			
+		    			startOfharvest=new Date();
+		    			report = harvest.run(log, oaiSources, src);
 		    		}
 
 		    		
@@ -88,7 +98,7 @@ public class ManagerOfHarvest implements Task{
 			    	log.log(result);
 			    	src.updateStatus(result);
 			    	oaiSources.save();
-			    	System.out.println("Harvest concluded: "+src.getSourceId());
+			    	System.out.println("Harvest concluded: "+src.getSourceId() +" ("+result+")");
 		    	}
 			}
 		}
