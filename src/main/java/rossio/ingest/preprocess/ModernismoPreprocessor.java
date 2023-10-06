@@ -39,6 +39,7 @@ public class ModernismoPreprocessor extends CsvMetadataPreprocessor {
 		mapping.put(13, DCTerms.format);
 		mapping.put(17, DCTerms.relation);
 		mapping.put(19, DCTerms.identifier);
+		mapping.put(15, DCTerms.identifier);//cota
 		mapping.put(16, DCTerms.date);//Vários registos "Sem data". Eliminar a ocorrência do campo nesses casos.
 	}
 
@@ -94,6 +95,11 @@ public class ModernismoPreprocessor extends CsvMetadataPreprocessor {
 					elementsByProperty.put(propToMap, m.createLiteral(val));				
 			}else if(idx==16) {
 				if(!val.equals("Sem data")) 
+					elementsByProperty.put(propToMap, m.createLiteral(val));				
+			}else if(idx==2) {
+				if(val.startsWith("/images")) 
+					elementsByProperty.put(propToMap, m.createLiteral("https://modernismo.pt"+val));
+				else
 					elementsByProperty.put(propToMap, m.createLiteral(val));				
 			}else{		
 				elementsByProperty.put(propToMap, m.createLiteral(val));

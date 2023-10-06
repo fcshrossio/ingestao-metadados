@@ -127,10 +127,10 @@ public class MappingsAv extends Mappings {
 				if(!StringUtils.isEmpty(type)) {
 					if(type.equals("Genre") || type.equals("Category")) {
 						addLiteral(DcTerms.type, XmlUtil.getElementTextByTagNameIgnoreCase(xmlSubElement,"efg:term"),subject, elementsByProperty);
-					}else if(type.equals("Subject")) {
-						addLiteral(DcTerms.subject, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);
-					}else if(type.equals("Person")) {
-						addLiteral(DcTerms.subject, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);						
+					}else if(type.equals("Subject") || type.equals("Person")) {
+						String v=XmlUtil.getElementText(xmlSubElement);
+						for(String sv : v.split(";"))
+							addLiteral(DcTerms.subject, sv.trim(), subject, elementsByProperty);
 					}
 				} else {
 					addLiteral(DcTerms.subject, XmlUtil.getElementText(xmlSubElement),subject, elementsByProperty);				
