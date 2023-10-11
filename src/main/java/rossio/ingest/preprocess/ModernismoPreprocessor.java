@@ -25,7 +25,7 @@ public class ModernismoPreprocessor extends CsvMetadataPreprocessor {
 	public ModernismoPreprocessor() {
 		mapping.put(0, DCTerms.relation);
 		mapping.put(1, DCTerms.relation);
-		mapping.put(2, DCTerms.relation);
+		mapping.put(2, DCTerms.identifier);
 		mapping.put(3, DCTerms.creator);
 		mapping.put(4, DCTerms.title);
 		mapping.put(5, DCTerms.title);
@@ -37,7 +37,6 @@ public class ModernismoPreprocessor extends CsvMetadataPreprocessor {
 		mapping.put(11, DCTerms.description);
 		mapping.put(12, DCTerms.format);
 		mapping.put(13, DCTerms.format);
-		mapping.put(17, DCTerms.relation);
 		mapping.put(19, DCTerms.identifier);
 		mapping.put(15, DCTerms.identifier);//cota
 		mapping.put(16, DCTerms.date);//Vários registos "Sem data". Eliminar a ocorrência do campo nesses casos.
