@@ -101,7 +101,8 @@ public class HarvestCsvFileSourceIntoSolr {
 					String uuid = UUID.randomUUID().toString();
 					Model mdRdf = source.preprocessor.preprocess(uuid, source.getSourceId(),
 							source.dataProvider, rec);
-					harvestTo.addItem(uuid, source.getSourceId(), uuid, RdfUtil.serializeToRdfRift(mdRdf));
+					if(mdRdf!=null)
+						harvestTo.addItem(uuid, source.getSourceId(), uuid, RdfUtil.serializeToRdfRift(mdRdf));
 				} catch (SolrServerException e) {
 					errorOnRecord("by file", e);
 					break;

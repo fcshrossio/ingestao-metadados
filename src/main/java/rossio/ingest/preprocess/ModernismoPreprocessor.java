@@ -40,36 +40,12 @@ public class ModernismoPreprocessor extends CsvMetadataPreprocessor {
 		mapping.put(19, DCTerms.identifier);
 		mapping.put(15, DCTerms.identifier);//cota
 		mapping.put(16, DCTerms.date);//Vários registos "Sem data". Eliminar a ocorrência do campo nesses casos.
+		
+		linesToSkip=1;
 	}
 
-	@Override
-	public Model preprocess(String uuid, String sourceId, String dataProviderUri, CSVRecord metadata) {
-		Model m=RossioRecord.createBaseRecord(uuid, sourceId, dataProviderUri);		
-		Resource cho=m.createResource(Rossio.NS_ITEM+uuid);
-		MapOfLists<Property, RDFNode> elementsByProperty=new MapOfLists<Property, RDFNode>();
-		
-		processRecord(uuid, sourceId,dataProviderUri,metadata, cho, elementsByProperty);
-		
-		for (Property property: elementsByProperty.keySet()) {
-			ArrayList<RDFNode> values = elementsByProperty.get(property);
-			if(values.size()>1) {
-				Seq seq=m.createSeq();
-				for (RDFNode value: values) {
-					seq.add(value);
-				}
-				m.add(m.createStatement(cho, property, seq));
-			}else {
-				RDFNode value=values.get(0);
-				m.add(m.createStatement(cho, property, value));
-			}
-		}
-		
-		RdfUtil.printOutRdf(m);
-		
-		return m;
-	}
 	
-	private void processRecord(String uuid, String sourceId, String dataProviderUri, CSVRecord metadata, Resource cho,
+	protected void processRecord(String uuid, String sourceId, String dataProviderUri, CSVRecord metadata, Resource cho,
 			MapOfLists<Property, RDFNode> elementsByProperty) {
 		Model m=cho.getModel();
 		int idx=-1;
