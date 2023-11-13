@@ -233,7 +233,7 @@ public class IndexerSingleThread {
 //						RdfUtil.printOutRdf(model);
 //						addItem(source, model.createResource(Rossio.NS_ITEM+uuid));
 
-						Instant start=random.nextInt(0, 100)>=98 ? Instant.now() : null;
+						Instant start=random.nextInt(100)>=98 ? Instant.now() : null;
 						Instant enriched=null;
 						Instant added=null;
 												
