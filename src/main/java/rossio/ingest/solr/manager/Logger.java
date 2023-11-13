@@ -9,6 +9,8 @@ import java.util.Date;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import rossio.util.DevelopementSingleton;
+
 public class Logger{
 	File logFile;
 	SimpleDateFormat timeFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -26,6 +28,8 @@ public class Logger{
 		try {
 			if(logFile!=null)
 				FileUtils.write(logFile, timeFormat.format(new Date())+"| "+message+"\n", StandardCharsets.UTF_8, true);
+			if(DevelopementSingleton.DEVEL_TEST)
+				System.out.println(message);
 		} catch (IOException e) {
 			throw new RuntimeException(e.getMessage(), e);
 		}
