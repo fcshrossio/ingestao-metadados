@@ -36,6 +36,7 @@ import rossio.enrich.metadata.EnrichmentTask;
 import rossio.ingest.solr.RepositoryWithSolr.FetchOption;
 import rossio.ingest.solr.RepositoryWithSolr.ItemHandler;
 import rossio.ingest.solr.manager.Logger;
+import rossio.ingest.solr.manager.OaiSourceIndexStatus;
 import rossio.util.DevelopementSingleton;
 import rossio.util.RdfUtil;
 import rossio.util.RdfUtil.Jena;
@@ -208,10 +209,12 @@ public class Indexer {
 		}
 	}
 
-	public IndexingReport indexSourceFromRepository(String source, RepositoryWithSolr repository,
+	public IndexingReport indexSourceFromRepository(OaiSourceIndexStatus source, RepositoryWithSolr repository,
 			String vocabsSparqlEndpoint, Logger log) {
 		final Random random = new Random();
 		final EnrichmentTask enrichmentTask;
+		String sourceId=source.getSourceId();
+		
 		if (runEnrichment)
 			enrichmentTask = EnrichmentTask.newInstanceForRossio(vocabsSparqlEndpoint);
 		else
@@ -219,13 +222,13 @@ public class Indexer {
 
 		IndexingReport report = new IndexingReport();
 		try {
-			removeAllFrom(source);
+			removeAllFrom(sourceId);
 			lastLog = new Date().getTime();
 
 			ThreadedRunner runner = new ThreadedRunner(10);
 			final boolean[] haltProcessing = new boolean[] { false };
 
-			repository.getItemsInSource(source, FetchOption.VERSION_AT_SOURCE, new ItemHandler() {
+			repository.getItemsInSource(sourceId, source.isEnriched() ? FetchOption.VERSION_AT_SOURCE : FetchOption.VERSION_AT_ROSSIO, new ItemHandler() {
 				@Override
 				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content,
 						byte[] contentRossio) throws Exception {
@@ -236,7 +239,7 @@ public class Indexer {
 						public void run() {
 							try {
 								RDFParser reader = RDFParser.create().lang(Lang.RDFTHRIFT)
-										.source(new ByteArrayInputStream(content)).build();
+										.source(new ByteArrayInputStream(source.isEnriched() ? contentRossio : content)).build();
 								Model model = Jena.createModel();
 								reader.parse(model);
 								String choUri = Rossio.NS_ITEM + uuid;
@@ -247,7 +250,7 @@ public class Indexer {
 								Instant enriched = null;
 								Instant added = null;
 
-								if (runEnrichment) {
+								if (runEnrichment && !source.isEnriched()) {
 									enrichmentTask.runOnRecord(model.createResource(choUri));
 									// DEBUG
 //							RdfUtil.printOutRdf(model);
@@ -256,13 +259,13 @@ public class Indexer {
 											.build();
 									ByteArrayOutputStream outstream = new ByteArrayOutputStream();
 									writer.output(outstream);
-									repository.updateItem(uuid, source, idAtSource, content, outstream.toByteArray());
+									repository.updateItem(uuid, sourceId, idAtSource, content, outstream.toByteArray());
 								}
 
 								if (start != null)
 									enriched = Instant.now();
 
-								addItem(source, model, choUri);
+								addItem(sourceId, model, choUri);
 
 								if (start != null) {
 									added = Instant.now();
@@ -275,11 +278,12 @@ public class Indexer {
 
 								if (new Date().getTime() - lastLog > logInterval) {
 									lastLog = new Date().getTime();
-									log.log(source + " - " + report.toLogStringIntermediate());
+									log.log(sourceId + " - " + report.toLogStringIntermediate());
 								}
 								if (commitInterval > 0 && report.getRecordCount() % commitInterval == 0) {
 									commit();
-									repository.commit();
+									if (runEnrichment && !source.isEnriched()) 
+										repository.commit();
 								}
 							} catch (SolrServerException e) {
 								report.addErrorOnRecord(uuid, e.getMessage());
@@ -295,7 +299,8 @@ public class Indexer {
 			});
 			runner.awaitTermination(5);
 			commit();
-			repository.commit();
+			if (runEnrichment && !source.isEnriched()) 
+				repository.commit();
 			report.finish();
 		} catch (Exception e) {
 			report.failure(e);

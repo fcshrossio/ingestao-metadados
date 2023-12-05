@@ -79,6 +79,10 @@ public class OaiSourceIndexStatus{
 			status=TaskStatus.FAILURE;
 	}
 
+	public boolean isEnriched() {
+		return oaiSource.enriched;
+	}
+	
 	public boolean todoIndex() {
 		if(oaiSource==null || oaiSource.status!=TaskStatus.SUCCESS)
 			return false;

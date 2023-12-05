@@ -51,6 +51,7 @@ public class MetadataSource{
 	public static final Property metadataPreprocessorProp=Jena.createProperty(NS_INGESTAO+"metadataPreprocessor");
 	public static final Property ingestMethodProp=Jena.createProperty(NS_INGESTAO+"ingestMethod");
 	public static final Property fileToIngestProp=Jena.createProperty(NS_INGESTAO+"fileToIngest");
+	public static final Property enrichedProp=Jena.createProperty(NS_INGESTAO+"enriched");
 
 	public static final Property lastHarvestTimestampProp=Jena.createProperty(NS_INGESTAO+"lastHarvestTimestamp");
 	public static final Property harvestPeriodicityProp=Jena.createProperty(NS_INGESTAO+"harvestPeriodicity");
@@ -66,6 +67,7 @@ public class MetadataSource{
 	public TaskStatus status=null;
 	public String resumptionToken="";
 	public String name="";
+	public boolean enriched=false;
 	public IngestMethod ingestMethod=IngestMethod.OAIPMH;
 	public File fileToIngest=null;
 	
@@ -122,6 +124,12 @@ public class MetadataSource{
 			resumptionToken=lastTokenSt.getObject().asLiteral().getString();
 		else
 			resumptionToken="";
+
+		Statement enrichedSt = dsRes.getProperty(enrichedProp);
+		if(enrichedSt!=null)
+			enriched=Boolean.valueOf(enrichedSt.getObject().asLiteral().getString());
+		else
+			enriched=false;
 		
 		Statement preprocessorSt = dsRes.getProperty(metadataPreprocessorProp);
 		if(preprocessorSt!=null) {
@@ -209,6 +217,8 @@ public class MetadataSource{
 			res.addProperty(ingestMethodProp, ingestMethod.name()); 
 		if (fileToIngest!=null)
 			res.addProperty(fileToIngestProp, fileToIngest.getAbsolutePath()); 
+		if (enriched)
+			res.addProperty(enrichedProp, "true"); 
 		res.addProperty(Rdfs.label, name==null? "" : name);
 		
 //		res.addProperty(harvestDayOfWeekProp, harvestDayOfWeek.toString());

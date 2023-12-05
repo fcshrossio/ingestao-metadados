@@ -1,0 +1,13 @@
+@prefix :      <http://data.rossio.fcsh.unl.pt/conjunto-de-dados/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rossio: <http://data.rossio.fcsh.unl.pt/ingestao/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+
+:fe362db5-f62c-4c1c-8f6f-651ad1788842
+        a                          dcat:Dataset ;
+        rdfs:label                 "Coleção de partituras do TNDMII" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2022-07-23T02:55:31.026Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          <http://biblioteca.tndm.pt/OAI/> ;
+        rossio:oaiSet              "PARTITURAS" .
