@@ -228,7 +228,7 @@ public class Indexer {
 			ThreadedRunner runner = new ThreadedRunner(10);
 			final boolean[] haltProcessing = new boolean[] { false };
 
-			repository.getItemsInSource(sourceId, source.isEnriched() ? FetchOption.VERSION_AT_SOURCE : FetchOption.VERSION_AT_ROSSIO, new ItemHandler() {
+			repository.getItemsInSource(sourceId, source.isEnriched() ? FetchOption.VERSION_AT_ROSSIO : FetchOption.VERSION_AT_SOURCE, new ItemHandler() {
 				@Override
 				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content,
 						byte[] contentRossio) throws Exception {

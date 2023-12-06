@@ -1,0 +1,20 @@
+@prefix :      <http://data.rossio.fcsh.unl.pt/conjunto-de-dados/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rossio: <http://data.rossio.fcsh.unl.pt/ingestao/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+
+
+:009bdfe7-e376-48e3-8b88-dbdfef5fe2b1
+        a                            dcat:Dataset ;
+        rdfs:label                   "Arquivo Nacional da Torre do Tombo" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_4229e047> ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:enriched              "true" ;
+        rossio:lastHarvestTimestamp  "2022-04-04T04:32:15.819Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.DglabPreprocessor" ;
+        rossio:oaiBaseUrl            <https://digitarq.arquivos.pt/oai-pmh/> ;
+        rossio:oaiMetadataPrefix     "oai_dc" ;
+        rossio:oaiSet                "TT" .
