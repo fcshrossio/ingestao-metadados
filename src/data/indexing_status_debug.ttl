@@ -4,10 +4,24 @@
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcat:  <http://www.w3.org/ns/dcat#> .
 
-:fe362db5-f62c-4c1c-8f6f-651ad1788842
-        a                          dcat:Dataset ;
-        rdfs:label                 "Coleção de partituras do TNDMII" ;
+:teste-cpdoc_av  a                 dcat:Dataset ;
+        rdfs:label                 "CPDOC - Audiovisual" ;
         rossio:indexingStatus      "SUCCESS" ;
-        rossio:lastIndexTimestamp  "2022-07-23T02:55:31.026Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
-        rossio:oaiBaseUrl          <http://biblioteca.tndm.pt/OAI/> ;
-        rossio:oaiSet              "PARTITURAS" .
+        rossio:lastIndexTimestamp  "2024-04-10T09:31:28.915Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          []  ;
+        rossio:oaiSet              "" .
+
+:teste-cpdoc_entrevistas
+        a                          dcat:Dataset ;
+        rdfs:label                 "CPDOC - Entrevistas" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2024-04-10T09:31:28.391Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          []  ;
+        rossio:oaiSet              "" .
+
+:teste-cpdoc_textal  a             dcat:Dataset ;
+        rdfs:label                 "CPDOC - Textual" ;
+        rossio:indexingStatus      "SUCCESS" ;
+        rossio:lastIndexTimestamp  "2024-04-10T09:31:29.767Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:oaiBaseUrl          []  ;
+        rossio:oaiSet              "" .

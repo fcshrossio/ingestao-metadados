@@ -4,6 +4,8 @@ import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
 
+import rossio.util.RdfUtil.Jena;
+
 public final class DcTerms {
 	public static String PREFIX="dcterms";
 	public static String NS="http://purl.org/dc/terms/";
@@ -106,4 +108,13 @@ public final class DcTerms {
 	public static final Property relation = ResourceFactory.createProperty("http://purl.org/dc/terms/relation");
 	public static final Property hasVersion = ResourceFactory.createProperty("http://purl.org/dc/terms/hasVersion");
 	public static final Resource FileFormat = ResourceFactory.createResource("http://purl.org/dc/terms/FileFormat");
+	
+	public static Property fromName(String propName) {
+		String localName=null;
+		if(propName.contains(":"))
+			localName=propName.substring(propName.indexOf(':')+1);
+		else
+			localName=propName;
+		return Jena.createProperty(NS+localName);
+	}
 }

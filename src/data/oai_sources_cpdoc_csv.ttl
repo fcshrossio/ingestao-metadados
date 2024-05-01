@@ -1,0 +1,42 @@
+@prefix :      <http://data.rossio.fcsh.unl.pt/conjunto-de-dados/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rossio: <http://data.rossio.fcsh.unl.pt/ingestao/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+
+:teste-cpdoc_av  a                   dcat:Dataset ;
+        rdfs:label                   "CPDOC - Audiovisual" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_9f51ffa9> ;
+        rossio:fileToIngest          "C:\\Users\\nfrei\\git\\ingestao-metadados\\src\\data\\datasets\\CPDOC-audiovisual.csv" ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:ingestMethod          "Csv" ;
+        rossio:lastHarvestTimestamp  "2024-04-10T09:31:28.915Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.CpdocAudiovisualPreprocessor" ;
+        rossio:oaiSet                "" .
+
+:teste-cpdoc_entrevistas
+        a                            dcat:Dataset ;
+        rdfs:label                   "CPDOC - Entrevistas" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_9f51ffa9> ;
+        rossio:fileToIngest          "C:\\Users\\nfrei\\git\\ingestao-metadados\\src\\data\\datasets\\CPDOC-entrevistas.csv" ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:ingestMethod          "Csv" ;
+        rossio:lastHarvestTimestamp  "2024-04-10T09:31:28.391Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.CpdocEntrevistasPreprocessor" ;
+        rossio:oaiSet                "" .
+
+:teste-cpdoc_textal  a               dcat:Dataset ;
+        rdfs:label                   "CPDOC - Textual" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_9f51ffa9> ;
+        rossio:fileToIngest          "C:\\Users\\nfrei\\git\\ingestao-metadados\\src\\data\\datasets\\CPDOC-textual.csv" ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:ingestMethod          "Csv" ;
+        rossio:lastHarvestTimestamp  "2024-04-10T09:31:29.767Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.CpdocTextualPreprocessor" ;
+        rossio:oaiSet                "" .

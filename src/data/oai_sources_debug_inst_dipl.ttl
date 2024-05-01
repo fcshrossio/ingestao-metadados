@@ -1,0 +1,18 @@
+@prefix :      <http://data.rossio.fcsh.unl.pt/conjunto-de-dados/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rossio: <http://data.rossio.fcsh.unl.pt/ingestao/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+
+:f8096137-a136-4020-8b9c-957c27f22829
+        a                            dcat:Dataset ;
+        rdfs:label                   "teste Instituto Diplomatico" ;
+        rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_9c848577> ;
+        rossio:harvestPeriodicity    "NONE" ;
+        rossio:harvestingStatus      "SUCCESS" ;
+        rossio:ingestMethod          "OAIPMH" ;
+        rossio:lastHarvestTimestamp  "2024-04-17T08:13:30.316Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:lastResumptionToken   "" ;
+        rossio:oaiBaseUrl            <https://ahd.mne.gov.pt/nyron/Library/OAI-PMH/oai/oai.aspx> ;
+        rossio:oaiMetadataPrefix     "oai_dc" ;
+        rossio:oaiSet                "rossio" .

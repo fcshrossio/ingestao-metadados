@@ -10,7 +10,6 @@ import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Seq;
-import org.w3c.dom.Element;
 
 import rossio.data.models.Rossio;
 import rossio.ingest.solr.RossioRecord;

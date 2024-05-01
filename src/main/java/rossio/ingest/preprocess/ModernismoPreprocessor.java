@@ -1,7 +1,5 @@
 package rossio.ingest.preprocess;
 
-import java.util.ArrayList;
-
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
@@ -9,16 +7,10 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.Seq;
 import org.apache.jena.vocabulary.DCTerms;
 import org.w3c.dom.Element;
 
-import rossio.data.models.DcTerms;
-import rossio.data.models.Rossio;
-import rossio.ingest.solr.RossioRecord;
 import rossio.util.MapOfLists;
-import rossio.util.RdfUtil;
-import rossio.util.XmlUtil;
 
 public class ModernismoPreprocessor extends CsvMetadataPreprocessor {
 	

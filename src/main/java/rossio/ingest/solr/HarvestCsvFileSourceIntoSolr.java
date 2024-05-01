@@ -95,7 +95,12 @@ public class HarvestCsvFileSourceIntoSolr {
 			InputStreamReader fileReader=new InputStreamReader(fis, StandardCharsets.UTF_8);
 			CSVParser csvParser=new CSVParser(fileReader, CSVFormat.DEFAULT);
 
+			boolean first=true;
 			for(CSVRecord rec: csvParser) {
+				if(first) {
+					first=false;
+					continue;//skip header row
+				}
 				try {
 					report.incRecord();
 					String uuid = UUID.randomUUID().toString();

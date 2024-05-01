@@ -10,9 +10,10 @@
         rossio:dataProvider          <http://vocabs.rossio.fcsh.unl.pt/agentes/c_c52d3737> ;
         rossio:harvestPeriodicity    "NONE" ;
         rossio:harvestingStatus      "SUCCESS" ;
-        rossio:lastHarvestTimestamp  "2022-06-24T06:29:27.203Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        rossio:ingestMethod          "OAIPMH" ;
+        rossio:lastHarvestTimestamp  "2024-03-01T04:50:59.337Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
         rossio:lastResumptionToken   "" ;
         rossio:metadataPreprocessor  "rossio.ingest.preprocess.EfgPreprocessor" ;
-        rossio:oaiBaseUrl            <http://localhost/PortalEXT/pt-PT/0/PEX/Oaipmh/OAIService> ;
+        rossio:oaiBaseUrl            <https://felix.cinemateca.pt/pt-PT/0/PEX/Oaipmh/OAIService> ;
         rossio:oaiMetadataPrefix     "efg" ;
         rossio:oaiSet                "Rossio_Av" .

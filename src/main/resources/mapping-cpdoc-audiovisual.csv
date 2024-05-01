@@ -1,0 +1,13 @@
+Coluna #,Coluna,propriedade dublin core,notas sobre o mapeamento
+0,PUBLISHER,dc:publisher,
+1,DS_TITULO_AVI,dc:title,
+2,"NM_AUT, DS_RES",dc:creator,
+3,DS_PERIODO_PRODUCAO_AVI,dc:date,
+4,NR_DOCUMENTOS_AVI,dc:format,
+5,DS_FISICA_AVI,dc:format,
+6,"SG_FUN, SG_SIGLA_SER, CD_CLASSIFICACAO_AVI",dc:identifier,
+7,URL,dc:identifier,
+8,NM_FUN,dc:relation,
+9,NM_TIPO_UNIDADE_DOCUMENTAL,dc:type,
+10,DS_SER,dc:type,
+11,"NM_CID_LOCALIDADE, SG_UF_LOCALIDADE, NM_PAIS_LOCALIDADE",dc:coverage,

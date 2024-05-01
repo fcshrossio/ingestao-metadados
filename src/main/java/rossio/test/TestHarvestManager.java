@@ -7,10 +7,13 @@ import rossio.ingest.solr.manager.CommandLineManagerOfHarvest;
 public class TestHarvestManager {
 	public static void main(String[] args) throws Exception {
 //		String confFile="src/data/oai_sources_debug_cesem.ttl";
-		String confFile="src/data/oai_sources_cinemateca_file.ttl";
+//		String confFile="src/data/oai_sources_cinemateca_file.ttl";
 //		String confFile="src/data/oai_sources_modernismo_file_csv.ttl";
 //		String confFile="src/data/oai_sources_debug_coimbra.ttl";
 //		String confFile="src/data/oai_sources_debug_cinemateca.ttl";
+//		String confFile="src/data/oai_sources_cpdoc_csv.ttl";
+//		String confFile="src/data/oai_sources_debug_ponte_lima.ttl";
+		String confFile="src/data/oai_sources_debug_inst_dipl.ttl";
 		
 		File lock=new File(confFile+".lock");
 		if(lock.exists())
