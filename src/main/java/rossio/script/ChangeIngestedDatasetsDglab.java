@@ -88,7 +88,7 @@ public class ChangeIngestedDatasetsDglab {
 						if(subject!=null) {
 
 //							RdfUtil.printOutRdf(model);
-							DglabPreprocessor.moveSubjectToDescription(cho);
+//							DglabPreprocessor.moveSubjectToDescription(cho);
 //System.out.println("--->");
 //							RdfUtil.printOutRdf(model);
 //							System.out.println("EEEEEEEEEEEEEEEEEEEEENNNNNNNNNDDDDDDDDDDD");

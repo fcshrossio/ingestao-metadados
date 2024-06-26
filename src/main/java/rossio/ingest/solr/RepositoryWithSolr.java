@@ -146,9 +146,11 @@ public class RepositoryWithSolr {
 		    for (SolrDocument document : rsp.getResults()) {
 		    	try {
 		    		Object lastUpdate = document.getFirstValue("rossio_last_update");
+		    		byte[] contentBlob;
 					switch (fetchOption) {
 		    		case VERSION_AT_ROSSIO:
-						if(!handler.handle(document.getFirstValue("id").toString(), 
+						contentBlob = (byte[])document.getFirstValue("rossio_contentRossio");
+						if(contentBlob!=null && !handler.handle(document.getFirstValue("id").toString(), 
 								document.getFirstValue("rossio_idAtSource").toString(), 
 								lastUpdate==null ? null : lastUpdate.toString(), 
 								null, 
@@ -164,7 +166,8 @@ public class RepositoryWithSolr {
 		    				break QUERY;
 		    			break;
 		    		case BOTH_VERSIONS:
-		    			if(!handler.handle(document.getFirstValue("id").toString(), 
+						contentBlob = (byte[])document.getFirstValue("rossio_contentRossio");
+		    			if(contentBlob!=null && !handler.handle(document.getFirstValue("id").toString(), 
 		    					document.getFirstValue("rossio_idAtSource").toString(), 
 		    					lastUpdate==null ? null : lastUpdate.toString(), 
 		    					(byte[])document.getFirstValue("rossio_content"), 

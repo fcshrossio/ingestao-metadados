@@ -15,4 +15,5 @@ cd ..
 
 unzip -o git/target/ingestao-metadados-LinhaDeComandos.zip
 
+cp backup/*.sh .
 chmod u+x *.sh

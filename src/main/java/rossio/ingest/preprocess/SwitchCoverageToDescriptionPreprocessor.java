@@ -17,12 +17,10 @@ import rossio.data.models.DcTerms;
 import rossio.data.models.Rossio;
 import rossio.ingest.solr.RossioRecord;
 
-//use SwitchSubjectToDescriptionPreprocessor
-@Deprecated 
-public class DglabPreprocessor extends SwitchDcFieldPreprocessor {
+public class SwitchCoverageToDescriptionPreprocessor extends SwitchDcFieldPreprocessor {
 	@Override
 	protected void init() {
-		from=DcTerms.subject;
+		from=DcTerms.coverage;
 		to=DcTerms.description;
 	}
 }
