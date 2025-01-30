@@ -50,7 +50,7 @@ public class UnescapeXmlCharsPreprocessor implements MetadataPreprocessor {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		String test="Di, pues vienes de l&#039;aldea";
+		String test="Di, pues vienes de l&#039;aldea\n &lt;p&gt;Tem outro esboço, no verso.&lt;/p&gt;";
 		CharSequence cleaned=new HtmlCleaner().clean(test).getText();				
 		System.out.println(cleaned.toString());	
 		

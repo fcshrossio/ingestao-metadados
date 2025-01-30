@@ -24,6 +24,7 @@ import rossio.oaipmh.OaipmhHarvest;
 import rossio.oaipmh.OaipmhHarvestWithHandler;
 import rossio.oaipmh.OaipmhHarvestWithHandler.Handler;
 import rossio.util.RdfUtil;
+import rossio.util.XmlUtil;
 
 public class HarvestOaiSourceIntoSolr {
 	RepositoryWithSolr harvestTo;
@@ -105,6 +106,10 @@ public class HarvestOaiSourceIntoSolr {
 						try {
 							recordCount++;
 							handleRecord(record);
+							
+//							System.out.println(record.getIdentifier());
+//							System.out.println( XmlUtil.writeDomToString(record.getMetadata()) );
+							
 							if(maxRecords != null && maxRecords > 0 && report.getRecordCount()>=maxRecords)
 								return false;
 //							if(report.getRecordCount()>990 && report.getRecordCount()<1100) {

@@ -13,7 +13,9 @@ public class TestHarvestManager {
 //		String confFile="src/data/oai_sources_debug_cinemateca.ttl";
 //		String confFile="src/data/oai_sources_cpdoc_csv.ttl";
 //		String confFile="src/data/oai_sources_debug_ponte_lima.ttl";
-		String confFile="src/data/oai_sources_debug_inst_dipl.ttl";
+		
+//		String confFile="src/data/oai_sources_debug_dglab.ttl";
+		String confFile="src/data/oai_sources_debug_modernismo_oai.ttl";
 		
 		File lock=new File(confFile+".lock");
 		if(lock.exists())
