@@ -16,6 +16,7 @@ import rossio.data.models.Rossio;
 import rossio.ingest.solr.RepositoryWithSolr;
 import rossio.ingest.solr.RepositoryWithSolr.FetchOption;
 import rossio.ingest.solr.RepositoryWithSolr.ItemHandler;
+import rossio.ingest.solr.manager.OaiSourceIndexStatus;
 import rossio.util.RdfUtil.Jena;
 
 public class EnrichmentTask {
@@ -64,7 +65,7 @@ public class EnrichmentTask {
 	}
 	
 	
-	public static EnrichmentTask newInstanceForRossio(String vocabsSparqlEndpointUrl) {
+	public static EnrichmentTask newInstanceForRossio(OaiSourceIndexStatus source, String vocabsSparqlEndpointUrl) {
 		EnrichmentTask enrichTask=new EnrichmentTask();
 		enrichTask.addEnrichment(new RecordEnrichmentGeo(vocabsSparqlEndpointUrl));
 		enrichTask.addEnrichment(new RecordEnrichmentAgents(vocabsSparqlEndpointUrl));
@@ -72,7 +73,8 @@ public class EnrichmentTask {
 		enrichTask.addEnrichment(new RecordEnrichmentNormalizeDate());
 		enrichTask.addEnrichment(new RecordEnrichmentNormalizeType(vocabsSparqlEndpointUrl));
 		enrichTask.addEnrichment(new RecordEnrichmentNormalizeLanguage());
-		enrichTask.addEnrichment(new RecordEnrichmentNormalizeLinks());
+		if(source.enrichLinks())
+			enrichTask.addEnrichment(new RecordEnrichmentNormalizeLinks());
 		return enrichTask;
 	}
 }

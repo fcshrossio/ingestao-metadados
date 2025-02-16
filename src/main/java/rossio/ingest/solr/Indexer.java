@@ -216,7 +216,7 @@ public class Indexer {
 		String sourceId=source.getSourceId();
 		
 		if (runEnrichment)
-			enrichmentTask = EnrichmentTask.newInstanceForRossio(vocabsSparqlEndpoint);
+			enrichmentTask = EnrichmentTask.newInstanceForRossio(source, vocabsSparqlEndpoint);
 		else
 			enrichmentTask = null;
 

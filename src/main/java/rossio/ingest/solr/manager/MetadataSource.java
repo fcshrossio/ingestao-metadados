@@ -52,6 +52,7 @@ public class MetadataSource{
 	public static final Property ingestMethodProp=Jena.createProperty(NS_INGESTAO+"ingestMethod");
 	public static final Property fileToIngestProp=Jena.createProperty(NS_INGESTAO+"fileToIngest");
 	public static final Property enrichedProp=Jena.createProperty(NS_INGESTAO+"enriched");
+	public static final Property enrichLinksProp=Jena.createProperty(NS_INGESTAO+"enrichLinks");
 
 	public static final Property lastHarvestTimestampProp=Jena.createProperty(NS_INGESTAO+"lastHarvestTimestamp");
 	public static final Property harvestPeriodicityProp=Jena.createProperty(NS_INGESTAO+"harvestPeriodicity");
@@ -68,6 +69,7 @@ public class MetadataSource{
 	public String resumptionToken="";
 	public String name="";
 	public boolean enriched=false;
+	public boolean enrichLinks=false;
 	public IngestMethod ingestMethod=IngestMethod.OAIPMH;
 	public File fileToIngest=null;
 	
@@ -130,6 +132,12 @@ public class MetadataSource{
 			enriched=Boolean.valueOf(enrichedSt.getObject().asLiteral().getString());
 		else
 			enriched=false;
+		
+		Statement enrichLnkSt = dsRes.getProperty(enrichLinksProp);
+		if(enrichLnkSt!=null)
+			enrichLinks=Boolean.valueOf(enrichLnkSt.getObject().asLiteral().getString());
+		else
+			enrichLinks=false;
 		
 		Statement preprocessorSt = dsRes.getProperty(metadataPreprocessorProp);
 		if(preprocessorSt!=null) {

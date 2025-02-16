@@ -211,81 +211,82 @@ public class IndexerSingleThread {
 	}
 
 	public IndexingReport indexSourceFromRepository(String source, RepositoryWithSolr repository, String vocabsSparqlEndpoint, Logger log) {
-		final Random random = new Random();
-		final EnrichmentTask enrichmentTask;
-		if(runEnrichment) 
-			enrichmentTask=EnrichmentTask.newInstanceForRossio(vocabsSparqlEndpoint);
-		else
-			enrichmentTask=null;
-			
-		IndexingReport report=new IndexingReport();
-		try {
-			removeAllFrom(source);
-			lastLog=new Date().getTime();
-			repository.getItemsInSource(source, FetchOption.VERSION_AT_SOURCE, new ItemHandler() {
-				@Override
-				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content, byte[] contentRossio) throws Exception {
-					try {
-						RDFParser reader = RDFParser.create().lang(Lang.RDFTHRIFT).source(new ByteArrayInputStream(content)).build();
-						Model model = Jena.createModel();
-						reader.parse(model);
-						String choUri=Rossio.NS_ITEM+uuid;
-//						RdfUtil.printOutRdf(model);
-//						addItem(source, model.createResource(Rossio.NS_ITEM+uuid));
-
-						Instant start=random.nextInt(100)>=98 ? Instant.now() : null;
-						Instant enriched=null;
-						Instant added=null;
-												
-						if(runEnrichment) {
-							enrichmentTask.runOnRecord(model.createResource(choUri));
-							//DEBUG
-//							RdfUtil.printOutRdf(model);
-							
-							RDFWriter writer = RDFWriter.create().lang(Lang.RDFTHRIFT).source(model.getGraph()).build();
-							ByteArrayOutputStream outstream=new ByteArrayOutputStream();
-							writer.output(outstream);
-							repository.updateItem(uuid, source, idAtSource, content, outstream.toByteArray());
-						}
-						
-						if(start!=null)
-							enriched=Instant.now();
-						
-						addItem(source, model, choUri);
-
-						if(start!=null) {
-							added=Instant.now();
-							log.log("Record ingesting times:" +(enriched.toEpochMilli() - start.toEpochMilli())+" ms (enriched) "+
-							(added.toEpochMilli() - enriched.toEpochMilli())+"ms (added)");
-						}
-						
-						report.incRecord();
-						
-						if(new Date().getTime()-lastLog>logInterval) {
-							lastLog=new Date().getTime();
-							log.log(source+" - "+report.toLogStringIntermediate());
-						}
-						if(commitInterval>0 && 	report.getRecordCount() % commitInterval == 0) {
-							commit();
-							repository.commit();
-						}
-						return true;
-					} catch (SolrServerException e) {
-						report.addErrorOnRecord(uuid, e.getMessage());
-						throw e;
-					} catch (IOException e) {
-						report.addErrorOnRecord(uuid, e.getMessage());
-						throw e;
-					}
-				}
-			});
-			commit();
-			repository.commit();
-			report.finish();
-		} catch (Exception e) {
-			report.failure(e);
-		}
-		return report;
+//		final Random random = new Random();
+//		final EnrichmentTask enrichmentTask;
+//		if(runEnrichment) 
+//			enrichmentTask=EnrichmentTask.newInstanceForRossio(source, vocabsSparqlEndpoint);
+//		else
+//			enrichmentTask=null;
+//			
+//		IndexingReport report=new IndexingReport();
+//		try {
+//			removeAllFrom(source);
+//			lastLog=new Date().getTime();
+//			repository.getItemsInSource(source, FetchOption.VERSION_AT_SOURCE, new ItemHandler() {
+//				@Override
+//				public boolean handle(String uuid, String idAtSource, String lastUpdate, byte[] content, byte[] contentRossio) throws Exception {
+//					try {
+//						RDFParser reader = RDFParser.create().lang(Lang.RDFTHRIFT).source(new ByteArrayInputStream(content)).build();
+//						Model model = Jena.createModel();
+//						reader.parse(model);
+//						String choUri=Rossio.NS_ITEM+uuid;
+////						RdfUtil.printOutRdf(model);
+////						addItem(source, model.createResource(Rossio.NS_ITEM+uuid));
+//
+//						Instant start=random.nextInt(100)>=98 ? Instant.now() : null;
+//						Instant enriched=null;
+//						Instant added=null;
+//												
+//						if(runEnrichment) {
+//							enrichmentTask.runOnRecord(model.createResource(choUri));
+//							//DEBUG
+////							RdfUtil.printOutRdf(model);
+//							
+//							RDFWriter writer = RDFWriter.create().lang(Lang.RDFTHRIFT).source(model.getGraph()).build();
+//							ByteArrayOutputStream outstream=new ByteArrayOutputStream();
+//							writer.output(outstream);
+//							repository.updateItem(uuid, source, idAtSource, content, outstream.toByteArray());
+//						}
+//						
+//						if(start!=null)
+//							enriched=Instant.now();
+//						
+//						addItem(source, model, choUri);
+//
+//						if(start!=null) {
+//							added=Instant.now();
+//							log.log("Record ingesting times:" +(enriched.toEpochMilli() - start.toEpochMilli())+" ms (enriched) "+
+//							(added.toEpochMilli() - enriched.toEpochMilli())+"ms (added)");
+//						}
+//						
+//						report.incRecord();
+//						
+//						if(new Date().getTime()-lastLog>logInterval) {
+//							lastLog=new Date().getTime();
+//							log.log(source+" - "+report.toLogStringIntermediate());
+//						}
+//						if(commitInterval>0 && 	report.getRecordCount() % commitInterval == 0) {
+//							commit();
+//							repository.commit();
+//						}
+//						return true;
+//					} catch (SolrServerException e) {
+//						report.addErrorOnRecord(uuid, e.getMessage());
+//						throw e;
+//					} catch (IOException e) {
+//						report.addErrorOnRecord(uuid, e.getMessage());
+//						throw e;
+//					}
+//				}
+//			});
+//			commit();
+//			repository.commit();
+//			report.finish();
+//		} catch (Exception e) {
+//			report.failure(e);
+//		}
+//		return report;
+		return null;
 	}
 
 

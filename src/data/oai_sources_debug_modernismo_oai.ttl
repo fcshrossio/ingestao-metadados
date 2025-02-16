@@ -13,5 +13,5 @@
         rossio:lastResumptionToken   "" ;
         rossio:oaiBaseUrl            <https://modernismo.pt/index.php/oai> ;
         rossio:oaiMetadataPrefix     "oai_dc" ;
-        rossio:metadataPreprocessor  "rossio.ingest.preprocess.ModernismoPreprocessor" ;
+        rossio:metadataPreprocessor  "rossio.ingest.preprocess.RemoveHtmlTagsPreprocessor" ;
         rossio:oaiSet                "" .

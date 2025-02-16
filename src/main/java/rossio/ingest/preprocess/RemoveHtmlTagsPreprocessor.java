@@ -12,7 +12,6 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Seq;
 import org.apache.jena.rdf.model.Statement;
 import org.htmlcleaner.HtmlCleaner;
-import org.jsoup.Jsoup;
 import org.w3c.dom.Element;
 
 import rossio.data.models.DcTerms;
@@ -30,13 +29,13 @@ public class RemoveHtmlTagsPreprocessor implements MetadataPreprocessor {
 		
 		for(Statement st:cho.listProperties().toList()) {
 			if (st.getObject().isLiteral()) {
-				st.changeObject(model.createLiteral(Jsoup.parse(st.getObject().asLiteral().getString()).text()));				
+				st.changeObject(model.createLiteral(removeHtmlTags(st.getObject().asLiteral().getString())));				
 			} else if(st.getObject().isResource() && RdfUtil.isSeq(st.getObject().asResource())) {
 				Seq seq = RdfUtil.getAsSeq(st.getObject().asResource());
 				for (int i=1; i<=seq.size() ; i++) {
 					RDFNode node = seq.getObject(i);
 			    	if (node.isLiteral()) {
-			    		seq.set(i, model.createLiteral(Jsoup.parse(node.asLiteral().getString()).text()));
+			    		seq.set(i, model.createLiteral(removeHtmlTags(node.asLiteral().getString())));
 			    	}
 			    }
 			} 
@@ -44,6 +43,12 @@ public class RemoveHtmlTagsPreprocessor implements MetadataPreprocessor {
 		return model;
 	}
 
+	private static String removeHtmlTags(String text) {
+//		String result = html.replaceAll("<[^>]*>", "");
+//		Jsoup.parse(node.asLiteral().getString()).text()
+		return new HtmlCleaner().clean(text).getText().toString();
+	}
+	
 
 	@Override
 	public Model preprocess(String uuid, String sourceId, String dataProviderUri, CSVRecord metadata) {
@@ -52,7 +57,6 @@ public class RemoveHtmlTagsPreprocessor implements MetadataPreprocessor {
 	
 	public static void main(String[] args) throws Exception {
 		String test="Di, pues vienes de l'aldea <p>Tem outro esboço, no verso.</p>";
-		CharSequence cleaned=Jsoup.parse(test).text();				
-		System.out.println(cleaned.toString());	
+		System.out.println(removeHtmlTags(test));	
 	}
 }

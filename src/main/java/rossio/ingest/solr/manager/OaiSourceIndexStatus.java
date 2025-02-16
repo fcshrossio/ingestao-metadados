@@ -97,4 +97,11 @@ public class OaiSourceIndexStatus{
 		return oaiSource.getSourceId();
 	}
 
+	/**
+	 * @return
+	 */
+	public boolean enrichLinks() {
+		return oaiSource.enrichLinks;
+	}
+
 }
