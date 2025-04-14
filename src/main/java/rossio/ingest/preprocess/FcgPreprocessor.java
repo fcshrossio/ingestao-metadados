@@ -12,7 +12,6 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Seq;
 import org.apache.jena.rdf.model.Statement;
-import org.htmlcleaner.HtmlCleaner;
 import org.w3c.dom.Element;
 
 import rossio.data.models.DcTerms;
@@ -28,14 +27,14 @@ public class FcgPreprocessor implements MetadataPreprocessor {
 		String providedChoUri=Rossio.NS_ITEM+uuid;
 		Resource cho = model.createResource(providedChoUri);
 		
-		for(Property toCleanProp: new Property[] { DcTerms.title, DcTerms.subject, DcTerms.description}) {
-  		for(Statement st:cho.listProperties(toCleanProp).toList()) {
+//		for(Property toCleanProp: new Property[] { DcTerms.title, DcTerms.subject, DcTerms.description}) {
+//  		for(Statement st:cho.listProperties(toCleanProp).toList()) {
+  		  for(Statement st:cho.listProperties().toList()) {
   			if (st.getObject().isLiteral()) {
   			  String val = st.getObject().asLiteral().getString();
   			  String valClean= removeChars(val);
-  			  
-  			  
-          st.changeObject(model.createLiteral(removeChars(val)));				
+  			  if(val.length()!=valClean.length())
+  			    st.changeObject(model.createLiteral(valClean));				
   			} else if(st.getObject().isResource() && RdfUtil.isSeq(st.getObject().asResource())) {
   				Seq seq = RdfUtil.getAsSeq(st.getObject().asResource());
   				for (int i=1; i<=seq.size() ; i++) {
@@ -46,7 +45,7 @@ public class FcgPreprocessor implements MetadataPreprocessor {
   			    }
   			} 
   		}
-		}
+//		}
 		return model;
 	}
 
