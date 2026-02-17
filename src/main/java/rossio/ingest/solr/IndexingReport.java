@@ -10,6 +10,7 @@ import org.apache.commons.lang3.time.DurationFormatUtils;
 
 public class IndexingReport {
 	int recordCount;
+	int deletedCount;
 	HashMap<String, String> errorRecords=new HashMap<String, String>();
 	String failureCause;
 	Date indexingStart=new Date();
@@ -72,6 +73,7 @@ public class IndexingReport {
 			result="FAILURE\n"+dateStartStr+getFailureCause();
 		else {
 			String summary=dateStartStr+"Record count: "+getRecordCount()+"\n";
+			summary+="Deleted count: "+getDeletedCount()+"\n";
 			if(!getErrorRecords().isEmpty()) {
 				summary+="Error on record count: "+getErrorRecords().size()+"\n";
 				for(Entry<String, String> error: getErrorRecords().entrySet())
@@ -86,7 +88,15 @@ public class IndexingReport {
 		}
 		return result;
 	}
-	public String toLogStringIntermediate() {
+	
+	/**
+   * @return
+   */
+  private int getDeletedCount() {
+    return deletedCount;
+  }
+
+  public String toLogStringIntermediate() {
 		String dateStartStr="";
 		long indTime=new Date().getTime()- indexingStart.getTime(); 
 		if(indTime>0) {
@@ -94,8 +104,15 @@ public class IndexingReport {
 			dateStartStr+="Duration "+ DurationFormatUtils.formatDuration(indTime, "H:mm:ss", true);
 			dateStartStr+=" Rate "+ ((double)recordCount / ((double)indTime/1000))+" recs./sec";
 		}
-		dateStartStr+= "Record count: "+getRecordCount();
+		dateStartStr+= "Record count: "+getRecordCount() + "  Deleted count: "+getDeletedCount();
 		return dateStartStr;
 	}
+
+  /**
+   * 
+   */
+  public void incDeleted() {
+    deletedCount++;
+  }
 	
 }

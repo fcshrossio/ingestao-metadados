@@ -42,7 +42,6 @@ import rossio.util.HttpsUtil;
 
 public class CommandLineRemoveCollectionFromRepository {
 	
-//CommandLineInterface --dataset_uri http://data.bibliotheken.nl/id/dataset/rise-centsprenten --output_file ./data/crawled/rise-centsprenten.nt
 	public static void main(String[] args) {
 		try {
 			LogManager.getLogManager().reset();

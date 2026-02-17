@@ -179,7 +179,7 @@ public class HarvestOaiSourceIntoSolr {
 		} else {
 			String uuid=harvestTo.getRecordUuid(source.getSourceId(), r.getIdentifier());
 			if(uuid!=null) {
-				harvestTo.delete(uuid);
+        harvestTo.delete(uuid, source.getSourceId(), r.getIdentifier());
 				report.incDeletedRecordExisting();
 			}
 			report.incDeletedRecord();

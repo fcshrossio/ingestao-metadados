@@ -209,6 +209,17 @@ public class Indexer {
 		}
 	}
 
+	 public void removeItem(String uuid) throws SolrServerException, IOException {
+	    try {
+	      solr.deleteById(uuid);
+	    } catch (RemoteSolrException e) {
+	      if (!e.getMessage().contains("undefined field rossio_source"))
+	        throw e;
+	    }
+	  }
+
+	
+	
 	public IndexingReport indexSourceFromRepository(OaiSourceIndexStatus source, RepositoryWithSolr repository,
 			String vocabsSparqlEndpoint, Logger log) {
 		final Random random = new Random();
@@ -238,53 +249,58 @@ public class Indexer {
 						@Override
 						public void run() {
 							try {
-								RDFParser reader = RDFParser.create().lang(Lang.RDFTHRIFT)
-										.source(new ByteArrayInputStream(source.isEnriched() ? contentRossio : content)).build();
-								Model model = Jena.createModel();
-								reader.parse(model);
-								String choUri = Rossio.NS_ITEM + uuid;
-//						RdfUtil.printOutRdf(model);
-//						addItem(source, model.createResource(Rossio.NS_ITEM+uuid));
-
-								Instant start = random.nextInt(100) >= 98 ? Instant.now() : null;
-								Instant enriched = null;
-								Instant added = null;
-
-								if (runEnrichment && !source.isEnriched()) {
-									enrichmentTask.runOnRecord(model.createResource(choUri));
-									// DEBUG
-//							RdfUtil.printOutRdf(model);
-
-									RDFWriter writer = RDFWriter.create().lang(Lang.RDFTHRIFT).source(model.getGraph())
-											.build();
-									ByteArrayOutputStream outstream = new ByteArrayOutputStream();
-									writer.output(outstream);
-									repository.updateItem(uuid, sourceId, idAtSource, content, outstream.toByteArray());
-								}
-
-								if (start != null)
-									enriched = Instant.now();
-
-								addItem(sourceId, model, choUri);
-
-								if (start != null) {
-									added = Instant.now();
-									log.log("Record ingesting times:" + (enriched.toEpochMilli() - start.toEpochMilli())
-											+ " ms (enriched) " + (added.toEpochMilli() - enriched.toEpochMilli())
-											+ "ms (added)");
-								}
-
-								report.incRecord();
-
-								if (new Date().getTime() - lastLog > logInterval) {
-									lastLog = new Date().getTime();
-									log.log(sourceId + " - " + report.toLogStringIntermediate());
-								}
-								if (commitInterval > 0 && report.getRecordCount() % commitInterval == 0) {
-									commit();
-									if (runEnrichment && !source.isEnriched()) 
-										repository.commit();
-								}
+							  if(contentRossio==null && content==null) {
+							    removeItem(uuid);
+							    report.incDeleted();
+							  }else {
+  								RDFParser reader = RDFParser.create().lang(Lang.RDFTHRIFT)
+  										.source(new ByteArrayInputStream(source.isEnriched() ? contentRossio : content)).build();
+  								Model model = Jena.createModel();
+  								reader.parse(model);
+  								String choUri = Rossio.NS_ITEM + uuid;
+  //						RdfUtil.printOutRdf(model);
+  //						addItem(source, model.createResource(Rossio.NS_ITEM+uuid));
+  
+  								Instant start = random.nextInt(100) >= 98 ? Instant.now() : null;
+  								Instant enriched = null;
+  								Instant added = null;
+  
+  								if (runEnrichment && !source.isEnriched()) {
+  									enrichmentTask.runOnRecord(model.createResource(choUri));
+  									// DEBUG
+  //							RdfUtil.printOutRdf(model);
+  
+  									RDFWriter writer = RDFWriter.create().lang(Lang.RDFTHRIFT).source(model.getGraph())
+  											.build();
+  									ByteArrayOutputStream outstream = new ByteArrayOutputStream();
+  									writer.output(outstream);
+  									repository.updateItem(uuid, sourceId, idAtSource, content, outstream.toByteArray());
+  								}
+  
+  								if (start != null)
+  									enriched = Instant.now();
+  
+  								addItem(sourceId, model, choUri);
+  
+  								if (start != null) {
+  									added = Instant.now();
+  									log.log("Record ingesting times:" + (enriched.toEpochMilli() - start.toEpochMilli())
+  											+ " ms (enriched) " + (added.toEpochMilli() - enriched.toEpochMilli())
+  											+ "ms (added)");
+  								}
+  
+  								report.incRecord();
+  
+  								if (new Date().getTime() - lastLog > logInterval) {
+  									lastLog = new Date().getTime();
+  									log.log(sourceId + " - " + report.toLogStringIntermediate());
+  								}
+  								if (commitInterval > 0 && report.getRecordCount() % commitInterval == 0) {
+  									commit();
+  									if (runEnrichment && !source.isEnriched()) 
+  										repository.commit();
+  								}
+							  }
 							} catch (SolrServerException e) {
 								report.addErrorOnRecord(uuid, e.getMessage());
 //									throw e;
