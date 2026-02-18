@@ -22,6 +22,7 @@ public class NovaHistArtePreprocessor extends CsvMetadataPreprocessor {
 		mapping.put(6, DCTerms.relation);
 		mapping.put(9, DCTerms.description);
 		mapping.put(10, DCTerms.coverage);
+		mapping.put(13, DCTerms.relation);
 		linesToSkip=1;
 	}
 
@@ -43,11 +44,11 @@ public class NovaHistArtePreprocessor extends CsvMetadataPreprocessor {
 			    val=val+"/"+val2;
 			}else if(idx==5) { 
 			  String val2=metadata.get(7).trim();
-			  if(StringUtils.isEmpty(val2))
+			  if(!StringUtils.isEmpty(val2))
 			    val=val+", "+val2;
 			}else if(idx==10) { 
 			  String val2=metadata.get(11).trim();
-			  if(StringUtils.isEmpty(val2))
+			  if(!StringUtils.isEmpty(val2))
 			    val=val+", "+val2;
 			}
 			elementsByProperty.put(propToMap, m.createLiteral(val));
