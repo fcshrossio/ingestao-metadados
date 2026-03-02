@@ -53,6 +53,7 @@ public class CommandLineRemoveCollectionFromRepository {
 			options.addOption( "sources_file", true, "A file listing the OAI-PMH sources");
 			options.addOption( "solr_url_repository", true, "Solr base URL of the repository core");
 			options.addOption( "source_id", true, "Source ID of the collection");
+			options.addOption( "purge", false, "permanently remove the records");
 			
 			CommandLine line=null;
 	
@@ -72,10 +73,17 @@ public class CommandLineRemoveCollectionFromRepository {
 		    	File sourcesFile = new File(line.getOptionValue("sources_file"));
 				MetadataSources oaiSources=new MetadataSources(sourcesFile);
 		    	MetadataSource src = oaiSources.findSource(line.getOptionValue("source_id"));
-		    	if(src==null)
-		    		repo.removeAllFrom(line.getOptionValue("source_id"));
-		    	else
-		    		repo.removeAllFrom(src.getSourceIdDeprecated());
+		    	if(line.hasOption("purge")) {
+  		    	if(src==null)
+  		    		repo.purgeAllFrom(line.getOptionValue("source_id"));
+  		    	else
+  		    		repo.purgeAllFrom(src.getSourceIdDeprecated());
+		    	}else {
+		    	  if(src==null)
+		    	    repo.removeAllFrom(line.getOptionValue("source_id"));
+		    	  else
+		    	    repo.removeAllFrom(src.getSourceIdDeprecated());		    	  
+		    	}
 				result="SUCCESS";
 		    } else {
 		    	StringWriter sw=new StringWriter();
