@@ -83,7 +83,7 @@ public class MetadataSources{
 		List<MetadataSource> srcs=new ArrayList<MetadataSource>(getAllSources());
 		for(Iterator<MetadataSource> it=srcs.iterator(); it.hasNext() ; ) {
 			MetadataSource s=it.next();
-			if (s.status!=null) {
+			if (s.status!=null && s.status!=TaskStatus.OUTDATED) {
 				if(s.status== TaskStatus.PAUSED || !s.todoHarvest() ) 
 					it.remove();				
 			}
