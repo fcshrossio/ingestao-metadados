@@ -20,7 +20,7 @@ import rossio.ingest.solr.RossioRecord;
 import rossio.util.RdfUtil;
 
 public class OmekaSPreprocessor implements MetadataPreprocessor {
-  static Pattern apiUrlPattern = Pattern.compile("(https?://[^/]+/)api/(\\d+)");
+  static Pattern apiUrlPattern = Pattern.compile("(https?://[^/]+/)api/items/(\\d+)");
 
   @Override
   public Model preprocess(String uuid, String sourceId, String dataProviderUri, Element metadata) {
@@ -32,7 +32,7 @@ public class OmekaSPreprocessor implements MetadataPreprocessor {
       if (st.getObject().isLiteral()) {
         Matcher m = apiUrlPattern.matcher(st.getObject().asLiteral().getString());
         if (m.matches()) {
-          String newValue = m.group(1) + sourceId.substring(sourceId.lastIndexOf('#') + 1) + "/" + m.group(2);
+          String newValue = m.group(1) + "s/"+sourceId.substring(sourceId.lastIndexOf('#') + 1) + "/item/" + m.group(2);
           st.changeObject(model.createLiteral(newValue));
         }
       } else if (st.getObject().isResource() && RdfUtil.isSeq(st.getObject().asResource())) {
@@ -42,7 +42,7 @@ public class OmekaSPreprocessor implements MetadataPreprocessor {
           if (node.isLiteral()) {
             Matcher m = apiUrlPattern.matcher(node.asLiteral().getString());
             if (m.matches()) {
-              String newValue = m.group(1) + sourceId.substring(sourceId.lastIndexOf('#') + 1) + "/" + m.group(2);
+              String newValue = m.group(1) + "s/"+sourceId.substring(sourceId.lastIndexOf('#') + 1) + "/item/" + m.group(2);
               st.changeObject(model.createLiteral(newValue));
               seq.set(i, model.createLiteral(newValue));
             }
@@ -53,9 +53,20 @@ public class OmekaSPreprocessor implements MetadataPreprocessor {
     return model;
   }
 
+  
+  
   @Override
   public Model preprocess(String uuid, String sourceId, String dataProviderUri, CSVRecord metadata) {
     throw new NotImplementedException();
   }
 
+  public static void main(String[] args) throws Exception {
+    String test = "https://projetos.dhlab.fcsh.unl.pt/api/items/54397";
+    Matcher m = apiUrlPattern.matcher(test);
+    if (m.matches()) {
+      String newValue = m.group(1) + "s/"+"wsdroadmap" + "/item/" + m.group(2);
+      System.out.println(newValue);
+    }else
+      System.out.println("No match");
+  }
 }
