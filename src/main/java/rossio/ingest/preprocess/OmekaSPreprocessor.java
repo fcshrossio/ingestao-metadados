@@ -43,7 +43,6 @@ public class OmekaSPreprocessor implements MetadataPreprocessor {
             Matcher m = apiUrlPattern.matcher(node.asLiteral().getString());
             if (m.matches()) {
               String newValue = m.group(1) + "s/"+sourceId.substring(sourceId.lastIndexOf('#') + 1) + "/item/" + m.group(2);
-              st.changeObject(model.createLiteral(newValue));
               seq.set(i, model.createLiteral(newValue));
             }
           }
