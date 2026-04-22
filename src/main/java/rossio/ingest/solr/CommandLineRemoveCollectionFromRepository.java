@@ -77,12 +77,13 @@ public class CommandLineRemoveCollectionFromRepository {
   		    	if(src==null)
   		    		repo.purgeAllFrom(line.getOptionValue("source_id"));
   		    	else
-  		    		repo.purgeAllFrom(src.getSourceIdDeprecated());
+  		    		repo.purgeAllFrom(src.getSourceId());
+//  		    	repo.purgeAllFrom(src.getSourceIdDeprecated());
 		    	}else {
 		    	  if(src==null)
 		    	    repo.removeAllFrom(line.getOptionValue("source_id"));
 		    	  else
-		    	    repo.removeAllFrom(src.getSourceIdDeprecated());		    	  
+		    	    repo.removeAllFrom(src.getSourceId());		    	  
 		    	}
 				result="SUCCESS";
 		    } else {
